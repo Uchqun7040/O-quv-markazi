@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Guruhlar</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/header.css">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+
+
+</head>
+
+<body>
+
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Siz rostdan ham ushbu guruhni o'chirmoqchimisiz?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Bekor qilish</button>
+          <a href="/guruhlar/ochirish/" class="btn btn-danger">O'chirish</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div th:insert="header :: boshqism"></div>
+  <div class="container-fluid bg-light">
+
+    <h1 style="padding-left: 10px;color: rgb(2, 26, 98);">Guruhlar bo'limi</h1>
+    <hr>
+    <div class="row">
+      <div class="col-12 col-md-3">
+        <div th:if="${guruh} == null" style="background-color: rgb(192, 214, 255); padding: 13px;">
+          <h2>Guruh qo'shish</h2>
+          <form action="/guruhlar" method="POST">
+            <div class="form-group">
+              <label for="mon">Nom:</label>
+              <input type="text" name="nom" id="mon" class="form-control" placeholder="Nom..." aria-describedby="nom">
+              <small id="mon" class="text-muted">Guruh nomini kiriting</small>
+            </div>
+
+            <div class="form-group">
+              <label for="oqituvchi">O'qituvchi:</label>
+              <select class="form-control" name="oqituvchi" id="oqituvchi">
+                <option th:each="oq : ${oqituvchilar}" th:value="${oq.id}" th:text="${oq.ism}+${oq.familiya}"></option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="fan">Fan:</label>
+              <select class="form-control" name="fan" id="fan">
+                <option th:each="fan : ${fanlar}" th:value="${fan.id}" th:text="${fan.nom}"></option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="info">Info</label>
+              <textarea class="form-control" name="info" id="info" rows="5"></textarea>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Qo'shish"></input>
+            <input type="reset" class="btn btn-danger" value="Tozalash"></input>
+          </form>
+        </div>
+        <div th:if="${guruh} !=null" style="background-color: rgb(192, 214, 255); padding: 13px;">
+          <h2>Guruhni tahrirlash</h2>
+          <form action="/guruhlar/edit" method="POST">
+            <div class="form-group">
+              <label for="id">Id:</label>
+              <input th:value="${guruh.id}" type="text" name="id" id="id" class="form-control" aria-describedby="id"
+                readonly>
+              <small id="id" class="text-muted">Tahrirlanuvchi guruhni id raqami</small>
+            </div>
+            <div class="form-group">
+              <label for="mon">Nom:</label>
+              <input th:value="${guruh.nom}" type="text" name="nom" id="mon" class="form-control" placeholder="Nom..."
+                aria-describedby="nom">
+              <small id="mon" class="text-muted">Nomini kiriting</small>
+            </div>
+
+            <div class="form-group">
+              <label for="oqituvchi">O'qituvchi:</label>
+              <select class="form-control" name="oqituvchi" id="oqituvchi">
+                <option th:each="oq : ${oqituvchilar}" th:value="${oq.id}" th:text="${oq.ism}+${oq.familiya}"
+                  th:if="${guruh.oqituvchi.id} != ${oq.id}"></option>
+                <option th:value="${guruh.oqituvchi.id}" th:text="${guruh.oqituvchi.ism}+${guruh.oqituvchi.familiya}"
+                  selected></option>
+              </select>
+            </div>
+
+
+            <div class="form-group">
+              <label for="fan">Fan:</label>
+              <select class="form-control" name="fan" id="fan">
+                <option th:each="fan : ${fanlar}" th:value="${fan.id}" th:text="${fan.nom}" th:if="${guruh.fan.id} != ${fan.id}"></option>
+                <option th:value="${guruh.fan.id}" th:text="${guruh.fan.nom}" selected></option>
+
+
+              </select>
+            </div>
+
+
+            <div class="form-group">
+              <label for="info">Info</label>
+              <textarea th:value="${guruh.info}" class="form-control" name="info" id="info" rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Tahrirlash</button>
+            <a href="/guruhlar" class="btn btn-danger" style="font-weight: normal !important;">Bekor qilish</a>
+          </form>
+        </div>
+      </div>
+      <div class="col-12 col-md-9" style="background-color: rgb(245, 243, 243); padding: 13px;">
+        <h2>Guruhlar ro'yxati</h2>
+        <table class="table table-striped table-border table-responsive">
+          <thead class="thead-inverse">
+            <tr>
+              <th>Id</th>
+              <th>Nom</th>
+              <th>Fan</th>
+              <th>O'qituvchi</th>
+              <th>Info</th>
+              <th>Amallar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="o : ${guruhlar}">
+              <td th:text="${o.id}"></td>
+              <td th:text="${o.nom}"></td>
+              <td th:text="${o.fan.nom}"></td>
+              <td th:text="${o.oqituvchi.ism}+${o.oqituvchi.familiya}"></td>
+              <td th:text="${o.info}"></td>
+              <td>
+                <a class="btn btn-info" th:href="@{/guruhlar/edit/{id}(id=${o.id})}">
+                  <i class="fa fa-pencil " aria-hidden="true"></i>
+                </a>
+
+
+
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
+                  th:attr="data-id=${o.id}">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+
+
+  <script>
+    $('#exampleModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      var id = button.data('id');
+      var modal = $(this)
+      modal.find('.modal-footer a').attr('href', '/guruhlar/ochirish/' + id)
+    })
+  </script>
+
+
+</body>
+
+</html>

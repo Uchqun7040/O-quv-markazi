@@ -1,0 +1,69 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+#container{
+    padding: 0;
+    
+}
+#x1{
+    padding-left: 55% ;
+    padding-top: 13% ;
+    background-image: url("./Снимок3.PNG") ;
+    background-size: cover  ;
+    font-size: 25px  ;
+    height: 550px  ;
+    
+}
+#x2{
+    width: 100%  ;
+    height: 550px  ;
+    background-image: url("./Снимок2.PNG") ;
+    background-size: cover  ;
+}
+#x3{
+    width: 100%  ;
+    height: 800px  ;
+    background-image: url("./online.jpg") ;
+    background-size: contain  ;
+    background-repeat: no-repeat;
+}
+#cont1{
+color: rgb(1, 5, 41)  ;
+background-color: rgba(102, 102, 102, 0.246)  ;
+box-shadow: 1px 1px 4px 1px black  ;
+padding: 1%  ;
+width: 78% ;
+position: relative  ;
+animation-name: cont1  ;
+animation-duration: 1.5s ;
+
+
+}
+#nom1{
+    text-align: center  ;
+font-family: cursive  ;
+font-size: 50px  ;
+display: inline-block  ;
+margin-left: 10% ;
+margin-right: 3% ;
+color: rgb(255, 255, 255);
+}
+#cont1_x1{
+    margin-bottom: 10%  ;
+    margin-left: 6% ;
+}
+@keyframes cont1{
+    from{
+        right: -60% ;
+        opacity: 0 ;
+        transform: rotate(-180deg);
+        /* transform: translate(-10%,10%); */
+    }
+    to{
+        right: 0;
+        opacity: 1 ;
+        transform: rotate(0deg);
+        /* transform: translate(0,0); */
+    }
+}

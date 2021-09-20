@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>oquvchilar</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/header.css">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+
+ 
+</head>
+
+<body>
+
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Siz rostdan ham ushbu o'quvchini o'chirmoqchimisiz?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Bekor qilish</button>
+          <a href="/oquvchilar/ochirish/" class="btn btn-danger">O'chirish</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div th:insert="header :: boshqism"></div>
+  <div class="container-fluid bg-light">
+    
+    <h1 style="padding-left: 10px;color: rgb(2, 26, 98);">O'quvchilar bo'limi</h1>
+    <hr>
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <div th:if="${oquvchi} == null" style="background-color: rgb(192, 214, 255); padding: 13px;">
+          <h2>O'quvchi qo'shish</h2>
+          <form action="/oquvchilar" method="POST">
+            <div class="form-group">
+              <label for="ism">Ism:</label>
+              <input type="text" name="ism" id="ism" class="form-control" placeholder="Ism..." aria-describedby="ism">
+              <small id="ism" class="text-muted">Ismni kiriting</small>
+            </div>
+            <div class="form-group">
+              <label for="familiya">Familiya</label>
+              <input type="text" name="familiya" id="familiya" class="form-control" placeholder="Familiya..."
+                aria-describedby="familiya">
+              <small id="familiya" class="text-muted">Familiyasini kiriting</small>
+            </div>
+            <div class="form-group">
+              <label for="sharif">Sharif</label>
+              <input type="text" name="sharif" id="sharif" class="form-control" placeholder="Sharif..."
+                aria-describedby="sharif">
+              <small id="sharif" class="text-muted">Sharifini kiriting</small>
+            </div>
+            <div class="form-group">
+              <label for="hujjat">Hujjat</label>
+              <input type="text" name="hujjat" id="hujjat" class="form-control" placeholder="Seriya va nomer..."
+                aria-describedby="hujjat">
+              <small id="hujjat" class="text-muted">Pasport yoki guvohnoma ma'lumotini kiriting</small>
+            </div>
+            <div class="form-group">
+              <label for="tel_nomer">Tel. nomer</label>
+              <input type="text" name="tel_nomer" id="tel_nomer" class="form-control" placeholder="nomer..."
+                aria-describedby="nomer">
+              <small id="nomer" class="text-muted">Telefon nomerini kiriting</small>
+            </div>
+            <div class="form-group">
+              <label for="info">Info</label>
+              <textarea class="form-control" name="info" id="info" rows="5"></textarea>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Qo'shish"></input>
+            <input type="reset" class="btn btn-danger" value="Tozalash"></input>
+          </form>
+        </div>
+        <div th:if="${oquvchi} !=null" style="background-color: rgb(192, 214, 255); padding: 13px;">
+          <h2>O'quvchini tahrirlash</h2>
+          <form action="/oquvchilar/edit" method="POST">
+            <div class="form-group">
+              <label for="id">Id:</label>
+              <input th:value="${oquvchi.id}" type="text" name="id" id="id" class="form-control" aria-describedby="id" readonly>
+              <small id="ism" class="text-muted">Tahrirlanuvchi o'quvchi id raqami</small>
+            </div>
+            <div class="form-group">
+              <label for="ism">Ism:</label>
+              <input th:value="${oquvchi.ism}" type="text" name="ism" id="ism" class="form-control" placeholder="Ism..." aria-describedby="ism">
+              <small id="ism" class="text-muted">Ismni kiriting</small>
+            </div>
+            <div class="form-group">
+              <label for="familiya">Familiya</label>
+              <input th:value="${oquvchi.familiya}" type="text" name="familiya" id="familiya" class="form-control" placeholder="Familiya..."
+                aria-describedby="familiya">
+              <small id="familiya" class="text-muted">Familiyasini kiriting</small>
+            </div>
+            <div class="form-group">
+              <label for="sharif">Sharif</label>
+              <input th:value="${oquvchi.sharif}" type="text" name="sharif" id="sharif" class="form-control" placeholder="Sharif..."
+                aria-describedby="sharif">
+              <small id="sharif" class="text-muted">Sharifini kiriting</small>
+            </div>
+            <div class="form-group">
+              <label for="hujjat">Hujjat</label>
+              <input th:value="${oquvchi.hujjat}" type="text" name="hujjat" id="hujjat" class="form-control" placeholder="Seriya va nomer..."
+                aria-describedby="hujjat">
+              <small id="hujjat" class="text-muted">Pasport yoki guvohnoma ma'lumotini kiriting</small>
+            </div>
+            <div class="form-group">
+              <label for="tel_nomer">Tel. nomer</label>
+              <input th:value="${oquvchi.tel_nomer}" type="text" name="tel_nomer" id="tel_nomer" class="form-control" placeholder="nomer..."
+                aria-describedby="nomer">
+              <small id="nomer" class="text-muted">Telefon nomerini kiriting</small>
+            </div>
+            <div class="form-group">
+              <label for="info">Info</label>
+              <textarea th:value="${oquvchi.info}" class="form-control" name="info" id="info" rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" >Tahrirlash</button>
+            <a href="/oquvchilar" class="btn btn-danger" style="font-weight: normal !important;">Bekor qilish</a>
+          </form>
+        </div>
+      </div>
+      <div class="col-12 col-md-8" style="background-color: rgb(245, 243, 243); padding: 13px;">
+        <h2>O'quvchilar ro'yxati</h2>
+        <table class="table table-striped table-border table-responsive">
+          <thead class="thead-inverse">
+            <tr>
+              <th>Id</th>
+              <th>Ism</th>
+              <th>Familiya</th>
+              <th>Sharif</th>
+              <th>Hujjat</th>
+              <th>Tel nomer</th>
+              <th>Info</th>
+              <th>Amallar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="o : ${oquvchilar}">
+              <td th:text="${o.id}"></td>
+              <td th:text="${o.ism}"></td>
+              <td th:text="${o.familiya}"></td>
+              <td th:text="${o.sharif}"></td>
+              <td th:text="${o.hujjat}"></td>
+              <td th:text="${o.tel_nomer}"></td>
+              <td th:text="${o.info}"></td>
+              <td>
+                <a class="btn btn-info" th:href="@{/oquvchilar/edit/{id}(id=${o.id})}">
+                  <i class="fa fa-pencil " aria-hidden="true"></i>
+                </a>
+
+
+
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
+                th:attr="data-id=${o.id}">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+  </div>
+
+
+
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+
+
+    <script>
+      $('#exampleModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) 
+      var id = button.data('id') ;   
+      var modal = $(this)
+      modal.find('.modal-footer a').attr('href', '/oquvchilar/ochirish/'+id)
+      }) 
+      </script>
+
+     
+</body>
+
+</html>
