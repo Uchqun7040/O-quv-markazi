@@ -11,6 +11,7 @@ import uz.jjp.O.quv.markazi.entity.Guruh;
 import uz.jjp.O.quv.markazi.service.FanService;
 import uz.jjp.O.quv.markazi.service.GuruhService;
 import uz.jjp.O.quv.markazi.service.OqituvchiService;
+import uz.jjp.O.quv.markazi.service.SessiyaService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,7 +27,6 @@ public class GuruhController {
 
     @Autowired
     FanService fanService;
-
 
     @GetMapping()
     public String royxat(Model model) throws IOException {

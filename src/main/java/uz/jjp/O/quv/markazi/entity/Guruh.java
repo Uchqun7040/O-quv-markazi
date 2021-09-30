@@ -13,7 +13,16 @@ public class Guruh {
     private Oqituvchi oqituvchi;
     @ManyToOne
     private Fan fan;
+    private int oquvchiSon;
     private String info;
+
+    public int getOquvchiSon() {
+        return oquvchiSon;
+    }
+
+    public void setOquvchiSon(int oquvchiSon) {
+        this.oquvchiSon = oquvchiSon;
+    }
 
     public Oqituvchi getOqituvchi() {
         return oqituvchi;

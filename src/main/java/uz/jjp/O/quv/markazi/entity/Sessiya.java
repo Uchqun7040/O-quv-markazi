@@ -14,11 +14,20 @@ public class Sessiya {
     private Guruh guruh;
     @ManyToOne
     private Oquvchi oquvchi;
-    @DateTimeFormat(pattern = "dd-MM-yyyy', 'HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime boshVaqt;
-    @DateTimeFormat(pattern = "dd-MM-yyyy', 'HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime tugVaqt;
+    private boolean tolov;
     private String info;
+
+    public boolean isTolov() {
+        return tolov;
+    }
+
+    public void setTolov(boolean tolov) {
+        this.tolov = tolov;
+    }
 
     public Long getId() {
         return id;

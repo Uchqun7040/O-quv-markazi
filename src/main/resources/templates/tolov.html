@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
-  <title>Guruhlar</title>
+  <title>tolovlar</title>
   <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="/header.css">
   <!-- Required meta tags -->
@@ -16,6 +16,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
 
+
   <style>
     th,td{
       text-align: center;
@@ -28,7 +29,6 @@
       color: rgb(100, 172, 253);
     }
   </style>
-
 </head>
 
 <body>
@@ -39,7 +39,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Siz rostdan ham ushbu guruhni o'chirmoqchimisiz?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Siz rostdan ham ushbu to'lovni o'chirmoqchimisiz?</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -47,7 +47,7 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Bekor qilish</button>
-          <a href="/guruhlar/ochirish/" class="btn btn-danger">O'chirish</a>
+          <a href="/tolovlar/ochirish/" class="btn btn-danger">O'chirish</a>
         </div>
       </div>
     </div>
@@ -59,23 +59,25 @@
   <div th:insert="header :: boshqism"></div>
   <div class="container-fluid bg-light">
 
-    <h1 style="padding-left: 10px;color: rgb(2, 26, 98);">Guruhlar bo'limi</h1>
+    <h1 style="padding-left: 10px;color: rgb(2, 26, 98);">To'lovlar bo'limi</h1>
     <hr>
     <div class="row">
       <div class="col-12 col-md-3">
-        <div th:if="${guruh} == null" style="background-color: rgb(192, 214, 255); padding: 13px;">
-          <h2>Guruh qo'shish</h2>
-          <form action="/guruhlar" method="POST">
-            <div class="form-group">
-              <label for="mon">Nom:</label>
-              <input required type="text" name="nom" id="mon" class="form-control" placeholder="Nom..." aria-describedby="nom">
-              <small id="mon" class="text-muted">Guruh nomini kiriting</small>
-            </div>
+        <div th:if="${tolov} == null" style="background-color: rgb(192, 214, 255); padding: 13px;">
+          <h3>To'lov qo'shish</h3>
+          <form action="/tolovlar" method="POST">
 
             <div class="form-group">
-              <label for="oqituvchi">O'qituvchi:</label>
-              <select class="form-control" name="oqituvchi" id="oqituvchi">
-                <option th:each="oq : ${oqituvchilar}" th:value="${oq.id}" th:text="${oq.ism}+' '+${oq.familiya}"></option>
+              <label for=""></label>
+              <input type="text"  name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+              <small id="helpId" class="text-muted">Help text</small>
+            </div>
+
+
+            <div class="form-group">
+              <label for="guruh">Guruhlash:</label>
+              <select class="form-control" name="sessiya" id="guruh">
+                <option th:each="s : ${sessiyalar}" th:value="${s.id}" th:text="'Guruh id:'+${s.guruh.id}+'| '${s.oquvchi.familiya}+' '+${s.oquvchi.ism}"></option>
               </select>
             </div>
 
@@ -93,20 +95,20 @@
             <input type="reset" class="btn btn-danger" value="Tozalash"></input>
           </form>
         </div>
-        <div th:if="${guruh} !=null" style="background-color: rgb(192, 214, 255); padding: 13px;">
+        <div th:if="${tolov} !=null" style="background-color: rgb(192, 214, 255); padding: 13px;">
 
           
-          <h2>Guruhni tahrirlash</h2>
-          <form action="/guruhlar/edit" method="POST">
+          <h3>To'lovni tahrirlash</h3>
+          <form action="/tolovlar/edit" method="POST">
             <div class="form-group">
               <label for="id">Id:</label>
-              <input th:value="${guruh.id}" type="text" name="id" id="id" class="form-control" aria-describedby="id"
+              <input th:value="${tolov.id}" type="text" name="id" id="id" class="form-control" aria-describedby="id"
                 readonly>
-              <small id="id" class="text-muted">Tahrirlanuvchi guruhni id raqami</small>
+              <small id="id" class="text-muted">Tahrirlanuvchi tolovni id raqami</small>
             </div>
             <div class="form-group">
               <label for="mon">Nom:</label>
-              <input required th:value="${guruh.nom}" type="text" name="nom" id="mon" class="form-control" placeholder="Nom..."
+              <input th:value="${tolov.nom}" type="text" name="nom" id="mon" class="form-control" placeholder="Nom..."
                 aria-describedby="nom">
               <small id="mon" class="text-muted">Nomini kiriting</small>
             </div>
@@ -115,8 +117,8 @@
               <label for="oqituvchi">O'qituvchi:</label>
               <select class="form-control" name="oqituvchi" id="oqituvchi">
                 <option th:each="oq : ${oqituvchilar}" th:value="${oq.id}" th:text="${oq.ism}+' '+${oq.familiya}"
-                  th:if="${guruh.oqituvchi.id} != ${oq.id}"></option>
-                <option th:value="${guruh.oqituvchi.id}" th:text="${guruh.oqituvchi.ism}+' '+${guruh.oqituvchi.familiya}"
+                  th:if="${tolov.oqituvchi.id} != ${oq.id}"></option>
+                <option th:value="${tolov.oqituvchi.id}" th:text="${tolov.oqituvchi.ism}+' '+${tolov.oqituvchi.familiya}"
                   selected></option>
               </select>
             </div>
@@ -125,8 +127,8 @@
             <div class="form-group">
               <label for="fan">Fan:</label>
               <select class="form-control" name="fan" id="fan">
-                <option th:each="fan : ${fanlar}" th:value="${fan.id}" th:text="${fan.nom}" th:if="${guruh.fan.id} != ${fan.id}"></option>
-                <option th:value="${guruh.fan.id}" th:text="${guruh.fan.nom}" selected></option>
+                <option th:each="fan : ${fanlar}" th:value="${fan.id}" th:text="${fan.nom}" th:if="${tolov.fan.id} != ${fan.id}"></option>
+                <option th:value="${tolov.fan.id}" th:text="${tolov.fan.nom}" selected></option>
 
 
               </select>
@@ -135,15 +137,15 @@
 
             <div class="form-group">
               <label for="info">Info</label>
-              <textarea th:field="${guruh.info}" class="form-control" name="info" id="info" rows="5"></textarea>
+              <textarea th:value="${tolov.info}" class="form-control" name="info" id="info" rows="5"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Tahrirlash</button>
-            <a href="/guruhlar" class="btn btn-danger" style="font-weight: normal !important;">Bekor qilish</a>
+            <a href="/tolovlar" class="btn btn-danger" style="font-weight: normal !important;">Bekor qilish</a>
           </form>
         </div>
       </div>
       <div class="col-12 col-md-9" style="background-color: rgb(245, 243, 243); padding: 13px;">
-        <h2>Guruhlar ro'yxati</h2>
+        <h2>tolovlar ro'yxati</h2>
         <table class="table table-striped table-border table-responsive">
           <thead class="thead-inverse">
             <tr>
@@ -157,19 +159,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="o : ${guruhlar}">
+            <tr th:each="o : ${tolovlar}">
               <td th:text="${o.id}"></td>
               <td th:text="${o.nom}"></td>
-              <td >
-                <a class="link" href="/fanlar" th:text="${o.fan.nom}"></a>
-              </td>
-              <td>
-                <a class="link" href="/oqituvchilar" th:text="${o.oqituvchi.ism}+' '+${o.oqituvchi.familiya}"></a>
-              </td>
+              <td th:text="${o.fan.nom}"></td>
+              <td th:text="${o.oqituvchi.ism}+' '+${o.oqituvchi.familiya}"></td>
               <td style="text-align: center;" th:text="${o.oquvchiSon}"></td>
               <td th:text="${o.info}"></td>
               <td>
-                <a class="btn btn-info" th:href="@{/guruhlar/edit/{id}(id=${o.id})}">
+                <a class="btn btn-info" th:href="@{/tolovlar/edit/{id}(id=${o.id})}">
                   <i class="fa fa-pencil " aria-hidden="true"></i>
                 </a>
 
@@ -212,7 +210,7 @@
       var button = $(event.relatedTarget)
       var id = button.data('id');
       var modal = $(this)
-      modal.find('.modal-footer a').attr('href', '/guruhlar/ochirish/' + id)
+      modal.find('.modal-footer a').attr('href', '/tolovlar/ochirish/' + id)
     })
   </script>
 

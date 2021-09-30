@@ -16,8 +16,19 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
 
+  <style>
+    th,td{
+      text-align: center;
+    }
+    .link,td{
+      color: rgb(20, 20, 95);
+    }
+    .link:hover{
+      text-decoration: none;
+      color: rgb(100, 172, 253);
+    }
+  </style>
 
- 
 </head>
 
 <body>
@@ -47,45 +58,45 @@
 
   <div th:insert="header :: boshqism"></div>
   <div class="container-fluid bg-light">
-    
+
     <h1 style="padding-left: 10px;color: rgb(2, 26, 98);">O'quvchilar bo'limi</h1>
     <hr>
     <div class="row">
       <div class="col-12 col-md-4">
         <div th:if="${oquvchi} == null" style="background-color: rgb(192, 214, 255); padding: 13px;">
-          <h2>O'quvchi qo'shish</h2>
+          <h3>O'quvchi qo'shish</h3>
           <form action="/oquvchilar" method="POST">
             <div class="form-group">
               <label for="ism">Ism:</label>
-              <input type="text" name="ism" id="ism" class="form-control" placeholder="Ism..." aria-describedby="ism">
+              <input required type="text" name="ism" id="ism" class="form-control" placeholder="Ism..." aria-describedby="ism">
               <small id="ism" class="text-muted">Ismni kiriting</small>
             </div>
             <div class="form-group">
-              <label for="familiya">Familiya</label>
-              <input type="text" name="familiya" id="familiya" class="form-control" placeholder="Familiya..."
+              <label for="familiya">Familiya:</label>
+              <input required type="text" name="familiya" id="familiya" class="form-control" placeholder="Familiya..."
                 aria-describedby="familiya">
               <small id="familiya" class="text-muted">Familiyasini kiriting</small>
             </div>
             <div class="form-group">
-              <label for="sharif">Sharif</label>
-              <input type="text" name="sharif" id="sharif" class="form-control" placeholder="Sharif..."
+              <label for="sharif">Sharif:</label>
+              <input required type="text" name="sharif" id="sharif" class="form-control" placeholder="Sharif..."
                 aria-describedby="sharif">
               <small id="sharif" class="text-muted">Sharifini kiriting</small>
             </div>
             <div class="form-group">
-              <label for="hujjat">Hujjat</label>
-              <input type="text" name="hujjat" id="hujjat" class="form-control" placeholder="Seriya va nomer..."
+              <label for="hujjat">Hujjat:</label>
+              <input required type="text" name="hujjat" id="hujjat" class="form-control" placeholder="Seriya va nomer..."
                 aria-describedby="hujjat">
               <small id="hujjat" class="text-muted">Pasport yoki guvohnoma ma'lumotini kiriting</small>
             </div>
             <div class="form-group">
-              <label for="tel_nomer">Tel. nomer</label>
+              <label for="tel_nomer">Tel. nomer:</label>
               <input type="text" name="tel_nomer" id="tel_nomer" class="form-control" placeholder="nomer..."
                 aria-describedby="nomer">
               <small id="nomer" class="text-muted">Telefon nomerini kiriting</small>
             </div>
             <div class="form-group">
-              <label for="info">Info</label>
+              <label for="info">Info:</label>
               <textarea class="form-control" name="info" id="info" rows="5"></textarea>
             </div>
             <input type="submit" class="btn btn-primary" value="Qo'shish"></input>
@@ -93,49 +104,108 @@
           </form>
         </div>
         <div th:if="${oquvchi} !=null" style="background-color: rgb(192, 214, 255); padding: 13px;">
-          <h2>O'quvchini tahrirlash</h2>
+          <h4>O'quvchini tahrirlash</h4>
           <form action="/oquvchilar/edit" method="POST">
             <div class="form-group">
               <label for="id">Id:</label>
-              <input th:value="${oquvchi.id}" type="text" name="id" id="id" class="form-control" aria-describedby="id" readonly>
+              <input th:value="${oquvchi.id}" type="text" name="id" id="id" class="form-control" aria-describedby="id"
+                readonly>
               <small id="ism" class="text-muted">Tahrirlanuvchi o'quvchi id raqami</small>
             </div>
             <div class="form-group">
               <label for="ism">Ism:</label>
-              <input th:value="${oquvchi.ism}" type="text" name="ism" id="ism" class="form-control" placeholder="Ism..." aria-describedby="ism">
+              <input required th:value="${oquvchi.ism}" type="text" name="ism" id="ism" class="form-control" placeholder="Ism..."
+                aria-describedby="ism">
               <small id="ism" class="text-muted">Ismni kiriting</small>
             </div>
             <div class="form-group">
-              <label for="familiya">Familiya</label>
-              <input th:value="${oquvchi.familiya}" type="text" name="familiya" id="familiya" class="form-control" placeholder="Familiya..."
-                aria-describedby="familiya">
+              <label for="familiya">Familiya:</label>
+              <input required th:value="${oquvchi.familiya}" type="text" name="familiya" id="familiya" class="form-control"
+                placeholder="Familiya..." aria-describedby="familiya">
               <small id="familiya" class="text-muted">Familiyasini kiriting</small>
             </div>
             <div class="form-group">
-              <label for="sharif">Sharif</label>
-              <input th:value="${oquvchi.sharif}" type="text" name="sharif" id="sharif" class="form-control" placeholder="Sharif..."
-                aria-describedby="sharif">
+              <label for="sharif">Sharif:</label>
+              <input required th:value="${oquvchi.sharif}" type="text" name="sharif" id="sharif" class="form-control"
+                placeholder="Sharif..." aria-describedby="sharif">
               <small id="sharif" class="text-muted">Sharifini kiriting</small>
             </div>
             <div class="form-group">
-              <label for="hujjat">Hujjat</label>
-              <input th:value="${oquvchi.hujjat}" type="text" name="hujjat" id="hujjat" class="form-control" placeholder="Seriya va nomer..."
-                aria-describedby="hujjat">
+              <label for="hujjat">Hujjat:</label>
+              <input required th:value="${oquvchi.hujjat}" type="text" name="hujjat" id="hujjat" class="form-control"
+                placeholder="Seriya va nomer..." aria-describedby="hujjat">
               <small id="hujjat" class="text-muted">Pasport yoki guvohnoma ma'lumotini kiriting</small>
             </div>
             <div class="form-group">
-              <label for="tel_nomer">Tel. nomer</label>
-              <input th:value="${oquvchi.tel_nomer}" type="text" name="tel_nomer" id="tel_nomer" class="form-control" placeholder="nomer..."
-                aria-describedby="nomer">
+              <label for="tel_nomer">Tel. nomer:</label>
+              <input th:value="${oquvchi.tel_nomer}" type="text" name="tel_nomer" id="tel_nomer" class="form-control"
+                placeholder="nomer..." aria-describedby="nomer">
               <small id="nomer" class="text-muted">Telefon nomerini kiriting</small>
             </div>
             <div class="form-group">
-              <label for="info">Info</label>
-              <textarea th:value="${oquvchi.info}" class="form-control" name="info" id="info" rows="5"></textarea>
+              <label for="info">Info:</label>
+              <textarea th:field="${oquvchi.info}" class="form-control" name="info" id="info" rows="5"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary" >Tahrirlash</button>
+            <button type="submit" class="btn btn-primary">Tahrirlash</button>
             <a href="/oquvchilar" class="btn btn-danger" style="font-weight: normal !important;">Bekor qilish</a>
           </form>
+
+          <hr>
+          <div th:if="${guruhlar} !=null">
+            <h4>O'quvchini guruhlarga tayinlash</h4>
+            <form action="/sessiyalar" method="POST">
+
+              <div class="form-group">
+                <label for="oquvchi">O'quvchi:</label>
+                <select class="form-control" name="oquvchi" id="oquvchi">
+                  <option th:value="${oquvchi.id}" th:text="${oquvchi.familiya}+' '+${oquvchi.ism}" selected
+                    aria-readonly="true"></option>
+                </select>
+                <small id="oquvchi" class="text-muted">O'quvchining ism, familiyasi</small>
+              </div>
+
+              <div class="form-group">
+                <label for="guruh">Guruh:</label>
+                <select class="form-control" name="guruh" id="guruh">
+                  <option th:each="g : ${guruhlar}" th:value="${g.id}" th:text="${g.nom}"></option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="boshVaqt">Boshlangan vaqt:</label>
+                <input required type="datetime-local" name="boshVaqt" id="boshVaqt" class="form-control"
+                  aria-describedby="boshVaqt">
+                <small id="boshVaqt" class="text-muted">Boshlangan vaqtini kiriting</small>
+              </div>
+
+              <div class="form-group">
+                <label for="tugVaqt">Tugash vaqt:</label>
+                <input type="datetime-local" name="tugVaqt" id="tugVaqt" class="form-control"
+                  aria-describedby="tugVaqt">
+                <small id="tugVaqt" class="text-muted">Tugash vaqtini kiriting</small>
+              </div>
+
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input" name="tolov" id="tolov">
+                  To'lov
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label for="info">Info:</label>
+                <textarea class="form-control" name="info" id="info" rows="5"></textarea>
+              </div>
+
+              <input type="submit" class="btn btn-primary" value="Qo'shish"></input>
+              <input type="reset" class="btn btn-danger" value="Tozalash"></input>
+
+
+
+            </form>
+          </div>
+
+
         </div>
       </div>
       <div class="col-12 col-md-8" style="background-color: rgb(245, 243, 243); padding: 13px;">
@@ -170,7 +240,7 @@
 
 
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
-                th:attr="data-id=${o.id}">
+                  th:attr="data-id=${o.id}">
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
 
@@ -181,7 +251,7 @@
         </table>
       </div>
     </div>
-    
+
   </div>
 
 
@@ -202,16 +272,16 @@
 
 
 
-    <script>
-      $('#exampleModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget) 
-      var id = button.data('id') ;   
+  <script>
+    $('#exampleModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      var id = button.data('id');
       var modal = $(this)
-      modal.find('.modal-footer a').attr('href', '/oquvchilar/ochirish/'+id)
-      }) 
-      </script>
+      modal.find('.modal-footer a').attr('href', '/oquvchilar/ochirish/' + id)
+    })
+  </script>
 
-     
+
 </body>
 
 </html>

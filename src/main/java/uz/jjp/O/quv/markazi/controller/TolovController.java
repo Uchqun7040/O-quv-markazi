@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uz.jjp.O.quv.markazi.entity.Tolov;
+import uz.jjp.O.quv.markazi.service.GuruhService;
+import uz.jjp.O.quv.markazi.service.SessiyaService;
 import uz.jjp.O.quv.markazi.service.TolovService;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,10 +20,12 @@ public class TolovController {
     @Autowired
     TolovService tolovService;
 
-
+    @Autowired
+    SessiyaService sessiyaService;
     @GetMapping()
     public String royxat(Model model) throws IOException {
         model.addAttribute("tolovlar",tolovService.getAll());
+        model.addAttribute("sessiyalar",sessiyaService.getAll());
         return "tolov";
     }
 

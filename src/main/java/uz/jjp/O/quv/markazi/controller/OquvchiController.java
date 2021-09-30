@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uz.jjp.O.quv.markazi.entity.Oquvchi;
+import uz.jjp.O.quv.markazi.service.GuruhService;
 import uz.jjp.O.quv.markazi.service.OquvchiService;
+import uz.jjp.O.quv.markazi.service.SessiyaService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -16,6 +18,11 @@ public class OquvchiController {
     @Autowired
     OquvchiService oquvchiService;
 
+    @Autowired
+    SessiyaService sessiyaService;
+
+    @Autowired
+    GuruhService guruhService;
 
     @GetMapping()
     public String royxat(Model model) throws IOException {
@@ -40,6 +47,8 @@ public class OquvchiController {
     public String ozgartiriluvchi(@PathVariable Long id,Model model,HttpServletResponse hsr) throws IOException {
         Oquvchi o=oquvchiService.getById(id);
         model.addAttribute("oquvchi",o);
+        model.addAttribute("sessiyalar",sessiyaService.getByOquvchiId(id));
+        model.addAttribute("guruhlar",guruhService.getAll());
         return royxat(model);
     }
 

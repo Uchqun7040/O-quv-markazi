@@ -16,7 +16,18 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
 
-
+  <style>
+    th,td{
+      text-align: center;
+    }
+    .link,td{
+      color: rgb(20, 20, 95);
+    }
+    .link:hover{
+      text-decoration: none;
+      color: rgb(100, 172, 253);
+    }
+  </style>
  
 </head>
 
@@ -57,7 +68,7 @@
           <form action="/fanlar" method="POST">
             <div class="form-group">
               <label for="mon">Nom:</label>
-              <input type="text" name="nom" id="mon" class="form-control" placeholder="Nom..." aria-describedby="nom">
+              <input type="text" name="nom" id="mon" class="form-control" placeholder="Nom..." aria-describedby="nom" required>
               <small id="mon" class="text-muted">Fan nomini kiriting</small>
             </div>
 
@@ -79,12 +90,12 @@
             </div>
             <div class="form-group">
               <label for="mon">Nom:</label>
-              <input th:value="${fan.nom}" type="text" name="nom" id="mon" class="form-control" placeholder="Nom..." aria-describedby="nom">
+              <input th:value="${fan.nom}" type="text" name="nom" id="mon" class="form-control" placeholder="Nom..." aria-describedby="nom" required>
               <small id="mon" class="text-muted">Nomini kiriting</small>
             </div>
             <div class="form-group">
               <label for="info">Info</label>
-              <textarea th:value="${fan.info}" class="form-control" name="info" id="info" rows="5"></textarea>
+              <textarea th:field="${fan.info}" class="form-control" name="info" id="info" rows="5"></textarea>
             </div>
             <button type="submit" class="btn btn-primary" >Tahrirlash</button>
             <a href="/fanlar" class="btn btn-danger" style="font-weight: normal !important;">Bekor qilish</a>

@@ -13,8 +13,9 @@ public class Tolov {
     @ManyToOne
     private Sessiya sessiya;
     private int qiymat;
-    @DateTimeFormat(pattern = "dd-MM-yyyy', 'HH:mm")
+    @DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm")
     private LocalDateTime tolovVaqt;
+
 
     public Long getId() {
         return id;

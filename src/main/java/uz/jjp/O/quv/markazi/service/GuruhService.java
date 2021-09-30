@@ -29,4 +29,17 @@ public void update(Guruh o){
 public Guruh getById(Long id){
     return guruhRepository.getOne(id);
 }
+public void guruhlash(Long id){
+    Guruh g=getById(id);
+    int n=g.getOquvchiSon();
+    n++;
+    g.setOquvchiSon(n);
+    update(g);
+}public void unguruhlash(Long id){
+    Guruh g=getById(id);
+    int n=g.getOquvchiSon();
+    n--;
+    g.setOquvchiSon(n);
+    update(g);
+}
 }
