@@ -5,6 +5,7 @@
   <title>fanlar</title>
   <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="/header.css">
+  <link rel="stylesheet" href="/royxat.css">
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,18 +17,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
 
-  <style>
-    th,td{
-      text-align: center;
-    }
-    .link,td{
-      color: rgb(20, 20, 95);
-    }
-    .link:hover{
-      text-decoration: none;
-      color: rgb(100, 172, 253);
-    }
-  </style>
+
  
 </head>
 
@@ -102,9 +92,13 @@
           </form>
         </div>
       </div>
-      <div class="col-12 col-md-9" style="background-color: rgb(245, 243, 243); padding: 13px;">
+      <div class="col-12 col-md-9" style="background-color: rgb(245, 243, 243); padding: 13px;position: relative;">
         <h2>Fanlar ro'yxati</h2>
-        <table class="table table-striped table-border table-responsive">
+        <div th:if="${fanlar.size} == 0" id="royxatBush">
+          Ro'yxat bo'sh!
+          
+        </div>
+        <table th:if="${fanlar.size} != 0" class="table table-striped table-border table-responsive">
           <thead class="thead-inverse">
             <tr>
               <th>Id</th>
@@ -135,6 +129,23 @@
             </tr>
           </tbody>
         </table>
+        <div class="sara">
+          <div style="display: flex;flex-direction: row;">
+            <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
+              Jami:
+              <span id="jami" th:text="${fanlar.size}"></span>
+              ta
+            </div>
+            <div style="padding-top: 6px;padding-left: 8px;">
+              <form id="izlash" action="/fanlar/izla" method="POST">
+                <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
+                <input type="submit" id="tugma" value="Izlash"></input>
+              </form>
+            </div>
+
+          </div>
+          
+        </div>
       </div>
     </div>
   </div>

@@ -1,0 +1,55 @@
+#royxatBush{
+    font-size: xx-large;
+    text-align: center;
+    color: rgb(255, 8, 8);
+    font-weight: normal;
+    padding-top: 10%;
+  }
+  .sara {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+  th,td{
+    text-align: center;
+  }
+  .link,td{
+    color: rgb(20, 20, 95);
+  }
+  .link:hover{
+    text-decoration: none;
+    color: rgb(100, 172, 253);
+  }
+  #jami {
+    background-color: white;
+    border: 1px rgb(163, 163, 163) solid;
+    border-radius: 3px;
+    font-size: medium;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  #izlash{
+    position: relative;
+    width: 228px;
+    display: block;
+  }
+  #qidir{
+    position: absolute;
+    border: 1px solid rgb(194, 194, 194);
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+  #tugma{
+    background-color: rgb(65, 84, 255);
+    color: white;
+    border: none;
+    height: 28px;
+    position: absolute;
+    right: 0;
+    border-top-right-radius: 3px !important;
+    border-bottom-right-radius: 3px !important;
+  }
+  #tugma:hover{
+    
+    box-shadow: 1px 1px 2px black;
+  }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uz.jjp.O.quv.markazi.entity.Oquvchi;
+import uz.jjp.O.quv.markazi.entity.Search;
 import uz.jjp.O.quv.markazi.service.GuruhService;
 import uz.jjp.O.quv.markazi.service.OquvchiService;
 import uz.jjp.O.quv.markazi.service.SessiyaService;
@@ -30,6 +31,11 @@ public class OquvchiController {
         return "oquvchi";
     }
 
+    @PostMapping("/izla")
+    public String izla(Search s, Model model){
+        model.addAttribute("oquvchilar",oquvchiService.izla(s.getSatr()));
+        return "oquvchi";
+    }
 
     @PostMapping()
     public void yarat(Oquvchi o, HttpServletResponse hsr) throws IOException {

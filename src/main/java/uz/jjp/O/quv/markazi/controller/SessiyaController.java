@@ -5,14 +5,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.resource.HttpResource;
+import uz.jjp.O.quv.markazi.entity.Search;
 import uz.jjp.O.quv.markazi.entity.Sessiya;
 import uz.jjp.O.quv.markazi.service.GuruhService;
 import uz.jjp.O.quv.markazi.service.OquvchiService;
 import uz.jjp.O.quv.markazi.service.SessiyaService;
+
 
 
 import javax.servlet.http.HttpServletResponse;
@@ -41,20 +41,20 @@ public class SessiyaController {
 
     @GetMapping("/tolanganlar")
     public String tolanganlar( Model model) throws IOException {
-        model.addAttribute("guruhlar",guruhService.getAll());
-        model.addAttribute("oquvchilar",oquvchiService.getAll());
         model.addAttribute("sessiyalar",sessiyaService.tolovUchun(true));
         return "sessiya";
     }
     @GetMapping("/tolanmaganlar")
     public String tolanmaganlar(Model model) throws IOException {
-        model.addAttribute("guruhlar",guruhService.getAll());
-        model.addAttribute("oquvchilar",oquvchiService.getAll());
         model.addAttribute("sessiyalar",sessiyaService.tolovUchun(false));
         return "sessiya";
     }
 
-
+    @PostMapping("/izla")
+    public String izla(Search s, Model model){
+        model.addAttribute("sessiyalar",sessiyaService.izla(s.getSatr()));
+        return "sessiya";
+    }
     @PostMapping()
     public void yarat(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Sessiya o, HttpServletResponse hsr) throws IOException {
         sessiyaService.create(o);
@@ -82,6 +82,7 @@ public class SessiyaController {
         sessiyaService.update(o);
         hsr.sendRedirect("/sessiyalar");
     }
+
 
 
 

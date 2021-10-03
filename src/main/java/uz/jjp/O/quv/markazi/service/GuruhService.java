@@ -8,6 +8,7 @@ import uz.jjp.O.quv.markazi.entity.Guruh;
 import uz.jjp.O.quv.markazi.repository.FanRepository;
 import uz.jjp.O.quv.markazi.repository.GuruhRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,4 +43,23 @@ public void guruhlash(Long id){
     g.setOquvchiSon(n);
     update(g);
 }
+    public List<Guruh> izla(String s){
+        ArrayList<Guruh> ss=new ArrayList<>();
+        s=s.toLowerCase();
+        String k;
+        for (Guruh guruh: guruhRepository.findAll()) {
+            k="";
+            k+=guruh.getId().toString().toLowerCase();
+            k+=guruh.getNom().toLowerCase();
+            k+=guruh.getOqituvchi().getFamiliya().toLowerCase();
+            k+=guruh.getOqituvchi().getIsm().toLowerCase();
+            k+=guruh.getFan().getNom().toLowerCase();
+            k+=guruh.getOquvchiSon();
+            k+=guruh.getInfo().toLowerCase();
+            if (k.contains(s)){
+                ss.add(guruh);
+            }
+        }
+        return ss;
+    }
 }

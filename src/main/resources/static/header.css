@@ -12,6 +12,7 @@ body{
     height: 70px;
     margin-top: 7px;
     margin-left: 15px;
+    margin-bottom: 0;
     display: inline;
 }
 li{

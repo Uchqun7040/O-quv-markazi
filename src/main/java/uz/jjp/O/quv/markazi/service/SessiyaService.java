@@ -51,4 +51,24 @@ public List<Sessiya> getByOquvchiId(Long id){
     }
     return ss;
 }
+public List<Sessiya> izla(String s){
+    ArrayList<Sessiya> ss=new ArrayList<>();
+    s=s.toLowerCase();
+    String k;
+    for (Sessiya sessiya: sessiyaRepository.findAll()) {
+        k="";
+        k+=sessiya.getId().toString().toLowerCase();
+        k+=sessiya.getGuruh().getNom().toLowerCase();
+        k+=sessiya.getGuruh().getFan().getNom().toLowerCase();
+        k+=sessiya.getBoshVaqt();
+        k+=sessiya.getTugVaqt();
+        k+=sessiya.getOquvchi().getFamiliya().toLowerCase();
+        k+=sessiya.getOquvchi().getId().toString().toLowerCase();
+        k+=sessiya.getOquvchi().getIsm().toLowerCase();
+        if (k.contains(s)){
+            ss.add(sessiya);
+        }
+    }
+    return ss;
+}
 }

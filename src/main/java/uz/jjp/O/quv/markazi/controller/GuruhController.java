@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uz.jjp.O.quv.markazi.entity.Guruh;
+import uz.jjp.O.quv.markazi.entity.Search;
 import uz.jjp.O.quv.markazi.service.FanService;
 import uz.jjp.O.quv.markazi.service.GuruhService;
 import uz.jjp.O.quv.markazi.service.OqituvchiService;
@@ -36,6 +37,11 @@ public class GuruhController {
         return "guruh";
     }
 
+    @PostMapping("/izla")
+    public String izla(Search s, Model model){
+        model.addAttribute("guruhlar",guruhService.izla(s.getSatr()));
+        return "guruh";
+    }
 
     @PostMapping()
     public void yarat(Guruh o, HttpServletResponse hsr) throws IOException {

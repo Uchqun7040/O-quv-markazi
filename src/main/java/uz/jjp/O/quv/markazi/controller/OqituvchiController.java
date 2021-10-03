@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uz.jjp.O.quv.markazi.entity.Oqituvchi;
+import uz.jjp.O.quv.markazi.entity.Search;
 import uz.jjp.O.quv.markazi.service.OqituvchiService;
 
 
@@ -27,6 +28,11 @@ public class OqituvchiController {
         return "oqituvchi";
     }
 
+    @PostMapping("/izla")
+    public String izla(Search s, Model model){
+        model.addAttribute("oqituvchilar",oqituvchiService.izla(s.getSatr()));
+        return "oqituvchi";
+    }
 
     @PostMapping()
     public void yarat(Oqituvchi o, HttpServletResponse hsr) throws IOException {

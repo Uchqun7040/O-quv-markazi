@@ -5,6 +5,7 @@
   <title>Guruhlar</title>
   <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="/header.css">
+  <link rel="stylesheet" href="/royxat.css">
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,18 +17,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
 
-  <style>
-    th,td{
-      text-align: center;
-    }
-    .link,td{
-      color: rgb(20, 20, 95);
-    }
-    .link:hover{
-      text-decoration: none;
-      color: rgb(100, 172, 253);
-    }
-  </style>
+ 
 
 </head>
 
@@ -74,14 +64,14 @@
 
             <div class="form-group">
               <label for="oqituvchi">O'qituvchi:</label>
-              <select class="form-control" name="oqituvchi" id="oqituvchi">
+              <select required class="form-control" name="oqituvchi" id="oqituvchi">
                 <option th:each="oq : ${oqituvchilar}" th:value="${oq.id}" th:text="${oq.ism}+' '+${oq.familiya}"></option>
               </select>
             </div>
 
             <div class="form-group">
               <label for="fan">Fan:</label>
-              <select class="form-control" name="fan" id="fan">
+              <select required class="form-control" name="fan" id="fan">
                 <option th:each="fan : ${fanlar}" th:value="${fan.id}" th:text="${fan.nom}"></option>
               </select>
             </div>
@@ -113,7 +103,7 @@
 
             <div class="form-group">
               <label for="oqituvchi">O'qituvchi:</label>
-              <select class="form-control" name="oqituvchi" id="oqituvchi">
+              <select required class="form-control" name="oqituvchi" id="oqituvchi">
                 <option th:each="oq : ${oqituvchilar}" th:value="${oq.id}" th:text="${oq.ism}+' '+${oq.familiya}"
                   th:if="${guruh.oqituvchi.id} != ${oq.id}"></option>
                 <option th:value="${guruh.oqituvchi.id}" th:text="${guruh.oqituvchi.ism}+' '+${guruh.oqituvchi.familiya}"
@@ -124,7 +114,7 @@
 
             <div class="form-group">
               <label for="fan">Fan:</label>
-              <select class="form-control" name="fan" id="fan">
+              <select required class="form-control" name="fan" id="fan">
                 <option th:each="fan : ${fanlar}" th:value="${fan.id}" th:text="${fan.nom}" th:if="${guruh.fan.id} != ${fan.id}"></option>
                 <option th:value="${guruh.fan.id}" th:text="${guruh.fan.nom}" selected></option>
 
@@ -142,9 +132,13 @@
           </form>
         </div>
       </div>
-      <div class="col-12 col-md-9" style="background-color: rgb(245, 243, 243); padding: 13px;">
+      <div class="col-12 col-md-9" style="background-color: rgb(245, 243, 243); padding: 13px;position: relative;">
         <h2>Guruhlar ro'yxati</h2>
-        <table class="table table-striped table-border table-responsive">
+        <div th:if="${guruhlar.size} == 0" id="royxatBush">
+          Ro'yxat bo'sh!
+          
+        </div>
+        <table th:if="${guruhlar.size} != 0" class="table table-striped table-border table-responsive">
           <thead class="thead-inverse">
             <tr>
               <th>Id</th>
@@ -185,6 +179,22 @@
             </tr>
           </tbody>
         </table>
+        <div class="sara">
+          <div style="display: flex;flex-direction: row;">
+            <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
+              Jami:
+              <span id="jami" th:text="${guruhlar.size}"></span>
+              ta
+            </div>
+            <div style="padding-top: 6px;padding-left: 8px;">
+              <form id="izlash" action="/guruhlar/izla" method="POST">
+                <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
+                <input type="submit" id="tugma" value="Izlash"></input>
+              </form>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uz.jjp.O.quv.markazi.entity.Fan;
+import uz.jjp.O.quv.markazi.entity.Search;
 import uz.jjp.O.quv.markazi.service.FanService;
 
 
@@ -27,6 +28,11 @@ public class FanController {
         return "fan";
     }
 
+    @PostMapping("/izla")
+    public String izla(Search s, Model model){
+        model.addAttribute("fanlar",fanService.izla(s.getSatr()));
+        return "fan";
+    }
 
     @PostMapping()
     public void yarat(Fan o, HttpServletResponse hsr) throws IOException {
