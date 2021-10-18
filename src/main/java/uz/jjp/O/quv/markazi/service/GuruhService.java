@@ -1,65 +1,56 @@
 package uz.jjp.O.quv.markazi.service;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import uz.jjp.O.quv.markazi.entity.Fan;
 import uz.jjp.O.quv.markazi.entity.Guruh;
-import uz.jjp.O.quv.markazi.repository.FanRepository;
-import uz.jjp.O.quv.markazi.repository.GuruhRepository;
-
-import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class GuruhService {
-@Autowired
-    GuruhRepository guruhRepository;
-public  List<Guruh> getAll(){
-    return guruhRepository.findAll();
-}
-public void create(Guruh o){
-    guruhRepository.save(o);
-}
-public void delete(Long id){
-    guruhRepository.deleteById(id);
-}
-public void update(Guruh o){
-    guruhRepository.save(o);
-}
-public Guruh getById(Long id){
-    return guruhRepository.getOne(id);
-}
-public void guruhlash(Long id){
-    Guruh g=getById(id);
-    int n=g.getOquvchiSon();
-    n++;
-    g.setOquvchiSon(n);
-    update(g);
-}public void unguruhlash(Long id){
-    Guruh g=getById(id);
-    int n=g.getOquvchiSon();
-    n--;
-    g.setOquvchiSon(n);
-    update(g);
-}
-    public List<Guruh> izla(String s){
-        ArrayList<Guruh> ss=new ArrayList<>();
-        s=s.toLowerCase();
-        String k;
-        for (Guruh guruh: guruhRepository.findAll()) {
-            k="";
-            k+=guruh.getId().toString().toLowerCase();
-            k+=guruh.getNom().toLowerCase();
-            k+=guruh.getOqituvchi().getFamiliya().toLowerCase();
-            k+=guruh.getOqituvchi().getIsm().toLowerCase();
-            k+=guruh.getFan().getNom().toLowerCase();
-            k+=guruh.getOquvchiSon();
-            k+=guruh.getInfo().toLowerCase();
-            if (k.contains(s)){
-                ss.add(guruh);
-            }
-        }
-        return ss;
-    }
+
+public interface GuruhService {
+    /**
+     * Bu metod ro'yxatdagi barcha Guruhlarni bazadan olib uzatadi.
+     *
+     */
+public  List<Guruh> getAll();
+
+    /**
+     *Bu metod kirib kelayotgan yangi Guruh obyektini bazaga qo'shib qo'yadi!
+     * @param o
+     */
+public void create(Guruh o);
+
+    /**
+     * Bu metod bazadagi ID si kirib kelayotgan Long turidagi id songa teng bo'lgan Guruh obyektini bazadan o'chirib yuboradi.
+     * @param id
+     */
+public void delete(Long id);
+
+    /**
+     * Bu metod bazadagi mavjud obyekt ma'lumotlarini kirib kelayotgan yangi Guruh obyektiga almashtiradi!
+     * @param o
+     */
+public void update(Guruh o);
+
+    /**
+     * Bu metod bazadagi ID si kirib kelayotgan Long turidagi id songa teng bo'lgan Guruh obyektini bazadan olib beradi.
+     * @param id
+     */
+public Guruh getById(Long id);
+
+    /**
+     * Bu metod o'quvchini biron guruhga tayinlanganda shu guruhning 'oquvchilarSoni' xususiyatini birga oshiradi.
+     * @param id
+     */
+    public void guruhlash(Long id);
+
+    /**
+     * Bu metod o'quvchini biron guruhga tayinlanganda shu guruhning 'oquvchilarSoni' xususiyatini birga kamaytiradi.
+     * @param id
+     */
+public void unguruhlash(Long id);
+
+    /**
+     * Bu metod kirib kelayotgan String turidagi ma'lumot bo'yicha saralab bazadan obyektlar jamlanmasini olib beradi!
+     * @param s
+     * @return
+     */
+public List<Guruh> izla(String s);
 }

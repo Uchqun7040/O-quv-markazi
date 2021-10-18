@@ -13,6 +13,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+       
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -46,7 +47,7 @@
 
 
 
-  <div th:insert="header :: boshqism"></div>
+  <div th:insert="header :: boshqism1"></div>
   <div class="container-fluid bg-light">
     
     <h1 style="padding-left: 10px;color: rgb(2, 26, 98);">Fanlar bo'limi</h1>
@@ -58,13 +59,13 @@
           <form action="/fanlar" method="POST">
             <div class="form-group">
               <label for="mon">Nom:</label>
-              <input type="text" name="nom" id="mon" class="form-control" placeholder="Nom..." aria-describedby="nom" required>
-              <small id="mon" class="text-muted">Fan nomini kiriting</small>
+              <input type="text" name="nom" id="mon" class="form-control" placeholder="Fan nomini kiriting..." aria-describedby="nom" required>
+             
             </div>
 
             <div class="form-group">
-              <label for="info">Info</label>
-              <textarea class="form-control" name="info" id="info" rows="5"></textarea>
+              <label for="info">Izoh</label>
+              <textarea class="form-control" name="info" id="info" rows="5" placeholder="Izoh..."></textarea>
             </div>
             <input type="submit" class="btn btn-primary" value="Qo'shish"></input>
             <input type="reset" class="btn btn-danger" value="Tozalash"></input>
@@ -76,16 +77,15 @@
             <div class="form-group">
               <label for="id">Id:</label>
               <input th:value="${fan.id}" type="text" name="id" id="id" class="form-control" aria-describedby="id" readonly>
-              <small id="id" class="text-muted">Tahrirlanuvchi fanni id raqami</small>
             </div>
             <div class="form-group">
               <label for="mon">Nom:</label>
-              <input th:value="${fan.nom}" type="text" name="nom" id="mon" class="form-control" placeholder="Nom..." aria-describedby="nom" required>
-              <small id="mon" class="text-muted">Nomini kiriting</small>
+              <input th:value="${fan.nom}" type="text" name="nom" id="mon" class="form-control" placeholder="Nomini kiriting..." aria-describedby="nom" required>
+            
             </div>
             <div class="form-group">
-              <label for="info">Info</label>
-              <textarea th:field="${fan.info}" class="form-control" name="info" id="info" rows="5"></textarea>
+              <label for="info">Izoh</label>
+              <textarea th:field="${fan.info}" class="form-control" name="info" id="info" rows="5" placeholder="Izoh..."></textarea>
             </div>
             <button type="submit" class="btn btn-primary" >Tahrirlash</button>
             <a href="/fanlar" class="btn btn-danger" style="font-weight: normal !important;">Bekor qilish</a>
@@ -99,11 +99,11 @@
           
         </div>
         <table th:if="${fanlar.size} != 0" class="table table-striped table-border table-responsive">
-          <thead class="thead-inverse">
+          <thead >
             <tr>
               <th>Id</th>
               <th>Nom</th>
-              <th>Info</th>
+              <th>Izoh</th>
               <th>Amallar</th>
             </tr>
           </thead>
@@ -176,6 +176,7 @@
       modal.find('.modal-footer a').attr('href', '/fanlar/ochirish/'+id)
       }) 
       </script>
+      
 
      
 </body>

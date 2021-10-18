@@ -46,7 +46,7 @@
 
 
 
-  <div th:insert="header :: boshqism"></div>
+  <div th:insert="header :: boshqism1"></div>
   <div class="container-fluid bg-light">
 
     <h1 style="padding-left: 10px;color: rgb(2, 26, 98);">Guruhlar bo'limi</h1>
@@ -58,8 +58,8 @@
           <form action="/guruhlar" method="POST">
             <div class="form-group">
               <label for="mon">Nom:</label>
-              <input required type="text" name="nom" id="mon" class="form-control" placeholder="Nom..." aria-describedby="nom">
-              <small id="mon" class="text-muted">Guruh nomini kiriting</small>
+              <input required type="text" name="nom" id="mon" class="form-control" placeholder="Guruh nomini kiriting..." aria-describedby="nom">
+              
             </div>
 
             <div class="form-group">
@@ -76,8 +76,12 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="info">Info</label>
-              <textarea class="form-control" name="info" id="info" rows="5"></textarea>
+              <label for="narx">Narx:</label>
+              <input required type="number" name="narx" id="narx" class="form-control" placeholder="Guruh narxini kiriting..." aria-describedby="nom">              
+            </div>
+            <div class="form-group">
+              <label for="info">Izoh</label>
+              <textarea class="form-control" name="info" id="info" rows="5" placeholder="Izoh..."></textarea>
             </div>
             <input type="submit" class="btn btn-primary" value="Qo'shish"></input>
             <input type="reset" class="btn btn-danger" value="Tozalash"></input>
@@ -92,13 +96,13 @@
               <label for="id">Id:</label>
               <input th:value="${guruh.id}" type="text" name="id" id="id" class="form-control" aria-describedby="id"
                 readonly>
-              <small id="id" class="text-muted">Tahrirlanuvchi guruhni id raqami</small>
+              
             </div>
             <div class="form-group">
               <label for="mon">Nom:</label>
-              <input required th:value="${guruh.nom}" type="text" name="nom" id="mon" class="form-control" placeholder="Nom..."
+              <input required th:value="${guruh.nom}" type="text" name="nom" id="mon" class="form-control" placeholder="Nomini kiriting..."
                 aria-describedby="nom">
-              <small id="mon" class="text-muted">Nomini kiriting</small>
+              
             </div>
 
             <div class="form-group">
@@ -122,10 +126,14 @@
               </select>
             </div>
 
+            <div class="form-group">
+              <label for="narx">Narx:</label>
+              <input required th:value="${guruh.narx}" type="number" name="narx" id="narx" class="form-control" placeholder="Guruh narxini kiriting..." aria-describedby="nom">              
+            </div>
 
             <div class="form-group">
-              <label for="info">Info</label>
-              <textarea th:field="${guruh.info}" class="form-control" name="info" id="info" rows="5"></textarea>
+              <label for="info">Izoh</label>
+              <textarea th:field="${guruh.info}" class="form-control" name="info" id="info" rows="5" placeholder="Izoh..."></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Tahrirlash</button>
             <a href="/guruhlar" class="btn btn-danger" style="font-weight: normal !important;">Bekor qilish</a>
@@ -146,7 +154,8 @@
               <th>Fan</th>
               <th>O'qituvchi</th>
               <th>O'quvchilar soni</th>
-              <th>Info</th>
+              <th>Narx</th>
+              <th>Izoh</th>
               <th>Amallar</th>
             </tr>
           </thead>
@@ -160,7 +169,8 @@
               <td>
                 <a class="link" href="/oqituvchilar" th:text="${o.oqituvchi.ism}+' '+${o.oqituvchi.familiya}"></a>
               </td>
-              <td style="text-align: center;" th:text="${o.oquvchiSon}"></td>
+              <td th:text="${o.oquvchiSon}"></td>
+              <td th:text="${o.narx}"></td>
               <td th:text="${o.info}"></td>
               <td>
                 <a class="btn btn-info" th:href="@{/guruhlar/edit/{id}(id=${o.id})}">

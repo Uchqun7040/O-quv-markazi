@@ -1,31 +1,40 @@
 package uz.jjp.O.quv.markazi.service;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import uz.jjp.O.quv.markazi.entity.Tolov;
-import uz.jjp.O.quv.markazi.repository.TolovRepository;
+
 
 
 import java.util.List;
 
-@Service
-public class TolovService {
-@Autowired
-TolovRepository tolovRepository;
-public  List<Tolov> getAll(){
-    return tolovRepository.findAll();
-}
-public void create(Tolov o){
-    tolovRepository.save(o);
-}
-public void delete(Long id){
-    tolovRepository.deleteById(id);
-}
-public void update(Tolov o){
-    tolovRepository.save(o);
-}
-public Tolov getById(Long id){
-    return tolovRepository.getOne(id);
-}
+
+public interface TolovService {
+    /**
+     * Bu metod ro'yxatdagi barcha To'lovlarni bazadan olib uzatadi.
+     *
+     */
+public  List<Tolov> getAll();
+    /**
+     *Bu metod kirib kelayotgan yangi To'lov obyektini bazaga qo'shib qo'yadi!
+     * @param o
+     */
+public void create(Tolov o);
+
+    /**
+     * Bu metod bazadagi ID si kirib kelayotgan Long turidagi id songa teng bo'lgan To'lov obyektini bazadan o'chirib yuboradi.
+     * @param id
+     */
+public void delete(Long id);
+
+    /**
+     * Bu metod bazadagi mavjud obyekt ma'lumotlarini kirib kelayotgan yangi Tolov obyektiga almashtiradi!
+     * @param o
+     */
+public void update(Tolov o);
+
+    /**
+     * Bu metod bazadagi ID si kirib kelayotgan Long turidagi id songa teng bo'lgan To'lov obyektini bazadan olib beradi.
+     * @param id
+     */
+public Tolov getById(Long id);
 }

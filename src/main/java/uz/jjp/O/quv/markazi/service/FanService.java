@@ -1,49 +1,47 @@
 package uz.jjp.O.quv.markazi.service;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import uz.jjp.O.quv.markazi.entity.Fan;
-import uz.jjp.O.quv.markazi.entity.Oquvchi;
-import uz.jjp.O.quv.markazi.entity.Sessiya;
-import uz.jjp.O.quv.markazi.repository.FanRepository;
-import uz.jjp.O.quv.markazi.repository.OquvchiRepository;
 
-import java.util.ArrayList;
+import uz.jjp.O.quv.markazi.entity.Fan;
+
 import java.util.List;
 
-@Service
-public class FanService {
-@Autowired
-FanRepository fanRepository;
-public  List<Fan> getAll(){
-    return fanRepository.findAll();
-}
-public void create(Fan o){
-    fanRepository.save(o);
-}
-public void delete(Long id){
-    fanRepository.deleteById(id);
-}
-public void update(Fan o){
-    fanRepository.save(o);
-}
-public Fan getById(Long id){
-    return fanRepository.getOne(id);
-}
-    public List<Fan> izla(String s){
-        ArrayList<Fan> ss=new ArrayList<>();
-        s=s.toLowerCase();
-        String k;
-        for (Fan fan: fanRepository.findAll()) {
-            k="";
-            k+=fan.getId().toString().toLowerCase();
-            k+=fan.getNom().toLowerCase();
-            k+=fan.getInfo().toLowerCase();
-            if (k.contains(s)){
-                ss.add(fan);
-            }
-        }
-        return ss;
-    }
+
+public interface FanService {
+    /**
+     * Bu metod ro'yxatdagi barcha Fanlarni olib uzatadi!
+     */
+    public  List<Fan> getAll();
+
+    /**
+     *Bu metod kirib kelayotgan yangi Fan obyektini qo'shib qo'yadi!
+     * @param o
+     */
+    public void create(Fan o);
+
+    /**
+     * Bu metod bazadagi ID si kirib kelayotgan Long turidagi id songa teng bo'lgan Fan obyektini o'chirib yuboradi.
+     * @param id
+     */
+    public void delete(Long id);
+
+    /**
+     * Bu metod mavjud obyekt ma'lumotlarini kirib kelayotgan yangi Fan obyekti ma'lumotlariga almashtiradi!
+     * @param o
+     */
+    public void update(Fan o);
+
+    /**
+     * Bu metod ID si kirib kelayotgan Long turidagi id songa teng bo'lgan Fan obyektini bazadan olib beradi.
+     * @param id
+     */
+    public Fan getById(Long id);
+
+    /**
+     * Bu metod kirib kelayotgan String turidagi ma'lumot bo'yicha saralab obyektlar jamlanmasini olib beradi!
+     * @param s
+     * @return
+     */
+    public List<Fan> izla(String s);
+
 }

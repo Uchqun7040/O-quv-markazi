@@ -1,52 +1,45 @@
 package uz.jjp.O.quv.markazi.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import uz.jjp.O.quv.markazi.entity.Guruh;
 import uz.jjp.O.quv.markazi.entity.Oqituvchi;
-import uz.jjp.O.quv.markazi.entity.Oquvchi;
-import uz.jjp.O.quv.markazi.repository.OqituvchiRepository;
-
-import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class OqituvchiService {
-    @Autowired
-    OqituvchiRepository oqituvchiRepository;
-    public List<Oqituvchi> getAll(){
-        return oqituvchiRepository.findAll();
-    }
-    public void create(Oqituvchi o){
-        oqituvchiRepository.save(o);
-    }
-    public void delete(Long id){
-        oqituvchiRepository.deleteById(id);
-    }
 
-    public void update(Oqituvchi o){
-        oqituvchiRepository.save(o);
-    }
-    public Oqituvchi getById(Long id){
-        return oqituvchiRepository.getOne(id);
-    }
-    public List<Oqituvchi> izla(String s){
-        ArrayList<Oqituvchi> ss=new ArrayList<>();
-        s=s.toLowerCase();
-        String k;
-        for (Oqituvchi oqituvchi: oqituvchiRepository.findAll()) {
-            k="";
-            k+=oqituvchi.getId().toString().toLowerCase();
-            k+=oqituvchi.getIsm().toLowerCase();
-            k+=oqituvchi.getFamiliya().toLowerCase();
-            k+=oqituvchi.getHujjat().toLowerCase();
-            k+=oqituvchi.getSharif().toLowerCase();
-            k+=oqituvchi.getTel_nomer();
-            k+=oqituvchi.getInfo().toLowerCase();
-            if (k.contains(s)){
-                ss.add(oqituvchi);
-            }
-        }
-        return ss;
-    }
+public interface OqituvchiService {
+    /**
+     * Bu metod ro'yxatdagi barcha O'qituvchilarni bazadan olib uzatadi.
+     *
+     */
+    public List<Oqituvchi> getAll();
+
+    /**
+     *Bu metod kirib kelayotgan yangi O'qituvchi obyektini bazaga qo'shib qo'yadi!
+     * @param o
+     */
+    public void create(Oqituvchi o);
+
+    /**
+     * Bu metod bazadagi ID si kirib kelayotgan Long turidagi id songa teng bo'lgan O'qituvchi obyektini bazadan o'chirib yuboradi.
+     * @param id
+     */
+    public void delete(Long id);
+
+    /**
+     * Bu metod bazadagi mavjud obyekt ma'lumotlarini kirib kelayotgan yangi O'qituvchi obyektiga almashtiradi!
+     * @param o
+     */
+    public void update(Oqituvchi o);
+
+    /**
+     * Bu metod bazadagi ID si kirib kelayotgan Long turidagi id songa teng bo'lgan O'qituvchi obyektini bazadan olib beradi.
+     * @param id
+     */
+    public Oqituvchi getById(Long id);
+
+    /**
+     * Bu metod kirib kelayotgan String turidagi ma'lumot bo'yicha saralab bazadan obyektlar jamlanmasini olib beradi!
+     * @param s
+     * @return
+     */
+
+    public List<Oqituvchi> izla(String s);
 }

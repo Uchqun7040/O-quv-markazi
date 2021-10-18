@@ -46,7 +46,7 @@
 
 
 
-  <div th:insert="header :: boshqism"></div>
+  <div th:insert="header :: boshqism1"></div>
   <div class="container-fluid bg-light">
 
     <h1 style="padding-left: 10px;color: rgb(2, 26, 98);">Guruhlashlar bo'limi</h1>
@@ -69,7 +69,7 @@
               <th>Boshlagan vaqti</th>
               <th>Tugash vaqti</th>
               <th>To'lov</th>
-              <th>Info</th>
+              <th>Izoh</th>
               <th>Amallar</th>
             </tr>
           </thead>
@@ -77,13 +77,16 @@
             <tr th:each="o : ${sessiyalar}">
               <td th:text="${o.id}"></td>
               <td>
-                <a class="link" href="/guruhlar" th:text="${o.guruh.nom}">ebwb</a>
+                <a class="link" href="/guruhlar" th:text="${o.guruh.nom}"></a>
               </td>
               <td>
-                <a class="link" href="/oquvchilar" th:text="${o.oquvchi.familiya}+' '+${o.oquvchi.ism}">brebw</a>
+                <a class="link" href="/oquvchilar" th:text="${o.oquvchi.familiya}+' '+${o.oquvchi.ism}"></a>
               </td>
               <td th:text="${o.boshVaqt}"></td>
-              <td th:text="${o.tugVaqt}"></td>
+              <td th:switch="${o.tugVaqt} != null">
+                <span th:case="true" th:text="${o.tugVaqt}"></span>
+                <span th:case="false" style="color: rgb(52, 52, 221);font-weight: bold;">Davomiy</span>
+              </td>
               <td th:switch="${o.tolov}">
                 <span th:case="true" style="color: rgb(0, 238, 0);">
                   To'langan
@@ -126,7 +129,7 @@
               <label for="id">Id:</label>
               <input th:value="${sessiya.id}" type="text" name="id" id="id" class="form-control" aria-describedby="id"
                 readonly>
-              <small id="id" class="text-muted">Tahrirlanuvchi sessiyani id raqami</small>
+             
             </div>
             <div class="form-group">
               <label for="oquvchi">O'quvchi:</label>
@@ -135,7 +138,7 @@
                   th:text="${sessiya.oquvchi.familiya}+' '+${sessiya.oquvchi.ism}" selected aria-readonly="true">
                 </option>
               </select>
-              <small id="oquvchi" class="text-muted">O'quvchining ism, familiyasi</small>
+              
             </div>
 
             <div class="form-group">
@@ -153,26 +156,26 @@
               <label for="boshVaqt">Boshlangan vaqt:</label>
               <input required th:field="${sessiya.boshVaqt}" type="datetime-local" name="boshVaqt" id="boshVaqt"
                 class="form-control" aria-describedby="boshVaqt">
-              <small id="boshVaqt" class="text-muted">Boshlangan vaqtini kiriting</small>
+              
             </div>
 
             <div class="form-group">
               <label for="tugVaqt">Tugash vaqt:</label>
               <input th:field="${sessiya.tugVaqt}" type="datetime-local" name="tugVaqt" id="tugVaqt"
                 class="form-control" aria-describedby="tugVaqt">
-              <small id="tugVaqt" class="text-muted">Tugash vaqtini kiriting</small>
+              
             </div>
 
-            <div class="form-check">
+            <!-- <div class="form-check">
               <label class="form-check-label">
                 <input type="checkbox" class="form-check-input" name="tolov" id="tolov" th:field="${sessiya.tolov}">
                 To'lov
               </label>
-            </div>
+            </div> -->
 
             <div class="form-group">
-              <label for="info">Info</label>
-              <textarea th:field="${sessiya.info}" class="form-control" name="info" id="info" rows="5"></textarea>
+              <label for="info">Izoh</label>
+              <textarea th:field="${sessiya.info}" class="form-control" name="info" id="info" rows="5" placeholder="Izoh..."></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Tahrirlash</button>
             <a href="/sessiyalar" class="btn btn-danger" style="font-weight: normal !important;">Bekor qilish</a>

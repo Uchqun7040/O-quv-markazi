@@ -1,27 +1,19 @@
-package uz.jjp.O.quv.markazi.entity;
+package uz.jjp.O.quv.markazi.service.dto;
 
-import javax.persistence.*;
+import uz.jjp.O.quv.markazi.entity.User;
 
-@Entity
-@Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
-    @Column(nullable = false)
+public class UserDTO {
+    private Long id ;
     private String ism;
-
-    @Column(nullable = false)
     private String familiya;
-
-    @Column(unique = true, nullable = false)
     private String login;
 
-    @Column(nullable = false)
-    private String parol;
-
-
+    public UserDTO(User user) {
+        this.id= user.getId();
+        this.ism= user.getIsm();
+        this.familiya= user.getFamiliya();
+        this.login= user.getLogin();
+    }
 
     public Long getId() {
         return id;
@@ -53,13 +45,5 @@ public class User {
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-    public String getParol() {
-        return parol;
-    }
-
-    public void setParol(String parol) {
-        this.parol = parol;
     }
 }

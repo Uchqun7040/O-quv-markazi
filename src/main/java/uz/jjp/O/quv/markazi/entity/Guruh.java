@@ -14,6 +14,7 @@ public class Guruh {
     @ManyToOne
     private Fan fan;
     private int oquvchiSon;
+    private int narx;
     private String info;
 
     public int getOquvchiSon() {
@@ -54,6 +55,14 @@ public class Guruh {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public int getNarx() {
+        return narx;
+    }
+
+    public void setNarx(int narx) {
+        this.narx = narx;
     }
 
     public String getInfo() {

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uz.jjp.O.quv.markazi.entity.User;
 import uz.jjp.O.quv.markazi.service.UserService;
+import uz.jjp.O.quv.markazi.service.dto.UserDTO;
 
 
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +42,7 @@ public class UserController {
 
     @GetMapping("/edit/{id}")
     public String ozgartiriluvchi(@PathVariable Long id,Model model) throws IOException {
-        User o=userService.getById(id);
+        UserDTO o=userService.getById(id);
         model.addAttribute("user",o);
         return user(model);
     }
