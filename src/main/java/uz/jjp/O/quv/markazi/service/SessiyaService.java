@@ -1,5 +1,6 @@
 package uz.jjp.O.quv.markazi.service;
 
+import uz.jjp.O.quv.markazi.entity.Oquvchi;
 import uz.jjp.O.quv.markazi.entity.Sessiya;
 import java.util.List;
 
@@ -11,12 +12,12 @@ public interface SessiyaService {
      */
 public  List<Sessiya> getAll();
 
-    /**
-     * Bu metod kirayotgan boolean argumentga qarab to'lov qilingan yoki qilinmagan O'quvchilar ro'yxatini qaytaradi!
-     * @param t
-     * @return
-     */
-    public List<Sessiya> tolovUchun(boolean t);
+//    /**
+//     * Bu metod kirayotgan boolean argumentga qarab to'lov qilingan yoki qilinmagan O'quvchilar ro'yxatini qaytaradi!
+//     * @param t
+//     * @return
+//     */
+//    public List<Sessiya> tolovUchun(boolean t);
 
     /**
      *Bu metod kirib kelayotgan yangi Guruhlash obyektini bazaga qo'shib qo'yadi!
@@ -55,4 +56,12 @@ public Sessiya getById(Long id);
      * @return
      */
 public List<Sessiya> izla(String s);
+
+    /**
+     * Bu metod o'quvchi o'chirilganda avtomatik ravishda, unga tegishli sessiyalar ham o'chirilishini bajaradi.
+     * @param id
+     */
+    void deleteByOquvchiId(Long id);
+
+
 }

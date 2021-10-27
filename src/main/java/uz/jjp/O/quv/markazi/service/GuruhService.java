@@ -47,10 +47,21 @@ public Guruh getById(Long id);
      */
 public void unguruhlash(Long id);
 
+
+
     /**
      * Bu metod kirib kelayotgan String turidagi ma'lumot bo'yicha saralab bazadan obyektlar jamlanmasini olib beradi!
      * @param s
      * @return
      */
 public List<Guruh> izla(String s);
+
+     /**
+     * Bu metod kirib kelayotgan o'quvchi kiritilmagan guruhlarni olib beradi!
+     * @param id
+     * @return
+     */
+public List<Guruh> getAllByNotOquvchiId(Long id);
+
+
 }

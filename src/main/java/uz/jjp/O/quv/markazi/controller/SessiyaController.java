@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.resource.HttpResource;
+import uz.jjp.O.quv.markazi.entity.Guruh;
+import uz.jjp.O.quv.markazi.entity.Oquvchi;
 import uz.jjp.O.quv.markazi.entity.Search;
 import uz.jjp.O.quv.markazi.entity.Sessiya;
 import uz.jjp.O.quv.markazi.service.GuruhService;
@@ -17,6 +19,7 @@ import uz.jjp.O.quv.markazi.service.SessiyaService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/sessiyalar")
@@ -34,40 +37,48 @@ public class SessiyaController {
     @GetMapping()
     public String royxat(Model model) throws IOException {
         model.addAttribute("guruhlar",guruhService.getAll());
-        model.addAttribute("oquvchilar",oquvchiService.getAll());
         model.addAttribute("sessiyalar",sessiyaService.getAll());
-        return "sessiya";
+        return "guruhlash";
     }
 
-    @GetMapping("/tolanganlar")
-    public String tolanganlar( Model model) throws IOException {
-        model.addAttribute("sessiyalar",sessiyaService.tolovUchun(true));
-        return "sessiya";
-    }
-    @GetMapping("/tolanmaganlar")
-    public String tolanmaganlar(Model model) throws IOException {
-        model.addAttribute("sessiyalar",sessiyaService.tolovUchun(false));
-        return "sessiya";
-    }
+//    @GetMapping("/tolanganlar")
+//    public String tolanganlar( Model model) throws IOException {
+//        model.addAttribute("sessiyalar",sessiyaService.tolovUchun(true));
+//        return "sessiya";
+//    }
+//    @GetMapping("/tolanmaganlar")
+//    public String tolanmaganlar(Model model) throws IOException {
+//        model.addAttribute("sessiyalar",sessiyaService.tolovUchun(false));
+//        return "sessiya";
+//    }
 
     @PostMapping("/izla")
     public String izla(Search s, Model model){
         model.addAttribute("sessiyalar",sessiyaService.izla(s.getSatr()));
-        return "sessiya";
+        return "guruhlash";
     }
     @PostMapping()
-    public void yarat(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Sessiya o, HttpServletResponse hsr) throws IOException {
+    public String yarat(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Sessiya o,Model model) throws IOException {
         sessiyaService.create(o);
-        guruhService.guruhlash(o.getGuruh().getId());
-        hsr.sendRedirect("/oquvchilar");
+        model.addAttribute("oquvchi",o.getOquvchi());
+        model.addAttribute("sessiyalar",sessiyaService.getByOquvchiId(o.getOquvchi().getId()));
+        model.addAttribute("guruhlar",guruhService.getAllByNotOquvchiId(o.getOquvchi().getId()));
+        return "oquvchiTahrirlash";
     }
 
     @GetMapping("/ochirish/{id}")
-    public void ochirish(@PathVariable Long id, HttpServletResponse hsr) throws IOException {
-        guruhService.unguruhlash(sessiyaService.getById(id).getGuruh().getId());
+    public void ochirish(@PathVariable Long id,HttpServletResponse hsr) throws IOException {
         sessiyaService.delete(id);
-
         hsr.sendRedirect("/sessiyalar");
+    }
+    @GetMapping("/ochirishX/{id}")
+    public String ochirish(@PathVariable Long id,Model model) throws IOException {
+        Oquvchi oquvchi=sessiyaService.getById(id).getOquvchi();
+        sessiyaService.delete(id);
+        model.addAttribute("oquvchi",oquvchi);
+        model.addAttribute("sessiyalar",sessiyaService.getByOquvchiId(oquvchi.getId()));
+        model.addAttribute("guruhlar",guruhService.getAllByNotOquvchiId(oquvchi.getId()));
+        return "oquvchiTahrirlash";
     }
 
     @GetMapping("/edit/{id}")

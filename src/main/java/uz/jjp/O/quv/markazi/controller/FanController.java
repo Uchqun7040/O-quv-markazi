@@ -58,5 +58,9 @@ public class FanController {
         fanService.update(o);
         hsr.sendRedirect("/fanlar");
     }
+    @GetMapping("/kirish")
+    public String kirish(Model model) throws IOException {
 
+        return "kirish";
+    }
 }

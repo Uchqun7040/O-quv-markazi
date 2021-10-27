@@ -10,12 +10,10 @@ public class Tolov {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @ManyToOne
-    private Sessiya sessiya;
     private int qiymat;
     @DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm")
     private LocalDateTime tolovVaqt;
-
+    private String info;
 
     public Long getId() {
         return id;
@@ -26,13 +24,7 @@ public class Tolov {
     }
 
 
-    public Sessiya getSessiya() {
-        return sessiya;
-    }
 
-    public void setSessiya(Sessiya sessiya) {
-        this.sessiya = sessiya;
-    }
 
     public int getQiymat() {
         return qiymat;
@@ -48,5 +40,13 @@ public class Tolov {
 
     public void setTolovVaqt(LocalDateTime tolovVaqt) {
         this.tolovVaqt = tolovVaqt;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 }

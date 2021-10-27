@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>sessiyalar</title>
+  <title>Guruhlashlar</title>
   <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="/header.css">
   <link rel="stylesheet" href="/royxat.css">
@@ -29,15 +29,15 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Siz rostdan ham ushbu guruhlashni o'chirmoqchimisiz?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Siz rostdan ham ushbu guruhlashni nofaol qilmoqchimisiz?</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Bekor qilish</button>
-          <a href="/sessiyalar/ochirish/" class="btn btn-danger">O'chirish</a>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Yo'q</button>
+          <a href="/sessiyalar/ochirish/" class="btn btn-danger">Ha</a>
         </div>
       </div>
     </div>
@@ -69,6 +69,7 @@
               <th>Boshlagan vaqti</th>
               <th>Tugash vaqti</th>
               <th>To'lov</th>
+              <th>Aktiv</th>
               <th>Izoh</th>
               <th>Amallar</th>
             </tr>
@@ -80,7 +81,7 @@
                 <a class="link" href="/guruhlar" th:text="${o.guruh.nom}"></a>
               </td>
               <td>
-                <a class="link" href="/oquvchilar" th:text="${o.oquvchi.familiya}+' '+${o.oquvchi.ism}"></a>
+                <a class="link" th:href="@{/oquvchilar/edit/{id}(id=${o.oquvchi.id})}" th:text="${o.oquvchi.familiya}+' '+${o.oquvchi.ism}"></a>
               </td>
               <td th:text="${o.boshVaqt}"></td>
               <td th:switch="${o.tugVaqt} != null">
@@ -95,8 +96,16 @@
                   To'lanmagan
                 </span>
               </td>
+              <td th:switch="${o.aktiv}">
+                <span th:case="true" style="color: rgb(0, 238, 0);">
+                  Ha
+                </span>
+                <span th:case="false" style="color: rgb(253, 50, 43);">
+                  Yo'q
+                </span>
+              </td>
               <td th:text="${o.info}"></td>
-              <td>
+              <td style="text-align: left;">
                 <a class="btn btn-info" th:href="@{/sessiyalar/edit/{id}(id=${o.id})}">
                   <i class="fa fa-pencil " aria-hidden="true"></i>
                 </a>
@@ -104,8 +113,9 @@
 
 
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
-                  th:attr="data-id=${o.id}">
-                  <i class="fa fa-trash" aria-hidden="true"></i>
+                  th:attr="data-id=${o.id}" th:if="${o.aktiv}">
+                  
+                  <i class="fa fa-power-off" aria-hidden="true"></i>
                 </button>
 
 
@@ -166,12 +176,12 @@
               
             </div>
 
-            <!-- <div class="form-check">
+            <div class="form-check">
               <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" name="tolov" id="tolov" th:field="${sessiya.tolov}">
-                To'lov
+                <input type="checkbox" class="form-check-input" name="aktiv"  th:field="${sessiya.aktiv}">
+                Aktiv
               </label>
-            </div> -->
+            </div>
 
             <div class="form-group">
               <label for="info">Izoh</label>
@@ -203,11 +213,11 @@
             </form>
           </div>
 
-          <div style="padding-left: 10px;">
+          <!-- <div style="padding-left: 10px;">
             <a class="btn btn-info " href="/sessiyalar" role="button">Hammasi</a>
             <a class="btn btn-success " href="/sessiyalar/tolanganlar" role="button">To'langanlar</a>
             <a class="btn btn-danger " href="/sessiyalar/tolanmaganlar" role="button">To'lanmaganlar</a>
-          </div>
+          </div> -->
 
         </div>
       </div>

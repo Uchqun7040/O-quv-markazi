@@ -3,8 +3,10 @@ package uz.jjp.O.quv.markazi.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.jjp.O.quv.markazi.entity.Guruh;
+import uz.jjp.O.quv.markazi.entity.Sessiya;
 import uz.jjp.O.quv.markazi.repository.GuruhRepository;
 import uz.jjp.O.quv.markazi.service.GuruhService;
+import uz.jjp.O.quv.markazi.service.SessiyaService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,9 @@ import java.util.List;
 public class GuruhServiceImpl implements GuruhService {
     @Autowired
     GuruhRepository guruhRepository;
+
+    @Autowired
+    SessiyaService sessiyaService;
     @Override
     public List<Guruh> getAll() {
         return guruhRepository.findAll();
@@ -76,5 +81,15 @@ public class GuruhServiceImpl implements GuruhService {
             }
         }
         return ss;
+    }
+
+    @Override
+    public List<Guruh> getAllByNotOquvchiId(Long id) {
+        List<Guruh> gs=getAll();
+        List<Sessiya> ss = sessiyaService.getByOquvchiId(id);
+        ss.forEach(s ->{
+            gs.removeIf(g ->(s.getGuruh() == g && s.getAktiv()));
+        });
+        return gs;
     }
 }

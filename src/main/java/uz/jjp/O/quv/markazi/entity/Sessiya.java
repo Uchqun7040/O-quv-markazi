@@ -18,16 +18,12 @@ public class Sessiya {
     private LocalDateTime boshVaqt;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime tugVaqt;
-    private boolean tolov;
+    @ManyToOne
+    private Tolov tolov;
+    private Boolean aktiv;
     private String info;
 
-    public boolean isTolov() {
-        return tolov;
-    }
 
-    public void setTolov(boolean tolov) {
-        this.tolov = tolov;
-    }
 
     public Long getId() {
         return id;
@@ -69,11 +65,27 @@ public class Sessiya {
         this.tugVaqt = tugVaqt;
     }
 
+    public Tolov getTolov() {
+        return tolov;
+    }
+
+    public void setTolov(Tolov tolov) {
+        this.tolov = tolov;
+    }
+
     public String getInfo() {
         return info;
     }
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public Boolean getAktiv() {
+        return aktiv;
+    }
+
+    public void setAktiv(Boolean aktiv) {
+        this.aktiv = aktiv;
     }
 }

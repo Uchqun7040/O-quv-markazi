@@ -2,8 +2,10 @@ package uz.jjp.O.quv.markazi.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uz.jjp.O.quv.markazi.entity.Oquvchi;
 import uz.jjp.O.quv.markazi.entity.Sessiya;
 import uz.jjp.O.quv.markazi.repository.SessiyaRepository;
+import uz.jjp.O.quv.markazi.service.GuruhService;
 import uz.jjp.O.quv.markazi.service.SessiyaService;
 
 import java.util.ArrayList;
@@ -13,34 +15,40 @@ import java.util.List;
 public class SessiyaServiceImpl implements SessiyaService {
     @Autowired
     SessiyaRepository sessiyaRepository;
+    @Autowired
+    GuruhService guruhService;
     @Override
     public List<Sessiya> getAll() {
         return sessiyaRepository.findAll();
     }
 
-    @Override
-    public List<Sessiya> tolovUchun(boolean t) {
-        ArrayList<Sessiya> list=new ArrayList<>();
-        if (t) {
-            for (Sessiya s : sessiyaRepository.findAll()) {
-                if (s.isTolov()) list.add(s);
-            }
-        }
-        else
-            for (Sessiya s : sessiyaRepository.findAll()) {
-                if (!s.isTolov()) list.add(s);
-            }
-        return list;
-    }
+//    @Override
+//    public List<Sessiya> tolovUchun(boolean t) {
+//        ArrayList<Sessiya> list=new ArrayList<>();
+//        if (t) {
+//            for (Sessiya s : sessiyaRepository.findAll()) {
+//                if (s.isTolov()) list.add(s);
+//            }
+//        }
+//        else
+//            for (Sessiya s : sessiyaRepository.findAll()) {
+//                if (!s.isTolov()) list.add(s);
+//            }
+//        return list;
+//    }
 
     @Override
     public void create(Sessiya o) {
         sessiyaRepository.save(o);
+        guruhService.guruhlash(o.getGuruh().getId());
     }
 
     @Override
     public void delete(Long id) {
-        sessiyaRepository.deleteById(id);
+        guruhService.unguruhlash(sessiyaRepository.getById(id).getGuruh().getId());
+        Sessiya s=sessiyaRepository.getOne(id);
+        s.setAktiv(false);
+        sessiyaRepository.save(s);
     }
 
     @Override
@@ -55,11 +63,8 @@ public class SessiyaServiceImpl implements SessiyaService {
 
     @Override
     public List<Sessiya> getByOquvchiId(Long id) {
-        ArrayList<Sessiya> ss=new ArrayList<>();
-        for (Sessiya s: sessiyaRepository.findAll()){
-            if (s.getOquvchi().getId() == id) ss.add(s);
-        }
-        return ss;
+
+        return sessiyaRepository.getAllByOquvchiIdAndAktivIsTrue(id);
     }
 
     @Override
@@ -83,4 +88,14 @@ public class SessiyaServiceImpl implements SessiyaService {
         }
         return ss;
     }
+
+    @Override
+    public void deleteByOquvchiId(Long id) {
+        List<Sessiya> ss=sessiyaRepository.getAllByOquvchiIdAndAktivIsTrue(id);
+        for (Sessiya s: ss) {
+            delete(s.getId());
+        }
+    }
+
+
 }
