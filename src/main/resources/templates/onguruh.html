@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Guruh</title>
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="../static/royxat.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <style>
+        th {
+            color: rgb(46, 46, 46);
+        }
+
+        #oquvchiRoyxat {
+            text-align: center;
+            color: rgb(43, 43, 43);
+        }
+
+        #oqituvchi {
+            text-align: center;
+            color: rgb(43, 43, 43);
+        }
+
+        #oqituvchisi {
+            background-color: rgba(19, 202, 208, 0.823);
+            padding-bottom: 10px;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+            width: 100%;
+        }
+
+        .mal {
+            border-bottom: 2px solid rgb(76, 250, 82);
+            display: inline-block;
+            color: rgb(240, 243, 240);
+            font-style: italic;
+            font-size: larger;
+
+        }
+
+        #almash {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body style="background-image: url('../static/Снимок7.PNG');background-repeat: no-repeat;background-size: cover;">
+
+    <div th:insert="header :: boshqism1"></div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Siz rostdan ham ushbu o'quvchini guruhdan
+                        o'chirmoqchimisiz?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Bekor qilish</button>
+                    <a href="/sessiyalar/ochirishX/" class="btn btn-danger">O'chirish</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="container" style="background-color: rgba(100, 95, 95, 0.473);padding-top: 5px;">
+
+        <div class="row">
+            <div class="col-12">
+                <a class="btn btn-primary backBtn btn-lg type='button'" style="margin-top: 3px;margin-bottom: 5px;"
+                    href="/guruhlar">
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    ortga
+                </a>
+                <div id="oqituvchisi">
+                    <h4 id="oqituvchi">O'qituvchisi</h4>
+                    <div style="text-align: center;">
+                        <div class="mal" th:text="${oqituvchi.ism}+' '+${oqituvchi.familiya}+' '+${oqituvchi.sharif}">
+                            Uchqun Shonazarov Nurbekovich
+                        </div><br>
+                        <small class="text-muted">ism, familiya va sharif</small>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6" style="text-align: center;">
+                            <div class="mal" th:text="${oqituvchi.id}">
+                                12
+                            </div><br>
+                            <small class="text-muted">id</small>
+                        </div>
+                        <div class="col-12 col-md-6 " style="text-align: center;">
+                            <div class="mal" th:text="${oqituvchi.tel_nomer}">
+                                912207040
+                            </div><br>
+                            <small class="text-muted">telefon nomer</small>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12" id="almash" th:if="${oqituvchilar.size} == 0">
+                            <a class="btn btn-primary" href="#">Almashtirish</a>
+                        </div>
+                        <div class="col-12" th:if="${oqituvchilar.size} != 0" style="text-align: center;">
+                            <div style="width: 25%; display: inline-block;">
+                                <form action="#" method="post" >
+                                    <div class="form-group">
+                                        <label for="oqit">Yangi o'qituvchini tanlang</label>
+                                        <select class="form-control" name="oqituvchi" id="oqit">
+                                            <option th:each="oq : ${oqituvchilar}" th:value="${oq.id}"
+                                                th:text="${oq.ism}+' '+${oq.familiya}">
+                                            </option>
+                                            <option th:value="${guruh.oqituvchi.id}"
+                                                th:text="${guruh.oqituvchi.ism}+' '+${guruh.oqituvchi.familiya}"
+                                                selected>
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">OK</button>
+                                </form>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12" style="background-color: rgba(233, 234, 236, 0.919); padding: 13px;">
+
+                <h4 id="oquvchiRoyxat">Guruh o'quvchilari</h4>
+                <div th:if="${oquvchilar.size} == 0" id="royxatBush">
+                    Ro'yxat bo'sh!
+
+                </div>
+                <table th:if="${oquvchilar.size} != 0" class="table table-striped table-border table-responsive">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Id</th>
+                            <th>Ism</th>
+                            <th>Familiya</th>
+                            <th>Sharif</th>
+                            <th>Hujjat</th>
+                            <th>Tel nomer</th>
+                            <th>Izoh</th>
+                            <th>Amallar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="o : ${oquvchilar}">
+                            <td th:text="${o.id}"></td>
+                            <td th:text="${o.ism}"></td>
+                            <td th:text="${o.familiya}"></td>
+                            <td th:text="${o.sharif}"></td>
+                            <td th:text="${o.hujjat}"></td>
+                            <td th:text="${o.tel_nomer}"></td>
+                            <td th:text="${o.info}"></td>
+                            <td>
+                                <a class="btn btn-info" th:href="@{/oquvchilar/edit/{id}(id=${o.id})}">
+                                    <i class="fa fa-pencil " aria-hidden="true"></i>
+                                </a>
+
+
+
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#exampleModal" th:attr="data-id=${o.id}">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('id');
+            var modal = $(this)
+            modal.find('.modal-footer a').attr('href', '/sessiyalar/ochirishX/' + id)
+        })
+    </script>
+</body>
+
+</html>

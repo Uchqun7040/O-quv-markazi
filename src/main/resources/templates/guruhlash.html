@@ -105,7 +105,7 @@
                 </span>
               </td>
               <td th:text="${o.info}"></td>
-              <td style="text-align: left;">
+              <td style="text-align: center;">
                 <a class="btn btn-info" th:href="@{/sessiyalar/edit/{id}(id=${o.id})}">
                   <i class="fa fa-pencil " aria-hidden="true"></i>
                 </a>
@@ -114,6 +114,11 @@
 
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
                   th:attr="data-id=${o.id}" th:if="${o.aktiv}">
+                  
+                  <i class="fa fa-power-off" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
+                  th:attr="data-id=${o.id}" th:if="${!o.aktiv}" disabled>
                   
                   <i class="fa fa-power-off" aria-hidden="true"></i>
                 </button>
