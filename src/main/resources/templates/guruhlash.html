@@ -78,7 +78,7 @@
             <tr th:each="o : ${sessiyalar}">
               <td th:text="${o.id}"></td>
               <td>
-                <a class="link" href="/guruhlar" th:text="${o.guruh.nom}"></a>
+                <a class="link" th:href="@{/guruhlar/onguruh/{id}(id=${o.guruh.id})}" th:text="${o.guruh.nom}"></a>
               </td>
               <td>
                 <a class="link" th:href="@{/oquvchilar/edit/{id}(id=${o.oquvchi.id})}" th:text="${o.oquvchi.familiya}+' '+${o.oquvchi.ism}"></a>
@@ -207,7 +207,7 @@
       <div class="sara">
         <div style="display: flex;flex-direction: row;">
           <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
-            Jami:
+            Natija:
             <span id="jami" th:text="${sessiyalar.size}"></span>
             ta
           </div>

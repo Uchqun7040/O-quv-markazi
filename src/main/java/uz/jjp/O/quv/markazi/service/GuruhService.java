@@ -1,6 +1,8 @@
 package uz.jjp.O.quv.markazi.service;
 
 import uz.jjp.O.quv.markazi.entity.Guruh;
+import uz.jjp.O.quv.markazi.entity.GuruhOqituvchi;
+
 import java.util.List;
 
 
@@ -63,5 +65,10 @@ public List<Guruh> izla(String s);
      */
 public List<Guruh> getAllByNotOquvchiId(Long id);
 
-
+    /**
+     * Bu metod guruh o'qituvchisini almashtiradi!
+     * @param o
+     * @return
+     */
+public void updateOqituvchisi(GuruhOqituvchi o);
 }

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/header.css">
-    <link rel="stylesheet" href="../static/royxat.css">
+    <link rel="stylesheet" href="/royxat.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -57,7 +57,7 @@
     </style>
 </head>
 
-<body style="background-image: url('../static/Снимок7.PNG');background-repeat: no-repeat;background-size: cover;">
+<body style="background-image: url('/Снимок7.PNG');background-repeat: no-repeat;background-size: cover;">
 
     <div th:insert="header :: boshqism1"></div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -85,7 +85,7 @@
 
 
 
-    <div class="container" style="background-color: rgba(100, 95, 95, 0.473);padding-top: 5px;">
+    <div class="container" style="background-color: rgba(100, 95, 95, 0.473);padding-top: 5px; margin-bottom: 20px;">
 
         <div class="row">
             <div class="col-12">
@@ -118,20 +118,21 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-12" id="almash" th:if="${oqituvchilar.size} == 0">
-                            <a class="btn btn-primary" href="#">Almashtirish</a>
+                        <div class="col-12" id="almash" th:if="${oqituvchilar} == null">
+                            <a class="btn btn-primary"   th:href="@{/guruhlar/editOqituvchi/{id}(id=${guruhId})}">Almashtirish</a>
                         </div>
-                        <div class="col-12" th:if="${oqituvchilar.size} != 0" style="text-align: center;">
-                            <div style="width: 25%; display: inline-block;">
-                                <form action="#" method="post" >
+                        <div class="col-12"   style="text-align: center;" th:if="${oqituvchilar} != null">
+                            <div style="width: 25%; display: inline-block;" >
+                                <form action="/guruhlar/editOqituvchi" method="post" >
+                                    <input th:value="${guruhId}" type="hidden" name="guruhId" class="form-control"  >
                                     <div class="form-group">
                                         <label for="oqit">Yangi o'qituvchini tanlang</label>
                                         <select class="form-control" name="oqituvchi" id="oqit">
                                             <option th:each="oq : ${oqituvchilar}" th:value="${oq.id}"
-                                                th:text="${oq.ism}+' '+${oq.familiya}">
+                                                th:text="${oq.ism}+' '+${oq.familiya}" th:if="${oqituvchi.id} != ${oq.id}">
                                             </option>
-                                            <option th:value="${guruh.oqituvchi.id}"
-                                                th:text="${guruh.oqituvchi.ism}+' '+${guruh.oqituvchi.familiya}"
+                                            <option th:value="${oqituvchi.id}"
+                                                th:text="${oqituvchi.ism}+' '+${oqituvchi.familiya}"
                                                 selected>
                                             </option>
                                         </select>

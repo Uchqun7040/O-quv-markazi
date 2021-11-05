@@ -15,6 +15,7 @@ public class Guruh {
     private Fan fan;
     private int oquvchiSon;
     private int narx;
+    private Boolean aktiv;
     private String info;
 
     public int getOquvchiSon() {
@@ -71,5 +72,13 @@ public class Guruh {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public Boolean getAktiv() {
+        return aktiv;
+    }
+
+    public void setAktiv(Boolean aktiv) {
+        this.aktiv = aktiv;
     }
 }

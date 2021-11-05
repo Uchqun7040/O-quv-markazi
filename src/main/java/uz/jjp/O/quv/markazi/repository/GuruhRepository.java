@@ -6,5 +6,4 @@ import uz.jjp.O.quv.markazi.entity.Guruh;
 
 @Repository
 public interface GuruhRepository extends JpaRepository<Guruh,Long> {
-
 }

@@ -40,7 +40,7 @@ public class SessiyaServiceImpl implements SessiyaService {
     @Override
     public void create(Sessiya o) {
         sessiyaRepository.save(o);
-        guruhService.guruhlash(o.getGuruh().getId());
+        if (o.getAktiv()) guruhService.guruhlash(o.getGuruh().getId());
     }
 
     @Override
@@ -53,6 +53,9 @@ public class SessiyaServiceImpl implements SessiyaService {
 
     @Override
     public void update(Sessiya o) {
+        Long id=o.getId();
+        if(sessiyaRepository.getOne(id).getAktiv()) guruhService.unguruhlash(o.getGuruh().getId());
+        if(o.getAktiv()) guruhService.guruhlash(o.getGuruh().getId());
         sessiyaRepository.save(o);
     }
 
@@ -92,6 +95,14 @@ public class SessiyaServiceImpl implements SessiyaService {
     @Override
     public void deleteByOquvchiId(Long id) {
         List<Sessiya> ss=sessiyaRepository.getAllByOquvchiIdAndAktivIsTrue(id);
+        for (Sessiya s: ss) {
+            delete(s.getId());
+        }
+    }
+
+    @Override
+    public void deleteAllByGuruhId(Long id) {
+        List<Sessiya> ss=sessiyaRepository.getAllByGuruhIdAndAktivIsTrue(id);
         for (Sessiya s: ss) {
             delete(s.getId());
         }

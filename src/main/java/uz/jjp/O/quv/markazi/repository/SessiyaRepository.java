@@ -12,5 +12,6 @@ import java.util.List;
 public interface SessiyaRepository extends JpaRepository<Sessiya,Long> {
 
 public List<Sessiya> getAllByOquvchiIdAndAktivIsTrue(Long id);
-
+public List<Sessiya> getAllByGuruhId(Long id);
+public List<Sessiya> getAllByGuruhIdAndAktivIsTrue(Long id);
 }

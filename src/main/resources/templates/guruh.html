@@ -79,6 +79,13 @@
               <label for="narx">Narx:</label>
               <input required type="number" name="narx" id="narx" class="form-control" placeholder="Guruh narxini kiriting..." aria-describedby="nom">              
             </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" name="aktiv"  checked>
+                Aktiv
+              </label>
+            </div>
+
             <div class="form-group">
               <label for="info">Izoh</label>
               <textarea class="form-control" name="info" id="info" rows="5" placeholder="Izoh..."></textarea>
@@ -131,6 +138,13 @@
               <input required th:value="${guruh.narx}" type="number" name="narx" id="narx" class="form-control" placeholder="Guruh narxini kiriting..." aria-describedby="nom">              
             </div>
 
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" name="aktiv"  th:field="${sessiya.aktiv}">
+                Aktiv
+              </label>
+            </div>
+
             <div class="form-group">
               <label for="info">Izoh</label>
               <textarea th:field="${guruh.info}" class="form-control" name="info" id="info" rows="5" placeholder="Izoh..."></textarea>
@@ -155,6 +169,7 @@
               <th>O'qituvchi</th>
               <th>O'quvchilar soni</th>
               <th>Narx</th>
+              <th>Aktiv</th>
               <th>Izoh</th>
               <th>Amallar</th>
             </tr>
@@ -171,6 +186,14 @@
               </td>
               <td th:text="${o.oquvchiSon}"></td>
               <td th:text="${o.narx}"></td>
+              <td th:switch="${o.aktiv}">
+                <span th:case="true" style="color: rgb(0, 238, 0);">
+                  Ha
+                </span>
+                <span th:case="false" style="color: rgb(253, 50, 43);">
+                  Yo'q
+                </span>
+              </td>
               <td th:text="${o.info}"></td>
               <td>
                 <a class="btn btn-info" th:href="@{/guruhlar/edit/{id}(id=${o.id})}">
@@ -180,7 +203,11 @@
 
 
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
-                  th:attr="data-id=${o.id}">
+                  th:attr="data-id=${o.id}" th:if="${o.aktiv}">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
+                  th:attr="data-id=${o.id}" th:if="${!o.aktiv}" disabled>
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
 
@@ -192,7 +219,7 @@
         <div class="sara">
           <div style="display: flex;flex-direction: row;">
             <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
-              Jami:
+              Natija:
               <span id="jami" th:text="${guruhlar.size}"></span>
               ta
             </div>

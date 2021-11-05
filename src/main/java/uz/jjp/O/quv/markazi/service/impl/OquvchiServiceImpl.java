@@ -3,8 +3,11 @@ package uz.jjp.O.quv.markazi.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.jjp.O.quv.markazi.entity.Oquvchi;
+import uz.jjp.O.quv.markazi.entity.Sessiya;
 import uz.jjp.O.quv.markazi.repository.OquvchiRepository;
+import uz.jjp.O.quv.markazi.repository.SessiyaRepository;
 import uz.jjp.O.quv.markazi.service.OquvchiService;
+import uz.jjp.O.quv.markazi.service.SessiyaService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +16,9 @@ import java.util.List;
 public class OquvchiServiceImpl implements OquvchiService {
     @Autowired
     OquvchiRepository oquvchiRepository;
+    @Autowired
+    SessiyaRepository sessiyaRepository;
+
     @Override
     public List<Oquvchi> getAll() {
         return oquvchiRepository.findAll();
@@ -57,5 +63,16 @@ public class OquvchiServiceImpl implements OquvchiService {
             }
         }
         return ss;
+    }
+
+    @Override
+    public List<Oquvchi> getAllByGuruhId(Long id) {
+        List<Sessiya> ss=sessiyaRepository.getAllByGuruhId(id);
+        List<Oquvchi> oqs=new ArrayList<>();
+        for (Sessiya s: ss  ) {
+            if (s.getAktiv())
+            oqs.add(s.getOquvchi());
+        }
+        return oqs;
     }
 }

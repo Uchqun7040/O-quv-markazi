@@ -63,5 +63,11 @@ public List<Sessiya> izla(String s);
      */
     void deleteByOquvchiId(Long id);
 
+    /**
+     * Bu metod guruh o'chirilganda avtomatik ravishda, unga tegishli sessiyalar ham o'chirilishini bajaradi.
+     * @param id
+     */
+    void deleteAllByGuruhId(Long id);
+
 
 }

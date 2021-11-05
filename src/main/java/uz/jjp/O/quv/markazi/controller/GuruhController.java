@@ -8,11 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uz.jjp.O.quv.markazi.entity.Guruh;
+import uz.jjp.O.quv.markazi.entity.GuruhOqituvchi;
 import uz.jjp.O.quv.markazi.entity.Search;
-import uz.jjp.O.quv.markazi.service.FanService;
-import uz.jjp.O.quv.markazi.service.GuruhService;
-import uz.jjp.O.quv.markazi.service.OqituvchiService;
-import uz.jjp.O.quv.markazi.service.SessiyaService;
+import uz.jjp.O.quv.markazi.service.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,6 +23,9 @@ public class GuruhController {
 
     @Autowired
     OqituvchiService oqituvchiService;
+
+    @Autowired
+    OquvchiService oquvchiService;
 
     @Autowired
     FanService fanService;
@@ -67,5 +68,21 @@ public class GuruhController {
         guruhService.update(o);
         hsr.sendRedirect("/guruhlar");
     }
-
+    @GetMapping("/onguruh/{id}")
+    public String onguruh(@PathVariable Long id,Model model){
+        model.addAttribute("oqituvchi",guruhService.getById(id).getOqituvchi());
+        model.addAttribute("oquvchilar",oquvchiService.getAllByGuruhId(id));
+        model.addAttribute("guruhId",id);
+        return "onguruh";
+    }
+    @GetMapping("/editOqituvchi/{id}")
+    public String oqituvchiBoyichaOzgartiriluvchi(@PathVariable Long id,Model model) throws IOException { Guruh o=guruhService.getById(id);
+        model.addAttribute("oqituvchilar",oqituvchiService.getAll());
+        return onguruh(id,model);
+    }
+    @PostMapping("/editOqituvchi")
+    public String oqituvchisiniOzgartirish(GuruhOqituvchi o,Model model) throws IOException {
+        guruhService.updateOqituvchisi(o);
+        return onguruh(o.getGuruhId(),model);
+    }
 }

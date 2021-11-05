@@ -42,4 +42,9 @@ public Oquvchi getById(Long id);
      * @return
      */
 public List<Oquvchi> izla(String s);
+    /**
+     * Bu metod kirib kelayotgan Long turidagi id li guruhga tegishli oquvchilarni(aktivlarini) olib beradi.
+     * @param id
+     */
+public List<Oquvchi> getAllByGuruhId(Long id);
 }

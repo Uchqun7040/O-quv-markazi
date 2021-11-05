@@ -3,6 +3,7 @@ package uz.jjp.O.quv.markazi.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.jjp.O.quv.markazi.entity.Guruh;
+import uz.jjp.O.quv.markazi.entity.GuruhOqituvchi;
 import uz.jjp.O.quv.markazi.entity.Sessiya;
 import uz.jjp.O.quv.markazi.repository.GuruhRepository;
 import uz.jjp.O.quv.markazi.service.GuruhService;
@@ -30,7 +31,10 @@ public class GuruhServiceImpl implements GuruhService {
 
     @Override
     public void delete(Long id) {
-        guruhRepository.deleteById(id);
+        sessiyaService.deleteAllByGuruhId(id);
+        Guruh g=guruhRepository.getOne(id);
+        g.setAktiv(false);
+        guruhRepository.save(g);
     }
 
     @Override
@@ -91,5 +95,12 @@ public class GuruhServiceImpl implements GuruhService {
             gs.removeIf(g ->(s.getGuruh() == g && s.getAktiv()));
         });
         return gs;
+    }
+
+    @Override
+    public void updateOqituvchisi(GuruhOqituvchi o) {
+        Guruh g=guruhRepository.getOne(o.getGuruhId());
+        g.setOqituvchi(o.getOqituvchi());
+        update(g);
     }
 }
