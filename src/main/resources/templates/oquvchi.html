@@ -49,7 +49,7 @@
   <div th:insert="header :: boshqism1"></div>
   <div class="container-fluid bg-light">
 
-    <h1 style="padding-left: 10px;color: rgb(2, 26, 98);">O'quvchilar bo'limi</h1>
+    <h2 style="padding-left: 10px;color: rgb(2, 26, 98);">O'quvchilar bo'limi</h2>
     <hr>
     <div class="row">
       <div class="col-12 col-md-4">
@@ -81,8 +81,8 @@
               
             </div>
             <div class="form-group">
-              <label for="tel_nomer">Tel. nomer:</label>
-              <input type="number" name="tel_nomer" id="tel_nomer" class="form-control" placeholder="Telefon nomerini kiriting..."
+              <label for="telNomer">Tel. nomer:</label>
+              <input type="number" name="telNomer" id="telNomer" class="form-control" placeholder="Telefon nomerini kiriting..."
                 aria-describedby="nomer">
             </div>
             <div class="form-group">
@@ -93,109 +93,34 @@
             <input type="reset" class="btn btn-danger" value="Tozalash"></input>
           </form>
         </div>
-        <!-- <div th:if="${oquvchi} !=null" style="background-color: rgb(192, 214, 255); padding: 13px;">
-          <h4>O'quvchini tahrirlash</h4>
-          <form action="/oquvchilar/edit" method="POST">
-            <div class="form-group">
-              <label for="id">Id:</label>
-              <input th:value="${oquvchi.id}" type="text" name="id" id="id" class="form-control" aria-describedby="id"
-                readonly>
-              
-            </div>
-            <div class="form-group">
-              <label for="ism">Ism:</label>
-              <input required th:value="${oquvchi.ism}" type="text" name="ism" id="ism" class="form-control"
-                placeholder="Ismini kiriting..." aria-describedby="ism">
-              
-            </div>
-            <div class="form-group">
-              <label for="familiya">Familiya:</label>
-              <input required th:value="${oquvchi.familiya}" type="text" name="familiya" id="familiya"
-                class="form-control" placeholder="Familiyasini kiriting..." aria-describedby="familiya">
-            
-            </div>
-            <div class="form-group">
-              <label for="sharif">Sharif:</label>
-              <input required th:value="${oquvchi.sharif}" type="text" name="sharif" id="sharif" class="form-control"
-                placeholder="Sharifini kiriting..." aria-describedby="sharif">
-              
-            </div>
-            <div class="form-group">
-              <label for="hujjat">Hujjat:</label>
-              <input required th:value="${oquvchi.hujjat}" type="text" name="hujjat" id="hujjat" class="form-control"
-                placeholder="Seriya va nomer..." aria-describedby="hujjat">
-              
-            </div>
-            <div class="form-group">
-              <label for="tel_nomer">Tel. nomer:</label>
-              <input th:value="${oquvchi.tel_nomer}" type="text" name="tel_nomer" id="tel_nomer" class="form-control"
-                placeholder="Telefon nomerini kiriting..." aria-describedby="nomer">
-             
-            </div>
-            <div class="form-group">
-              <label for="info">Izoh:</label>
-              <textarea th:field="${oquvchi.info}" class="form-control" name="info" id="info" rows="5" placeholder="Izoh..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Tahrirlash</button>
-            <a href="/oquvchilar" class="btn btn-danger" style="font-weight: normal !important;">Bekor qilish</a>
-          </form>
-
-
-          <div th:if="${guruhlar.size} != 0">
-            <hr>
-            <h4>O'quvchini guruhlarga tayinlash</h4>
-            <form action="/sessiyalar" method="POST">
-
-              <div class="form-group">
-                <label for="oquvchi">O'quvchi:</label>
-                <select class="form-control" name="oquvchi" id="oquvchi">
-                  <option th:value="${oquvchi.id}" th:text="${oquvchi.familiya}+' '+${oquvchi.ism}" selected
-                    aria-readonly="true"></option>
-                </select>
-                
-              </div>
-
-              <div class="form-group">
-                <label for="guruh">Guruh:</label>
-                <select class="form-control" name="guruh" id="guruh">
-                  <option th:each="g : ${guruhlar}" th:value="${g.id}" th:text="${g.nom}" ></option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="boshVaqt">Boshlangan vaqt:</label>
-                <input required type="datetime-local" name="boshVaqt" id="boshVaqt" class="form-control"
-                  aria-describedby="boshVaqt">
-                
-              </div>
-
-              <div class="form-group">
-                <label for="tugVaqt">Tugash vaqt:</label>
-                <input type="datetime-local" name="tugVaqt" id="tugVaqt" class="form-control"
-                  aria-describedby="tugVaqt">
-                
-              </div>
-
-              
-
-              <div class="form-group">
-                <label for="info">Izoh:</label>
-                <textarea class="form-control" name="info" id="info" rows="5" placeholder="Izoh..."></textarea>
-              </div>
-
-              <input type="submit" class="btn btn-primary" value="Qo'shish"></input>
-              <input type="reset" class="btn btn-danger" value="Tozalash"></input>
-
-
-
-            </form>
-          </div>
-
-
-        </div> -->
+      
       </div>
       <div class="col-12 col-md-8" style="background-color: rgb(245, 243, 243); padding: 13px;position: relative;">
-        <h2>O'quvchilar ro'yxati</h2>
+       
+        <div class="row">
+          <div class="col-12 col-md-6 ">
+            <h3>O'quvchilar ro'yxati</h3>
+          </div>
+          <div class="col-12 col-lg-6 position-relative">
+
+            <div style="display: flex;flex-direction: row;justify-content: flex-end;">
+              <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
+                Natija:
+                <span id="jami" th:text="${oquvchilar.size}"></span>
+                ta
+              </div>
+              <div style="padding-top: 6px;padding-left: 8px;">
+                <form id="izlash" action="/oquvchilar/izla" method="POST">
+                  <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
+                  <input type="submit" id="tugma" value="Izlash"></input>
+                </form>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
         <div th:if="${oquvchilar.size} == 0" id="royxatBush">
           Ro'yxat bo'sh!
 
@@ -220,41 +145,26 @@
               <td th:text="${o.familiya}"></td>
               <td th:text="${o.sharif}"></td>
               <td th:text="${o.hujjat}"></td>
-              <td th:text="${o.tel_nomer}"></td>
+              <td th:text="${o.telNomer}"></td>
               <td th:text="${o.info}"></td>
               <td>
-                <a class="btn btn-info" th:href="@{/oquvchilar/edit/{id}(id=${o.id})}">
+                <a class="btn btn-info" th:href="@{/oquvchilar/edit/{id}(id=${o.id})}" style="border-radius: 50%;">
                   <i class="fa fa-pencil " aria-hidden="true"></i>
                 </a>
 
 
 
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
-                  th:attr="data-id=${o.id}">
+                <!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
+                  th:attr="data-id=${o.id}" style="border-radius: 50%;">
                   <i class="fa fa-trash" aria-hidden="true"></i>
-                </button>
+                </button> -->
 
 
               </td>
             </tr>
           </tbody>
         </table>
-        <div class="sara">
-          <div style="display: flex;flex-direction: row;">
-            <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
-              Natija:
-              <span id="jami" th:text="${oquvchilar.size}"></span>
-              ta
-            </div>
-            <div style="padding-top: 6px;padding-left: 8px;">
-              <form id="izlash" action="/oquvchilar/izla" method="POST">
-                <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
-                <input type="submit" id="tugma" value="Izlash"></input>
-              </form>
-            </div>
-
-          </div>
-        </div>
+       
       </div>
     </div>
 

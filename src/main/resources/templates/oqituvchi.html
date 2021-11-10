@@ -49,12 +49,12 @@
   <div th:insert="header :: boshqism1"></div>
   <div class="container-fluid bg-light">
     
-    <h1 style="padding-left: 10px;color: rgb(2, 26, 98);">O'qituvchilar bo'limi</h1>
+    <h2 style="padding-left: 10px;color: rgb(2, 26, 98);">O'qituvchilar bo'limi</h2>
     <hr>
     <div class="row">
       <div class="col-12 col-md-4">
         <div th:if="${oqituvchi} == null" style="background-color: rgb(192, 214, 255); padding: 13px;">
-          <h2>O'qituvchi qo'shish</h2>
+          <h3>O'qituvchi qo'shish</h3>
           <form action="/oqituvchilar" method="POST">
             <div class="form-group">
               <label for="ism">Ism:</label>
@@ -79,8 +79,8 @@
               
             </div>
             <div class="form-group">
-              <label for="tel_nomer">Tel. nomer</label>
-              <input type="number" name="tel_nomer" id="tel_nomer" class="form-control" placeholder="Telefon nomerini kiriting..."
+              <label for="telNomer">Tel. nomer</label>
+              <input type="number" name="telNomer" id="telNomer" class="form-control" placeholder="Telefon nomerini kiriting..."
                 aria-describedby="nomer">
             </div>
             <div class="form-group">
@@ -92,7 +92,7 @@
           </form>
         </div>
         <div th:if="${oqituvchi} !=null" style="background-color: rgb(192, 214, 255); padding: 13px;">
-          <h2>O'qituvchini tahrirlash</h2>
+          <h3>O'qituvchini tahrirlash</h3>
           <form action="/oqituvchilar/edit" method="POST">
             <div class="form-group">
               <label for="id">Id:</label>
@@ -121,8 +121,8 @@
                 aria-describedby="hujjat">
             </div>
             <div class="form-group">
-              <label for="tel_nomer">Tel. nomer</label>
-              <input th:value="${oqituvchi.tel_nomer}" type="number" name="tel_nomer" id="tel_nomer" class="form-control" placeholder="Telefon nomerini kiriting..."
+              <label for="telNomer">Tel. nomer</label>
+              <input th:value="${oqituvchi.telNomer}" type="number" name="telNomer" id="telNomer" class="form-control" placeholder="Telefon nomerini kiriting..."
                 aria-describedby="nomer">
               
             </div>
@@ -136,7 +136,31 @@
         </div>
       </div>
       <div class="col-12 col-md-8" style="background-color: rgb(245, 243, 243); padding: 13px;position: relative;">
-        <h2>O'qituvchilar ro'yxati</h2>
+       
+        <div class="row">
+          <div class="col-12 col-md-6 ">
+            <h3>O'qituvchilar ro'yxati</h3>
+          </div>
+          <div class="col-12 col-lg-6 position-relative">
+
+            <div style="display: flex;flex-direction: row;justify-content: flex-end;">
+              <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
+                Natija:
+                <span id="jami" th:text="${oqituvchilar.size}"></span>
+                ta
+              </div>
+              <div style="padding-top: 6px;padding-left: 8px;">
+                <form id="izlash" action="/oqituvchilar/izla" method="POST">
+                  <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
+                  <input type="submit" id="tugma" value="Izlash"></input>
+                </form>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
         <div th:if="${oqituvchilar.size} == 0" id="royxatBush">
           Ro'yxat bo'sh!
           
@@ -161,17 +185,17 @@
               <td th:text="${o.familiya}"></td>
               <td th:text="${o.sharif}"></td>
               <td th:text="${o.hujjat}"></td>
-              <td th:text="${o.tel_nomer}"></td>
+              <td th:text="${o.telNomer}"></td>
               <td th:text="${o.info}"></td>
               <td>
-                <a class="btn btn-info" th:href="@{/oqituvchilar/edit/{id}(id=${o.id})}">
+                <a class="btn btn-info" th:href="@{/oqituvchilar/edit/{id}(id=${o.id})}" style="border-radius: 50%;">
                   <i class="fa fa-pencil " aria-hidden="true"></i>
                 </a>
 
 
 
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
-                th:attr="data-id=${o.id}">
+                th:attr="data-id=${o.id}" style="border-radius: 50%;">
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
 
@@ -180,22 +204,7 @@
             </tr>
           </tbody>
         </table>
-        <div class="sara">
-          <div style="display: flex;flex-direction: row;">
-            <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
-              Natija:
-              <span id="jami" th:text="${oqituvchilar.size}"></span>
-              ta
-            </div>
-            <div style="padding-top: 6px;padding-left: 8px;">
-              <form id="izlash" action="/oqituvchilar/izla" method="POST">
-                <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
-                <input type="submit" id="tugma" value="Izlash"></input>
-              </form>
-            </div>
-
-          </div>
-        </div>
+        
       </div>
     </div>
   </div>

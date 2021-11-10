@@ -14,7 +14,7 @@ public class Oqituvchi {
     private String familiya;
     private String sharif;
     private String hujjat;
-    private String tel_nomer;
+    private String telNomer;
     private String info;
 
     public Long getId() {
@@ -57,12 +57,12 @@ public class Oqituvchi {
         this.hujjat = hujjat;
     }
 
-    public String getTel_nomer() {
-        return tel_nomer;
+    public String getTelNomer() {
+        return telNomer;
     }
 
-    public void setTel_nomer(String tel_nomer) {
-        this.tel_nomer = tel_nomer;
+    public void setTelNomer(String telNomer) {
+        this.telNomer = telNomer;
     }
 
     public String getInfo() {

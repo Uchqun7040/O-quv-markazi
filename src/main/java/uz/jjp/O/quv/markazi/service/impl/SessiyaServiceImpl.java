@@ -54,8 +54,16 @@ public class SessiyaServiceImpl implements SessiyaService {
     @Override
     public void update(Sessiya o) {
         Long id=o.getId();
-        if(sessiyaRepository.getOne(id).getAktiv()) guruhService.unguruhlash(o.getGuruh().getId());
-        if(o.getAktiv()) guruhService.guruhlash(o.getGuruh().getId());
+        if(!o.getGuruh().getAktiv()) o.setAktiv(false);
+        else {
+            if (sessiyaRepository.getOne(id).getAktiv()) {
+                guruhService.unguruhlash(o.getGuruh().getId());
+            }
+            if (o.getAktiv()) {
+                guruhService.guruhlash(o.getGuruh().getId());
+
+            }
+        }
         sessiyaRepository.save(o);
     }
 
@@ -72,24 +80,15 @@ public class SessiyaServiceImpl implements SessiyaService {
 
     @Override
     public List<Sessiya> izla(String s) {
-        ArrayList<Sessiya> ss=new ArrayList<>();
-        s=s.toLowerCase();
-        String k;
-        for (Sessiya sessiya: sessiyaRepository.findAll()) {
-            k="";
-            k+=sessiya.getId().toString().toLowerCase();
-            k+=sessiya.getGuruh().getNom().toLowerCase();
-            k+=sessiya.getGuruh().getFan().getNom().toLowerCase();
-            k+=sessiya.getBoshVaqt();
-            k+=sessiya.getTugVaqt();
-            k+=sessiya.getOquvchi().getFamiliya().toLowerCase();
-            k+=sessiya.getOquvchi().getId().toString().toLowerCase();
-            k+=sessiya.getOquvchi().getIsm().toLowerCase();
-            if (k.contains(s)){
-                ss.add(sessiya);
-            }
+        try{
+            Long n=Long.parseLong(s);
+            return sessiyaRepository.findAllByIdOrGuruh_NomContainsIgnoreCaseOrGuruh_Fan_NomContainsIgnoreCaseOrOquvchi_FamiliyaContainsIgnoreCaseOrOquvchi_IdOrOquvchi_IsmContainsIgnoreCaseOrInfoContainsIgnoreCase(n,s,s,s,n,s,s);
         }
-        return ss;
+        catch (Exception x) {
+
+            return sessiyaRepository.findAllByIdOrGuruh_NomContainsIgnoreCaseOrGuruh_Fan_NomContainsIgnoreCaseOrOquvchi_FamiliyaContainsIgnoreCaseOrOquvchi_IdOrOquvchi_IsmContainsIgnoreCaseOrInfoContainsIgnoreCase((long)-1,s,s,s,(long)-1,s,s);
+        }
+
     }
 
     @Override
@@ -98,6 +97,7 @@ public class SessiyaServiceImpl implements SessiyaService {
         for (Sessiya s: ss) {
             delete(s.getId());
         }
+
     }
 
     @Override

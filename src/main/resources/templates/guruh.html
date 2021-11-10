@@ -49,12 +49,12 @@
   <div th:insert="header :: boshqism1"></div>
   <div class="container-fluid bg-light">
 
-    <h1 style="padding-left: 10px;color: rgb(2, 26, 98);">Guruhlar bo'limi</h1>
+    <h2 style="padding-left: 10px;color: rgb(2, 26, 98);">Guruhlar bo'limi</h2>
     <hr>
     <div class="row">
       <div class="col-12 col-md-3">
-        <div th:if="${guruh} == null" style="background-color: rgb(192, 214, 255); padding: 13px;">
-          <h2>Guruh qo'shish</h2>
+        <div style="background-color: rgb(192, 214, 255); padding: 13px;">
+          <h3>Guruh qo'shish</h3>
           <form action="/guruhlar" method="POST">
             <div class="form-group">
               <label for="mon">Nom:</label>
@@ -94,68 +94,40 @@
             <input type="reset" class="btn btn-danger" value="Tozalash"></input>
           </form>
         </div>
-        <div th:if="${guruh} !=null" style="background-color: rgb(192, 214, 255); padding: 13px;">
-
-          
-          <h2>Guruhni tahrirlash</h2>
-          <form action="/guruhlar/edit" method="POST">
-            <div class="form-group">
-              <label for="id">Id:</label>
-              <input th:value="${guruh.id}" type="text" name="id" id="id" class="form-control" aria-describedby="id"
-                readonly>
-              
-            </div>
-            <div class="form-group">
-              <label for="mon">Nom:</label>
-              <input required th:value="${guruh.nom}" type="text" name="nom" id="mon" class="form-control" placeholder="Nomini kiriting..."
-                aria-describedby="nom">
-              
-            </div>
-
-            <div class="form-group">
-              <label for="oqituvchi">O'qituvchi:</label>
-              <select required class="form-control" name="oqituvchi" id="oqituvchi">
-                <option th:each="oq : ${oqituvchilar}" th:value="${oq.id}" th:text="${oq.ism}+' '+${oq.familiya}"
-                  th:if="${guruh.oqituvchi.id} != ${oq.id}"></option>
-                <option th:value="${guruh.oqituvchi.id}" th:text="${guruh.oqituvchi.ism}+' '+${guruh.oqituvchi.familiya}"
-                  selected></option>
-              </select>
-            </div>
-
-
-            <div class="form-group">
-              <label for="fan">Fan:</label>
-              <select required class="form-control" name="fan" id="fan">
-                <option th:each="fan : ${fanlar}" th:value="${fan.id}" th:text="${fan.nom}" th:if="${guruh.fan.id} != ${fan.id}"></option>
-                <option th:value="${guruh.fan.id}" th:text="${guruh.fan.nom}" selected></option>
-
-
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="narx">Narx:</label>
-              <input required th:value="${guruh.narx}" type="number" name="narx" id="narx" class="form-control" placeholder="Guruh narxini kiriting..." aria-describedby="nom">              
-            </div>
-
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" name="aktiv"  th:field="${sessiya.aktiv}">
-                Aktiv
-              </label>
-            </div>
-
-            <div class="form-group">
-              <label for="info">Izoh</label>
-              <textarea th:field="${guruh.info}" class="form-control" name="info" id="info" rows="5" placeholder="Izoh..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Tahrirlash</button>
-            <a href="/guruhlar" class="btn btn-danger" style="font-weight: normal !important;">Bekor qilish</a>
-          </form>
-        </div>
+       
       </div>
       <div class="col-12 col-md-9" style="background-color: rgb(245, 243, 243); padding: 13px;position: relative;">
-        <h2>Guruhlar ro'yxati</h2>
+        
+        <div class="row">
+          <div class="col-12 col-md-6 ">
+            <h3>Guruhlar ro'yxati</h3>
+          </div>
+
+          <div class="col-12 col-lg-6 position-relative">
+        
+            <div style="display: flex;flex-direction: row;justify-content: flex-end;">
+              <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
+                Natija:
+                <span id="jami" th:text="${guruhlar.size}"></span>
+                ta
+              </div>
+              <div style="padding-top: 6px;padding-left: 8px;">
+                <form id="izlash" action="/guruhlar/izla" method="POST">
+                  <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
+                  <input type="submit" id="tugma" value="Izlash"></input>
+                </form>
+              </div >
+  
+            </div>
+            
+         
+        </div>
+
+
+
+
+
+        </div>
         <div th:if="${guruhlar.size} == 0" id="royxatBush">
           Ro'yxat bo'sh!
           
@@ -196,17 +168,17 @@
               </td>
               <td th:text="${o.info}"></td>
               <td>
-                <a class="btn btn-info" th:href="@{/guruhlar/edit/{id}(id=${o.id})}">
+                <a class="btn btn-info" th:href="@{/guruhlar/onguruh/{id}(id=${o.id})}" style="border-radius: 50%;">
                   <i class="fa fa-pencil " aria-hidden="true"></i>
                 </a>
 
 
 
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
+                <button type="button" style="border-radius: 50%;" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
                   th:attr="data-id=${o.id}" th:if="${o.aktiv}">
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
+                <button style="border-radius: 50%;" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
                   th:attr="data-id=${o.id}" th:if="${!o.aktiv}" disabled>
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
@@ -216,22 +188,7 @@
             </tr>
           </tbody>
         </table>
-        <div class="sara">
-          <div style="display: flex;flex-direction: row;">
-            <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
-              Natija:
-              <span id="jami" th:text="${guruhlar.size}"></span>
-              ta
-            </div>
-            <div style="padding-top: 6px;padding-left: 8px;">
-              <form id="izlash" action="/guruhlar/izla" method="POST">
-                <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
-                <input type="submit" id="tugma" value="Izlash"></input>
-              </form>
-            </div>
-
-          </div>
-        </div>
+        
       </div>
     </div>
   </div>

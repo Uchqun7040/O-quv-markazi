@@ -39,22 +39,14 @@ public class FanServiceImpl implements FanService {
 
     @Override
     public List<Fan> izla(String s) {
-        ArrayList<Fan> ss=new ArrayList<>();
-        s=s.toLowerCase();
-        String k;
-        for (Fan fan: fanRepository.findAll()) {
-            k="";
-            k+=fan.getId().toString().toLowerCase();
-            k+=fan.getNom().toLowerCase();
-            k+=fan.getInfo().toLowerCase();
-            if (k.contains(s)){
-                ss.add(fan);
-            }
+
+        try{
+            Long n=Long.parseLong(s);
+            return fanRepository.findAllByNomContainsIgnoreCaseOrInfoContainsIgnoreCaseOrId(s, s,n);
         }
-        return ss;
+        catch (Exception x) {
+
+            return fanRepository.findAllByNomContainsIgnoreCaseOrInfoContainsIgnoreCaseOrId(s, s,(long) -1);
+        }
     }
-//    @Override
-//    public List<Fan> izla(String s) {
-//        return fanRepository.findAllByNomContainsOrInfoContains(s,s);
-//    }
 }

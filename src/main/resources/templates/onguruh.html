@@ -24,21 +24,13 @@
             color: rgb(46, 46, 46);
         }
 
-        #oquvchiRoyxat {
-            text-align: center;
-            color: rgb(43, 43, 43);
-        }
-
-        #oqituvchi {
-            text-align: center;
-            color: rgb(43, 43, 43);
-        }
 
         #oqituvchisi {
             background-color: rgba(19, 202, 208, 0.823);
             padding-bottom: 10px;
-            border-top-left-radius: 7px;
-            border-top-right-radius: 7px;
+            padding-top: 10px;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
             width: 100%;
         }
 
@@ -51,13 +43,38 @@
 
         }
 
-        #almash {
+        #oqit {
+            font-size: x-large;
+            color: rgb(9, 9, 189);
             text-align: center;
+        }
+
+        #faollik {
+            background-color: rgb(128, 221, 34);
+            display: inline-block;
+            padding: 6px;
+            margin-top: 10px;
+            color: white;
+            border-radius: 9px;
+            box-shadow: 1px 1px 1px rgb(44, 44, 44);
+
+        }
+
+        #oquvcila {
+            background-color: rgba(233, 234, 236, 0.919);
+            padding: 13px;
+            border-left: rgb(207, 205, 205) 1px solid;
+        }
+
+        body {
+            background-image: url('/Снимок7.PNG');
+            background-repeat: no-repeat;
+            background-size: cover;
         }
     </style>
 </head>
 
-<body style="background-image: url('/Снимок7.PNG');background-repeat: no-repeat;background-size: cover;">
+<body>
 
     <div th:insert="header :: boshqism1"></div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -73,90 +90,136 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Bekor qilish</button>
-                    <a href="/sessiyalar/ochirishX/" class="btn btn-danger">O'chirish</a>
+                    <a href="/oquvchilar/ochirish/" class="btn btn-danger">O'chirish</a>
                 </div>
             </div>
         </div>
     </div>
 
 
-
-
-
-
-
     <div class="container" style="background-color: rgba(100, 95, 95, 0.473);padding-top: 5px; margin-bottom: 20px;">
 
         <div class="row">
             <div class="col-12">
-                <a class="btn btn-primary backBtn btn-lg type='button'" style="margin-top: 3px;margin-bottom: 5px;"
-                    href="/guruhlar">
-                    <i class="fa fa-angle-left" aria-hidden="true"></i>
-                    ortga
-                </a>
+                <div class="row">
+                    <div class="col-6">
+                        <a class="btn btn-primary backBtn btn-lg type='button'"
+                            style="margin-top: 3px;margin-bottom: 5px;" href="/guruhlar">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                            ortga
+                        </a>
+                    </div>
+                    <div class="col-6 text-right">
+                        <h5 id="faollik" th:if="${guruh.aktiv}">
+                            Aktiv
+                        </h5>
+                        <h5 style="background-color: rgb(255, 53, 53);" id="faollik" th:if="${!guruh.aktiv}">
+                            Aktiv emas
+                        </h5>
+                    </div>
+                </div>
+
                 <div id="oqituvchisi">
-                    <h4 id="oqituvchi">O'qituvchisi</h4>
+                    <h4 id="oqit">O'qituvchisi</h4>
                     <div style="text-align: center;">
-                        <div class="mal" th:text="${oqituvchi.ism}+' '+${oqituvchi.familiya}+' '+${oqituvchi.sharif}">
+                        <div class="mal"
+                            th:text="${guruh.oqituvchi.ism}+' '+${guruh.oqituvchi.familiya}+' '+${guruh.oqituvchi.sharif}">
                             Uchqun Shonazarov Nurbekovich
                         </div><br>
                         <small class="text-muted">ism, familiya va sharif</small>
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-6" style="text-align: center;">
-                            <div class="mal" th:text="${oqituvchi.id}">
+                            <div class="mal" th:text="${guruh.oqituvchi.id}">
                                 12
                             </div><br>
                             <small class="text-muted">id</small>
                         </div>
                         <div class="col-12 col-md-6 " style="text-align: center;">
-                            <div class="mal" th:text="${oqituvchi.tel_nomer}">
+                            <div class="mal" th:text="${guruh.oqituvchi.telNomer}">
                                 912207040
                             </div><br>
                             <small class="text-muted">telefon nomer</small>
                         </div>
 
                     </div>
-                    <div class="row">
-                        <div class="col-12" id="almash" th:if="${oqituvchilar} == null">
-                            <a class="btn btn-primary"   th:href="@{/guruhlar/editOqituvchi/{id}(id=${guruhId})}">Almashtirish</a>
-                        </div>
-                        <div class="col-12"   style="text-align: center;" th:if="${oqituvchilar} != null">
-                            <div style="width: 25%; display: inline-block;" >
-                                <form action="/guruhlar/editOqituvchi" method="post" >
-                                    <input th:value="${guruhId}" type="hidden" name="guruhId" class="form-control"  >
-                                    <div class="form-group">
-                                        <label for="oqit">Yangi o'qituvchini tanlang</label>
-                                        <select class="form-control" name="oqituvchi" id="oqit">
-                                            <option th:each="oq : ${oqituvchilar}" th:value="${oq.id}"
-                                                th:text="${oq.ism}+' '+${oq.familiya}" th:if="${oqituvchi.id} != ${oq.id}">
-                                            </option>
-                                            <option th:value="${oqituvchi.id}"
-                                                th:text="${oqituvchi.ism}+' '+${oqituvchi.familiya}"
-                                                selected>
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">OK</button>
-                                </form>
-                            </div>
-
-
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-12" style="background-color: rgba(233, 234, 236, 0.919); padding: 13px;">
+            <div class="col-12 col-md-3" style="background-color: rgba(233, 234, 236, 0.919); padding: 13px;">
+                <h5 style="text-align: center;">Ma'lumotlarni tahrirlash</h5>
+                <form action="/guruhlar/edit" method="POST">
+                    <div class="form-group">
+                        <label for="id">Id:</label>
+                        <input th:value="${guruh.id}" type="text" name="id" id="id" class="form-control"
+                            aria-describedby="id" readonly>
 
-                <h4 id="oquvchiRoyxat">Guruh o'quvchilari</h4>
+                    </div>
+                    <div class="form-group">
+                        <label for="mon">Nom:</label>
+                        <input required th:value="${guruh.nom}" type="text" name="nom" id="mon" class="form-control"
+                            placeholder="Nomini kiriting..." aria-describedby="nom">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="oqituvchi">O'qituvchi:</label>
+                        <select required class="form-control" name="oqituvchi" id="oqituvchi">
+                            <option th:each="oq : ${oqituvchilar}" th:value="${oq.id}"
+                                th:text="${oq.ism}+' '+${oq.familiya}" th:if="${guruh.oqituvchi.id} != ${oq.id}">Uchqun
+                                Shonazarov
+                            </option>
+                            <option th:value="${guruh.oqituvchi.id}"
+                                th:text="${guruh.oqituvchi.ism}+' '+${guruh.oqituvchi.familiya}" selected></option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="fan">Fan:</label>
+                        <select required class="form-control" name="fan" id="fan">
+                            <option th:each="fan : ${fanlar}" th:value="${fan.id}" th:text="${fan.nom}"
+                                th:if="${guruh.fan.id} != ${fan.id}"></option>
+                            <option th:value="${guruh.fan.id}" th:text="${guruh.fan.nom}" selected></option>
+
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="narx">Narx:</label>
+                        <input required th:value="${guruh.narx}" type="number" name="narx" id="narx"
+                            class="form-control" placeholder="Guruh narxini kiriting..." aria-describedby="nom">
+                    </div>
+
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="aktiv" th:field="${guruh.aktiv}">
+                            Aktiv
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="info">Izoh</label>
+                        <textarea th:field="${guruh.info}" class="form-control" name="info" id="info" rows="5"
+                            placeholder="Izoh..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Tahrirlash</button>
+                    <a th:href="@{/guruhlar/onguruh/{id}(id=${guruh.id})}" class="btn btn-danger"
+                        style="font-weight: normal !important;">Bekor qilish</a>
+                </form>
+
+            </div>
+            <div class="col-12 col-md-9" id="oquvcila">
+
+                <h5 style="text-align: center;">Guruh o'quvchilari</h5>
                 <div th:if="${oquvchilar.size} == 0" id="royxatBush">
                     Ro'yxat bo'sh!
 
                 </div>
-                <table th:if="${oquvchilar.size} != 0" class="table table-striped table-border table-responsive">
+                <table th:if="${oquvchilar.size} != 0" class="table table-striped table-border table-responsive ">
                     <thead class="thead-inverse">
                         <tr>
                             <th>Id</th>
@@ -176,17 +239,18 @@
                             <td th:text="${o.familiya}"></td>
                             <td th:text="${o.sharif}"></td>
                             <td th:text="${o.hujjat}"></td>
-                            <td th:text="${o.tel_nomer}"></td>
+                            <td th:text="${o.telNomer}"></td>
                             <td th:text="${o.info}"></td>
                             <td>
-                                <a class="btn btn-info" th:href="@{/oquvchilar/edit/{id}(id=${o.id})}">
+                                <a class="btn btn-info" th:href="@{/oquvchilar/edit/{id}(id=${o.id})}"
+                                    style="border-radius: 50%;">
                                     <i class="fa fa-pencil " aria-hidden="true"></i>
                                 </a>
 
 
 
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
-                                    data-target="#exampleModal" th:attr="data-id=${o.id}">
+                                    data-target="#exampleModal" th:attr="data-id=${o.id}" style="border-radius: 50%;">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
 
@@ -225,7 +289,7 @@
             var button = $(event.relatedTarget)
             var id = button.data('id');
             var modal = $(this)
-            modal.find('.modal-footer a').attr('href', '/sessiyalar/ochirishX/' + id)
+            modal.find('.modal-footer a').attr('href', '/oquvchilar/ochirish/' + id)
         })
     </script>
 </body>

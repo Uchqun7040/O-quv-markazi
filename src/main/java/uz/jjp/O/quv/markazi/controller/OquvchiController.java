@@ -48,7 +48,7 @@ public class OquvchiController {
 
     @GetMapping("/ochirish/{id}")
     public void ochirish(@PathVariable Long id, HttpServletResponse hsr) throws IOException {
-        sessiyaService.deleteByOquvchiId(id);
+//        sessiyaService.deleteByOquvchiId(id);
         oquvchiService.delete(id);
         hsr.sendRedirect("/oquvchilar");
     }

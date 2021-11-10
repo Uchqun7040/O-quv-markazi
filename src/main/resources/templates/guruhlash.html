@@ -20,6 +20,15 @@
 
 
 </head>
+<style>
+  #tahrirlash {
+    padding: 13px;
+    background-image: url(/Снимок3.PNG);
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 800px;
+  }
+</style>
 
 <body>
 
@@ -49,13 +58,112 @@
   <div th:insert="header :: boshqism1"></div>
   <div class="container-fluid bg-light">
 
-    <h1 style="padding-left: 10px;color: rgb(2, 26, 98);">Guruhlashlar bo'limi</h1>
+    <h2 style="padding-left: 10px;color: rgb(2, 26, 98);">Guruhlashlar bo'limi</h2>
     <hr>
-    <div class="row" style="position: relative;">
+    <div class="row">
+      <div class="col-12 col-md-3" >
 
-      <div class="col-12"
-        style="background-color: rgb(245, 243, 243); padding: 13px;position: relative; min-height: 1000px;">
-        <h2>Guruhlashlar ro'yxati</h2>
+        <video  width="100%" height="100%" autoplay muted loop th:if="${sessiya} ==null">
+          <source src="/gif.mp4" type="video/mp4">
+          <source src="movie.ogg" type="video/ogg">
+        Your browser does not support the video tag.
+        </video>
+
+
+        <form id="tahrirlash" action="/sessiyalar/edit" method="POST" th:if="${sessiya} !=null" >
+          <h3 style="text-align: center;">Guruhlashni tahrirlash</h3>
+          <div class="form-group">
+            <label for="id">Id:</label>
+            <input th:value="${sessiya.id}" type="text" name="id" id="id" class="form-control" aria-describedby="id"
+              readonly>
+
+          </div>
+          <div class="form-group">
+            <label for="oquvchi">O'quvchi:</label>
+            <select class="form-control" name="oquvchi" id="oquvchi">
+              <option th:value="${sessiya.oquvchi.id}" th:text="${sessiya.oquvchi.familiya}+' '+${sessiya.oquvchi.ism}"
+                selected aria-readonly="true">
+              </option>
+            </select>
+
+          </div>
+
+          <div class="form-group">
+            <label for="guruh">Guruh:</label>
+            <select class="form-control" name="guruh" id="guruh">
+              <option th:each="g : ${guruhlar}" th:value="${g.id}" th:text="${g.nom}"
+                th:if="${sessiya.guruh.id} != ${g.id}"></option>
+              <option th:value="${sessiya.guruh.id}" th:text="${sessiya.guruh.nom}" selected></option>
+
+
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="boshVaqt">Boshlangan vaqt:</label>
+            <input required th:field="${sessiya.boshVaqt}" type="datetime-local" name="boshVaqt" id="boshVaqt"
+              class="form-control" aria-describedby="boshVaqt">
+
+          </div>
+
+          <div class="form-group">
+            <label for="tugVaqt">Tugash vaqt:</label>
+            <input th:field="${sessiya.tugVaqt}" type="datetime-local" name="tugVaqt" id="tugVaqt" class="form-control"
+              aria-describedby="tugVaqt">
+
+          </div>
+
+          <div class="form-check">
+            <label class="form-check-label">
+              <input th:if="${sessiya.guruh.aktiv}" type="checkbox" class="form-check-input" name="aktiv" th:field="${sessiya.aktiv}">
+              <input th:if="${!sessiya.guruh.aktiv}" type="checkbox" class="form-check-input" name="aktiv" th:field="${sessiya.aktiv}" disabled>
+              Aktiv
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label for="info">Izoh</label>
+            <textarea th:field="${sessiya.info}" class="form-control" name="info" id="info" rows="5"
+              placeholder="Izoh..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Tahrirlash</button>
+          <a href="/sessiyalar" class="btn btn-danger" style="font-weight: normal !important;">Bekor qilish</a>
+        </form>
+        
+
+      </div>
+      <div class="col-12 col-md-9" style=" padding: 13px; ">
+
+        <div class="row">
+          <div class="col-12 col-md-6 ">
+            <h3>Guruhlashlar ro'yxati</h3>
+          </div>
+          <div class="col-12 col-lg-6 position-relative">
+
+            <div style="display: flex;flex-direction: row;justify-content: flex-end;">
+              <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
+                Natija:
+                <span id="jami" th:text="${sessiyalar.size}"></span>
+                ta
+              </div>
+              <div style="padding-top: 6px;padding-left: 8px;">
+                <form id="izlash" action="/sessiyalar/izla" method="POST">
+                  <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
+                  <input type="submit" id="tugma" value="Izlash"></input>
+                </form>
+              </div>
+
+            </div>
+            <!-- <div style="padding-left: 10px;">
+            <a class="btn btn-info " href="/sessiyalar" role="button">Hammasi</a>
+            <a class="btn btn-success " href="/sessiyalar/tolanganlar" role="button">To'langanlar</a>
+            <a class="btn btn-danger " href="/sessiyalar/tolanmaganlar" role="button">To'lanmaganlar</a>
+            </div> -->
+
+
+          </div>
+        </div>
+
         <div th:if="${sessiyalar.size} == 0" id="royxatBush">
           Ro'yxat bo'sh!
 
@@ -81,7 +189,8 @@
                 <a class="link" th:href="@{/guruhlar/onguruh/{id}(id=${o.guruh.id})}" th:text="${o.guruh.nom}"></a>
               </td>
               <td>
-                <a class="link" th:href="@{/oquvchilar/edit/{id}(id=${o.oquvchi.id})}" th:text="${o.oquvchi.familiya}+' '+${o.oquvchi.ism}"></a>
+                <a class="link" th:href="@{/oquvchilar/edit/{id}(id=${o.oquvchi.id})}"
+                  th:text="${o.oquvchi.familiya}+' '+${o.oquvchi.ism}"></a>
               </td>
               <td th:text="${o.boshVaqt}"></td>
               <td th:switch="${o.tugVaqt} != null">
@@ -106,21 +215,21 @@
               </td>
               <td th:text="${o.info}"></td>
               <td style="text-align: center;">
-                <a class="btn btn-info" th:href="@{/sessiyalar/edit/{id}(id=${o.id})}">
+                <a class="btn btn-info" th:href="@{/sessiyalar/edit/{id}(id=${o.id})}" style="border-radius: 50%;">
                   <i class="fa fa-pencil " aria-hidden="true"></i>
                 </a>
 
 
 
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
-                  th:attr="data-id=${o.id}" th:if="${o.aktiv}">
-                  
+                  th:attr="data-id=${o.id}" th:if="${o.aktiv}" style="border-radius: 50%;">
+
                   <i class="fa fa-power-off" aria-hidden="true"></i>
                 </button>
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
-                  th:attr="data-id=${o.id}" th:if="${!o.aktiv}" disabled>
-                  
-                  <i class="fa fa-power-off" aria-hidden="true"></i>
+                  th:attr="data-id=${o.id}" th:if="${!o.aktiv}" style="border-radius: 50%;" disabled>
+
+                  <i class="fa fa-power-off" aria-hidden="true" ></i>
                 </button>
 
 
@@ -131,101 +240,13 @@
 
 
 
-
-
-
-
-
-        <div class="col-3" th:if="${sessiya} !=null"
-          style="background-color: rgb(192, 214, 255); padding: 13px;position: absolute; padding-top: 15px;top: 60px;right: 10px;">
-          <h3 style="text-align: center;">Guruhlashni tahrirlash</h3>
-          <form action="/sessiyalar/edit" method="POST">
-            <div class="form-group">
-              <label for="id">Id:</label>
-              <input th:value="${sessiya.id}" type="text" name="id" id="id" class="form-control" aria-describedby="id"
-                readonly>
-             
-            </div>
-            <div class="form-group">
-              <label for="oquvchi">O'quvchi:</label>
-              <select class="form-control" name="oquvchi" id="oquvchi">
-                <option th:value="${sessiya.oquvchi.id}"
-                  th:text="${sessiya.oquvchi.familiya}+' '+${sessiya.oquvchi.ism}" selected aria-readonly="true">
-                </option>
-              </select>
-              
-            </div>
-
-            <div class="form-group">
-              <label for="guruh">Guruh:</label>
-              <select class="form-control" name="guruh" id="guruh">
-                <option th:each="g : ${guruhlar}" th:value="${g.id}" th:text="${g.nom}"
-                  th:if="${sessiya.guruh.id} != ${g.id}"></option>
-                <option th:value="${sessiya.guruh.id}" th:text="${sessiya.guruh.nom}" selected></option>
-
-
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="boshVaqt">Boshlangan vaqt:</label>
-              <input required th:field="${sessiya.boshVaqt}" type="datetime-local" name="boshVaqt" id="boshVaqt"
-                class="form-control" aria-describedby="boshVaqt">
-              
-            </div>
-
-            <div class="form-group">
-              <label for="tugVaqt">Tugash vaqt:</label>
-              <input th:field="${sessiya.tugVaqt}" type="datetime-local" name="tugVaqt" id="tugVaqt"
-                class="form-control" aria-describedby="tugVaqt">
-              
-            </div>
-
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" name="aktiv"  th:field="${sessiya.aktiv}">
-                Aktiv
-              </label>
-            </div>
-
-            <div class="form-group">
-              <label for="info">Izoh</label>
-              <textarea th:field="${sessiya.info}" class="form-control" name="info" id="info" rows="5" placeholder="Izoh..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Tahrirlash</button>
-            <a href="/sessiyalar" class="btn btn-danger" style="font-weight: normal !important;">Bekor qilish</a>
-          </form>
-        </div>
-
-
-
-
       </div>
 
 
 
-      <div class="sara">
-        <div style="display: flex;flex-direction: row;">
-          <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
-            Natija:
-            <span id="jami" th:text="${sessiyalar.size}"></span>
-            ta
-          </div>
-          <div style="padding-top: 6px;padding-left: 8px;">
-            <form id="izlash" action="/sessiyalar/izla" method="POST">
-              <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
-              <input type="submit" id="tugma" value="Izlash"></input>
-            </form>
-          </div>
 
-          <!-- <div style="padding-left: 10px;">
-            <a class="btn btn-info " href="/sessiyalar" role="button">Hammasi</a>
-            <a class="btn btn-success " href="/sessiyalar/tolanganlar" role="button">To'langanlar</a>
-            <a class="btn btn-danger " href="/sessiyalar/tolanmaganlar" role="button">To'lanmaganlar</a>
-          </div> -->
 
-        </div>
-      </div>
+
 
     </div>
   </div>

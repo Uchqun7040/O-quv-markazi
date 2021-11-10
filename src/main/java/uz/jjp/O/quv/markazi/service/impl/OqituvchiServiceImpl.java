@@ -40,22 +40,13 @@ public class OqituvchiServiceImpl implements OqituvchiService {
 
     @Override
     public List<Oqituvchi> izla(String s) {
-        ArrayList<Oqituvchi> ss=new ArrayList<>();
-        s=s.toLowerCase();
-        String k;
-        for (Oqituvchi oqituvchi: oqituvchiRepository.findAll()) {
-            k="";
-            k+=oqituvchi.getId().toString().toLowerCase();
-            k+=oqituvchi.getIsm().toLowerCase();
-            k+=oqituvchi.getFamiliya().toLowerCase();
-            k+=oqituvchi.getHujjat().toLowerCase();
-            k+=oqituvchi.getSharif().toLowerCase();
-            k+=oqituvchi.getTel_nomer();
-            k+=oqituvchi.getInfo().toLowerCase();
-            if (k.contains(s)){
-                ss.add(oqituvchi);
-            }
+        try{
+            Long n=Long.parseLong(s);
+            return oqituvchiRepository.findAllByIdOrIsmContainsIgnoreCaseOrFamiliyaContainsIgnoreCaseOrHujjatContainsIgnoreCaseOrSharifContainsIgnoreCaseOrTelNomerContainsIgnoreCaseOrInfoContainsIgnoreCase(n,s,s,s,s,s,s);
         }
-        return ss;
+        catch (Exception x) {
+
+            return oqituvchiRepository.findAllByIdOrIsmContainsIgnoreCaseOrFamiliyaContainsIgnoreCaseOrHujjatContainsIgnoreCaseOrSharifContainsIgnoreCaseOrTelNomerContainsIgnoreCaseOrInfoContainsIgnoreCase((long)-1,s,s,s,s,s,s);
+        }
     }
 }

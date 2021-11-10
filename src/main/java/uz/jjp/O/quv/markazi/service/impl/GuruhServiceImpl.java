@@ -3,13 +3,11 @@ package uz.jjp.O.quv.markazi.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.jjp.O.quv.markazi.entity.Guruh;
-import uz.jjp.O.quv.markazi.entity.GuruhOqituvchi;
 import uz.jjp.O.quv.markazi.entity.Sessiya;
 import uz.jjp.O.quv.markazi.repository.GuruhRepository;
 import uz.jjp.O.quv.markazi.service.GuruhService;
 import uz.jjp.O.quv.markazi.service.SessiyaService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,6 +37,8 @@ public class GuruhServiceImpl implements GuruhService {
 
     @Override
     public void update(Guruh o) {
+
+        if(!o.getAktiv()) sessiyaService.deleteAllByGuruhId(o.getId());
         guruhRepository.save(o);
     }
 
@@ -67,29 +67,20 @@ public class GuruhServiceImpl implements GuruhService {
 
     @Override
     public List<Guruh> izla(String s) {
-        ArrayList<Guruh> ss=new ArrayList<>();
-        s=s.toLowerCase();
-        String k;
-        for (Guruh guruh: guruhRepository.findAll()) {
-            k="";
-            k+=guruh.getId().toString().toLowerCase();
-            k+=guruh.getNom().toLowerCase();
-            k+=guruh.getOqituvchi().getFamiliya().toLowerCase();
-            k+=guruh.getOqituvchi().getIsm().toLowerCase();
-            k+=guruh.getFan().getNom().toLowerCase();
-            k+=guruh.getOquvchiSon();
-            k+=guruh.getNarx();
-            k+=guruh.getInfo().toLowerCase();
-            if (k.contains(s)){
-                ss.add(guruh);
-            }
+
+        try{
+            long n=Long.parseLong(s);
+            return guruhRepository.findAllByIdOrNomContainsIgnoreCaseOrOqituvchi_IsmContainsIgnoreCaseOrOqituvchi_FamiliyaContainsIgnoreCaseOrFan_NomContainsIgnoreCaseOrOquvchiSonOrNarxOrInfoContainsIgnoreCase(n,s,s,s,s,(int)n,(int)n,s);
         }
-        return ss;
+        catch (Exception x) {
+            int n=-1;
+            return guruhRepository.findAllByIdOrNomContainsIgnoreCaseOrOqituvchi_IsmContainsIgnoreCaseOrOqituvchi_FamiliyaContainsIgnoreCaseOrFan_NomContainsIgnoreCaseOrOquvchiSonOrNarxOrInfoContainsIgnoreCase((long)n,s,s,s,s,n,n,s);
+        }
     }
 
     @Override
     public List<Guruh> getAllByNotOquvchiId(Long id) {
-        List<Guruh> gs=getAll();
+        List<Guruh> gs=guruhRepository.findAllByAktiv(true);
         List<Sessiya> ss = sessiyaService.getByOquvchiId(id);
         ss.forEach(s ->{
             gs.removeIf(g ->(s.getGuruh() == g && s.getAktiv()));
@@ -97,10 +88,4 @@ public class GuruhServiceImpl implements GuruhService {
         return gs;
     }
 
-    @Override
-    public void updateOqituvchisi(GuruhOqituvchi o) {
-        Guruh g=guruhRepository.getOne(o.getGuruhId());
-        g.setOqituvchi(o.getOqituvchi());
-        update(g);
-    }
 }

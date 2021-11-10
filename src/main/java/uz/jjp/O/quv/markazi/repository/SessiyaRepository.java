@@ -11,7 +11,8 @@ import java.util.List;
 @Repository
 public interface SessiyaRepository extends JpaRepository<Sessiya,Long> {
 
-public List<Sessiya> getAllByOquvchiIdAndAktivIsTrue(Long id);
-public List<Sessiya> getAllByGuruhId(Long id);
-public List<Sessiya> getAllByGuruhIdAndAktivIsTrue(Long id);
+ List<Sessiya> getAllByOquvchiIdAndAktivIsTrue(Long id);
+ List<Sessiya> getAllByGuruhId(Long id);
+ List<Sessiya> getAllByGuruhIdAndAktivIsTrue(Long id);
+ List<Sessiya> findAllByIdOrGuruh_NomContainsIgnoreCaseOrGuruh_Fan_NomContainsIgnoreCaseOrOquvchi_FamiliyaContainsIgnoreCaseOrOquvchi_IdOrOquvchi_IsmContainsIgnoreCaseOrInfoContainsIgnoreCase(Long id,String gnom,String gfnom,String oqfam,Long oid,String oqism,String info);
 }

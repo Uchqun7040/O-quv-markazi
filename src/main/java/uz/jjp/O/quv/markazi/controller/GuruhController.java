@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uz.jjp.O.quv.markazi.entity.Guruh;
-import uz.jjp.O.quv.markazi.entity.GuruhOqituvchi;
 import uz.jjp.O.quv.markazi.entity.Search;
 import uz.jjp.O.quv.markazi.service.*;
 
@@ -56,33 +55,17 @@ public class GuruhController {
         hsr.sendRedirect("/guruhlar");
     }
 
-    @GetMapping("/edit/{id}")
-    public String ozgartiriluvchi(@PathVariable Long id,Model model,HttpServletResponse hsr) throws IOException {
-        Guruh o=guruhService.getById(id);
-        model.addAttribute("guruh",o);
-        return royxat(model);
-    }
 
     @PostMapping("/edit")
-    public void ozgartirish(Guruh o,HttpServletResponse hsr) throws IOException {
+    public String ozgartirish(Guruh o,Model model) throws IOException {
         guruhService.update(o);
-        hsr.sendRedirect("/guruhlar");
+        return onguruh(o.getId(),model);
     }
     @GetMapping("/onguruh/{id}")
     public String onguruh(@PathVariable Long id,Model model){
-        model.addAttribute("oqituvchi",guruhService.getById(id).getOqituvchi());
         model.addAttribute("oquvchilar",oquvchiService.getAllByGuruhId(id));
-        model.addAttribute("guruhId",id);
-        return "onguruh";
-    }
-    @GetMapping("/editOqituvchi/{id}")
-    public String oqituvchiBoyichaOzgartiriluvchi(@PathVariable Long id,Model model) throws IOException { Guruh o=guruhService.getById(id);
         model.addAttribute("oqituvchilar",oqituvchiService.getAll());
-        return onguruh(id,model);
-    }
-    @PostMapping("/editOqituvchi")
-    public String oqituvchisiniOzgartirish(GuruhOqituvchi o,Model model) throws IOException {
-        guruhService.updateOqituvchisi(o);
-        return onguruh(o.getGuruhId(),model);
+        model.addAttribute("guruh",guruhService.getById(id));
+        return "onguruh";
     }
 }

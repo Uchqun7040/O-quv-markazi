@@ -7,7 +7,6 @@ import uz.jjp.O.quv.markazi.entity.Sessiya;
 import uz.jjp.O.quv.markazi.repository.OquvchiRepository;
 import uz.jjp.O.quv.markazi.repository.SessiyaRepository;
 import uz.jjp.O.quv.markazi.service.OquvchiService;
-import uz.jjp.O.quv.markazi.service.SessiyaService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ public class OquvchiServiceImpl implements OquvchiService {
 
     @Override
     public void delete(Long id) {
-        oquvchiRepository.deleteById(id);
+
     }
 
     @Override
@@ -46,23 +45,14 @@ public class OquvchiServiceImpl implements OquvchiService {
 
     @Override
     public List<Oquvchi> izla(String s) {
-        ArrayList<Oquvchi> ss=new ArrayList<>();
-        s=s.toLowerCase();
-        String k;
-        for (Oquvchi oquvchi: oquvchiRepository.findAll()) {
-            k="";
-            k+=oquvchi.getId();
-            k+=oquvchi.getIsm().toLowerCase();
-            k+=oquvchi.getFamiliya().toLowerCase();
-            k+=oquvchi.getHujjat().toLowerCase();
-            k+=oquvchi.getSharif().toLowerCase();
-            k+=oquvchi.getTel_nomer();
-            k+=oquvchi.getInfo().toLowerCase();
-            if (k.contains(s)){
-                ss.add(oquvchi);
-            }
+        try{
+            Long n=Long.parseLong(s);
+            return oquvchiRepository.findAllByIdOrIsmContainsIgnoreCaseOrFamiliyaContainsIgnoreCaseOrHujjatContainsIgnoreCaseOrSharifContainsIgnoreCaseOrTelNomerContainsIgnoreCaseOrInfoContainsIgnoreCase(n,s,s,s,s,s,s);
         }
-        return ss;
+        catch (Exception x) {
+
+            return oquvchiRepository.findAllByIdOrIsmContainsIgnoreCaseOrFamiliyaContainsIgnoreCaseOrHujjatContainsIgnoreCaseOrSharifContainsIgnoreCaseOrTelNomerContainsIgnoreCaseOrInfoContainsIgnoreCase((long)-1,s,s,s,s,s,s);
+        }
     }
 
     @Override
