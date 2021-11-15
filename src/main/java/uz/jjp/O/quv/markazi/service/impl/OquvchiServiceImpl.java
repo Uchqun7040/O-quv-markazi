@@ -55,14 +55,4 @@ public class OquvchiServiceImpl implements OquvchiService {
         }
     }
 
-    @Override
-    public List<Oquvchi> getAllByGuruhId(Long id) {
-        List<Sessiya> ss=sessiyaRepository.getAllByGuruhId(id);
-        List<Oquvchi> oqs=new ArrayList<>();
-        for (Sessiya s: ss  ) {
-            if (s.getAktiv())
-            oqs.add(s.getOquvchi());
-        }
-        return oqs;
-    }
 }

@@ -81,6 +81,7 @@ public class SessiyaController {
         return "oquvchiTahrirlash";
     }
 
+
     @GetMapping("/edit/{id}")
     public String ozgartiriluvchi(@PathVariable Long id,Model model,HttpServletResponse hsr) throws IOException {
         Sessiya o=sessiyaService.getById(id);

@@ -69,5 +69,10 @@ public List<Sessiya> izla(String s);
      */
     void deleteAllByGuruhId(Long id);
 
-
+    /**
+     * Bu metod Guruhga tegishli sessiyalarni olib beradi
+     * @param id
+     * @return
+     */
+    List<Sessiya> getAllByGuruhId(Long id);
 }

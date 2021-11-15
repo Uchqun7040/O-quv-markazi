@@ -14,6 +14,7 @@ import uz.jjp.O.quv.markazi.service.FanService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/fanlar")
@@ -36,7 +37,12 @@ public class FanController {
 
     @PostMapping()
     public void yarat(Fan o, HttpServletResponse hsr) throws IOException {
-        fanService.create(o);
+
+        try {
+            fanService.create(o);
+        }catch (Exception ignored){
+            System.err.println(LocalDateTime.now()+" : Mavjud fan nomi kiritildi! ");
+        }
         hsr.sendRedirect("/fanlar");
     }
 
@@ -55,7 +61,12 @@ public class FanController {
 
     @PostMapping("/edit")
     public void ozgartirish(Fan o,HttpServletResponse hsr) throws IOException {
-        fanService.update(o);
+
+        try {
+            fanService.update(o);
+        }catch (Exception ignored){
+            System.err.println(LocalDateTime.now()+" : Mavjud fan nomi kiritildi! ");
+        }
         hsr.sendRedirect("/fanlar");
     }
     @GetMapping("/kirish")

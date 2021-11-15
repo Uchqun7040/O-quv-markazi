@@ -12,7 +12,9 @@ import uz.jjp.O.quv.markazi.entity.Search;
 import uz.jjp.O.quv.markazi.service.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.Console;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/guruhlar")
@@ -24,7 +26,7 @@ public class GuruhController {
     OqituvchiService oqituvchiService;
 
     @Autowired
-    OquvchiService oquvchiService;
+    SessiyaService sessiyaService;
 
     @Autowired
     FanService fanService;
@@ -45,7 +47,11 @@ public class GuruhController {
 
     @PostMapping()
     public void yarat(Guruh o, HttpServletResponse hsr) throws IOException {
-        guruhService.create(o);
+        try {
+            guruhService.create(o);
+        }catch (Exception ignored){
+            System.err.println(LocalDateTime.now()+" : Mavjud guruh nomi kiritildi! ");
+        }
         hsr.sendRedirect("/guruhlar");
     }
 
@@ -58,14 +64,25 @@ public class GuruhController {
 
     @PostMapping("/edit")
     public String ozgartirish(Guruh o,Model model) throws IOException {
-        guruhService.update(o);
+
+        try {
+            guruhService.update(o);
+        }catch (Exception ignored){
+            System.err.println(LocalDateTime.now()+" : Mavjud guruh nomi kiritildi! ");
+        }
         return onguruh(o.getId(),model);
     }
     @GetMapping("/onguruh/{id}")
     public String onguruh(@PathVariable Long id,Model model){
-        model.addAttribute("oquvchilar",oquvchiService.getAllByGuruhId(id));
+        model.addAttribute("sessiyalar",sessiyaService.getAllByGuruhId(id));
         model.addAttribute("oqituvchilar",oqituvchiService.getAll());
         model.addAttribute("guruh",guruhService.getById(id));
+        System.out.println("VVVV  "+sessiyaService.getAllByGuruhId(id).size());
         return "onguruh";
+    }
+    @GetMapping("/ochirishSessiya/{id}")
+    public String ochirishY(@PathVariable Long id,Model model) throws IOException {
+        sessiyaService.delete(id);
+        return onguruh(sessiyaService.getById(id).getGuruh().getId(),model);
     }
 }

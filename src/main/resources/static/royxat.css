@@ -10,6 +10,9 @@
   th,td{
     text-align: center;
   }
+  /* tr:hover{
+    background-color: rgb(144, 218, 252);
+  } */
   .link,td{
     color: rgb(20, 20, 95);
   }

@@ -17,7 +17,12 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
 
-
+  <style>
+    body {
+      background-image: url(/Снимок7.PNG);
+      background-size: cover;
+    }
+  </style>
 
 </head>
 
@@ -47,12 +52,12 @@
 
 
   <div th:insert="header :: boshqism1"></div>
-  <div class="container-fluid bg-light">
+  <div class="container bg-light mt-3 mb-3 pb-3 pt-2">
 
     <h2 style="padding-left: 10px;color: rgb(2, 26, 98);">O'quvchilar bo'limi</h2>
     <hr>
     <div class="row">
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-3">
         <div  style="background-color: rgb(192, 214, 255); padding: 13px;">
           <h3>O'quvchi qo'shish</h3>
           <form action="/oquvchilar" method="POST">
@@ -95,7 +100,7 @@
         </div>
       
       </div>
-      <div class="col-12 col-md-8" style="background-color: rgb(245, 243, 243); padding: 13px;position: relative;">
+      <div class="col-12 col-md-9" style="background-color: rgb(245, 243, 243); padding: 13px;position: relative;">
        
         <div class="row">
           <div class="col-12 col-md-6 ">

@@ -108,5 +108,10 @@ public class SessiyaServiceImpl implements SessiyaService {
         }
     }
 
+    @Override
+    public List<Sessiya> getAllByGuruhId(Long id) {
+        return sessiyaRepository.getAllByGuruhIdAndAktivIsTrue(id);
+    }
+
 
 }
