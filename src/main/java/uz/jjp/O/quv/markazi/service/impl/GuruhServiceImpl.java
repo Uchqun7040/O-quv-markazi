@@ -19,7 +19,7 @@ public class GuruhServiceImpl implements GuruhService {
     SessiyaService sessiyaService;
     @Override
     public List<Guruh> getAll() {
-        return guruhRepository.findAll();
+        return guruhRepository.findAllByOrderByIdDesc();
     }
 
     @Override
@@ -81,7 +81,7 @@ public class GuruhServiceImpl implements GuruhService {
     @Override
     public List<Guruh> getAllByNotOquvchiId(Long id) {
         List<Guruh> gs=guruhRepository.findAllByAktiv(true);
-        List<Sessiya> ss = sessiyaService.getByOquvchiId(id);
+        List<Sessiya> ss = sessiyaService.getAllByOquvchiId(id);
         ss.forEach(s ->{
             gs.removeIf(g ->(s.getGuruh() == g && s.getAktiv()));
         });

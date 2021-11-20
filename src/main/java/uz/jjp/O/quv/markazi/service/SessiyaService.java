@@ -48,7 +48,7 @@ public Sessiya getById(Long id);
      * @param id
      * @return
      */
-    public List<Sessiya> getByOquvchiId(Long id);
+    public List<Sessiya> getAllByOquvchiId(Long id);
 
     /**
      * Bu metod kirib kelayotgan String turidagi ma'lumot bo'yicha saralab bazadan obyektlar jamlanmasini olib beradi!

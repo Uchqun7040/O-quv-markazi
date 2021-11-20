@@ -20,7 +20,7 @@ public class OquvchiServiceImpl implements OquvchiService {
 
     @Override
     public List<Oquvchi> getAll() {
-        return oquvchiRepository.findAll();
+        return oquvchiRepository.findAllByOrderByIdDesc();
     }
 
     @Override

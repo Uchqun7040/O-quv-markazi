@@ -15,7 +15,7 @@ public class OqituvchiServiceImpl implements OqituvchiService {
     OqituvchiRepository oqituvchiRepository;
     @Override
     public List<Oqituvchi> getAll() {
-        return oqituvchiRepository.findAll();
+        return oqituvchiRepository.findAllByOrderByIdDesc();
     }
 
     @Override

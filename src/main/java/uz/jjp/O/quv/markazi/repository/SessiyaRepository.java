@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface SessiyaRepository extends JpaRepository<Sessiya,Long> {
-
+List<Sessiya> findAllByOrderByIdDesc();
  List<Sessiya> getAllByOquvchiIdAndAktivIsTrue(Long id);
  List<Sessiya> getAllByGuruhId(Long id);
  List<Sessiya> getAllByGuruhIdAndAktivIsTrue(Long id);

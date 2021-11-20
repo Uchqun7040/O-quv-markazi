@@ -19,7 +19,7 @@ public class SessiyaServiceImpl implements SessiyaService {
     GuruhService guruhService;
     @Override
     public List<Sessiya> getAll() {
-        return sessiyaRepository.findAll();
+        return sessiyaRepository.findAllByOrderByIdDesc();
     }
 
 //    @Override
@@ -73,8 +73,7 @@ public class SessiyaServiceImpl implements SessiyaService {
     }
 
     @Override
-    public List<Sessiya> getByOquvchiId(Long id) {
-
+    public List<Sessiya> getAllByOquvchiId(Long id) {
         return sessiyaRepository.getAllByOquvchiIdAndAktivIsTrue(id);
     }
 
@@ -85,10 +84,8 @@ public class SessiyaServiceImpl implements SessiyaService {
             return sessiyaRepository.findAllByIdOrGuruh_NomContainsIgnoreCaseOrGuruh_Fan_NomContainsIgnoreCaseOrOquvchi_FamiliyaContainsIgnoreCaseOrOquvchi_IdOrOquvchi_IsmContainsIgnoreCaseOrInfoContainsIgnoreCase(n,s,s,s,n,s,s);
         }
         catch (Exception x) {
-
             return sessiyaRepository.findAllByIdOrGuruh_NomContainsIgnoreCaseOrGuruh_Fan_NomContainsIgnoreCaseOrOquvchi_FamiliyaContainsIgnoreCaseOrOquvchi_IdOrOquvchi_IsmContainsIgnoreCaseOrInfoContainsIgnoreCase((long)-1,s,s,s,(long)-1,s,s);
         }
-
     }
 
     @Override

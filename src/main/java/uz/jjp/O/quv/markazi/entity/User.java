@@ -1,12 +1,14 @@
 package uz.jjp.O.quv.markazi.entity;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -15,12 +17,20 @@ public class User {
     @Column(nullable = false)
     private String familiya;
 
+
+    @NotNull
     @Column(unique = true, nullable = false)
     private String login;
 
+
+    @NotNull
     @Column(nullable = false)
     private String parol;
 
+
+    private String rasmNom;
+
+    private Boolean aktiv;
 
 
     public Long getId() {
@@ -62,4 +72,15 @@ public class User {
     public void setParol(String parol) {
         this.parol = parol;
     }
+
+    public Boolean getAktiv() {
+        return aktiv;
+    }
+
+    public void setAktiv(Boolean aktiv) {
+        this.aktiv = aktiv;
+    }
+
+
+
 }

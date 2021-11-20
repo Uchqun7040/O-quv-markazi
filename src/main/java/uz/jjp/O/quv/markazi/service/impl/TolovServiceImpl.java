@@ -6,15 +6,17 @@ import uz.jjp.O.quv.markazi.entity.Tolov;
 import uz.jjp.O.quv.markazi.repository.TolovRepository;
 import uz.jjp.O.quv.markazi.service.TolovService;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class TolovServiceImpl implements TolovService {
+
     @Autowired
     TolovRepository tolovRepository;
     @Override
     public List<Tolov> getAll() {
-        return tolovRepository.findAll();
+        return tolovRepository.findAllByOrderByIdDesc();
     }
 
     @Override

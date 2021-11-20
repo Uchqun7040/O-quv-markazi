@@ -4,17 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import uz.jjp.O.quv.markazi.entity.Guruh;
 import uz.jjp.O.quv.markazi.entity.Oquvchi;
 import uz.jjp.O.quv.markazi.entity.Search;
-import uz.jjp.O.quv.markazi.entity.Sessiya;
 import uz.jjp.O.quv.markazi.service.GuruhService;
 import uz.jjp.O.quv.markazi.service.OquvchiService;
 import uz.jjp.O.quv.markazi.service.SessiyaService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/oquvchilar")
@@ -58,7 +55,7 @@ public class OquvchiController {
         Oquvchi o=oquvchiService.getById(id);
 
         model.addAttribute("oquvchi",o);
-        model.addAttribute("sessiyalar",sessiyaService.getByOquvchiId(id));
+        model.addAttribute("sessiyalar",sessiyaService.getAllByOquvchiId(id));
         model.addAttribute("guruhlar",guruhService.getAllByNotOquvchiId(id));
         return "oquvchiTahrirlash";
     }
@@ -66,11 +63,7 @@ public class OquvchiController {
     @PostMapping("/edit")
     public String ozgartirish(Oquvchi o,Model model) throws IOException {
         oquvchiService.update(o);
-
-        model.addAttribute("oquvchi",oquvchiService.getById(o.getId()));
-        model.addAttribute("sessiyalar",sessiyaService.getByOquvchiId(o.getId()));
-        model.addAttribute("guruhlar",guruhService.getAllByNotOquvchiId(o.getId()));
-        return "oquvchiTahrirlash";
+       return ozgartiriluvchi(o.getId(),model);
     }
 
 }

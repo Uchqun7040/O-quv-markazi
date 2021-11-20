@@ -13,10 +13,15 @@ import uz.jjp.O.quv.markazi.service.SessiyaService;
 import uz.jjp.O.quv.markazi.service.TolovService;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/tolovlar")
 public class TolovController {
+    List<String> oylar= Arrays.asList("Yanvar", "Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr");
+
+
     @Autowired
     TolovService tolovService;
 
@@ -26,6 +31,7 @@ public class TolovController {
     public String royxat(Model model) throws IOException {
         model.addAttribute("tolovlar",tolovService.getAll());
         model.addAttribute("sessiyalar",sessiyaService.getAll());
+        model.addAttribute("oylar",oylar);
         return "tolov";
     }
 

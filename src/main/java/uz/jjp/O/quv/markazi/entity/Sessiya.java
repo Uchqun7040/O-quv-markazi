@@ -18,8 +18,7 @@ public class Sessiya {
     private LocalDateTime boshVaqt;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime tugVaqt;
-    @ManyToOne
-    private Tolov tolov;
+    private Boolean tolov;
     private Boolean aktiv;
     private String info;
 
@@ -65,14 +64,6 @@ public class Sessiya {
         this.tugVaqt = tugVaqt;
     }
 
-    public Tolov getTolov() {
-        return tolov;
-    }
-
-    public void setTolov(Tolov tolov) {
-        this.tolov = tolov;
-    }
-
     public String getInfo() {
         return info;
     }
@@ -87,5 +78,13 @@ public class Sessiya {
 
     public void setAktiv(Boolean aktiv) {
         this.aktiv = aktiv;
+    }
+
+    public Boolean getTolov() {
+        return tolov;
+    }
+
+    public void setTolov(Boolean tolov) {
+        this.tolov = tolov;
     }
 }

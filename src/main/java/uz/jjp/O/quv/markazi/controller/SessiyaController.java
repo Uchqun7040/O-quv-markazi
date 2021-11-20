@@ -1,13 +1,10 @@
 package uz.jjp.O.quv.markazi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.resource.HttpResource;
-import uz.jjp.O.quv.markazi.entity.Guruh;
 import uz.jjp.O.quv.markazi.entity.Oquvchi;
 import uz.jjp.O.quv.markazi.entity.Search;
 import uz.jjp.O.quv.markazi.entity.Sessiya;
@@ -19,7 +16,6 @@ import uz.jjp.O.quv.markazi.service.SessiyaService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/sessiyalar")
@@ -61,7 +57,7 @@ public class SessiyaController {
     public String yarat(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Sessiya o,Model model) throws IOException {
         sessiyaService.create(o);
         model.addAttribute("oquvchi",o.getOquvchi());
-        model.addAttribute("sessiyalar",sessiyaService.getByOquvchiId(o.getOquvchi().getId()));
+        model.addAttribute("sessiyalar",sessiyaService.getAllByOquvchiId(o.getOquvchi().getId()));
         model.addAttribute("guruhlar",guruhService.getAllByNotOquvchiId(o.getOquvchi().getId()));
         return "oquvchiTahrirlash";
     }
@@ -76,7 +72,7 @@ public class SessiyaController {
         Oquvchi oquvchi=sessiyaService.getById(id).getOquvchi();
         sessiyaService.delete(id);
         model.addAttribute("oquvchi",oquvchi);
-        model.addAttribute("sessiyalar",sessiyaService.getByOquvchiId(oquvchi.getId()));
+        model.addAttribute("sessiyalar",sessiyaService.getAllByOquvchiId(oquvchi.getId()));
         model.addAttribute("guruhlar",guruhService.getAllByNotOquvchiId(oquvchi.getId()));
         return "oquvchiTahrirlash";
     }
