@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Fan {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
     private String nom;

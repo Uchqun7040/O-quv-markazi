@@ -1,6 +1,9 @@
 package uz.jjp.O.quv.markazi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,16 +19,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("/user")
+//@RequestMapping("/user")
 public class UserController {
     @Autowired
     UserService userService;
 
 
-    @GetMapping
-    public String user(Model model){
-        model.addAttribute("userlar", userService.getAll());
-        return "user";
+    @GetMapping("/login")
+    public String login(){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        }
+        return "redirect:/oquvchilar";
     }
 
     @PostMapping()
@@ -42,9 +48,8 @@ public class UserController {
 
     @GetMapping("/edit/{id}")
     public String ozgartiriluvchi(@PathVariable Long id,Model model) throws IOException {
-        UserDTO o=userService.getById(id);
-        model.addAttribute("user",o);
-        return user(model);
+
+        return null;
     }
 
     @PostMapping("/edit")

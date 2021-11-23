@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Sessiya {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     private Guruh guruh;

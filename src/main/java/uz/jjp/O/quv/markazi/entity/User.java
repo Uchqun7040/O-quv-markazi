@@ -27,10 +27,9 @@ public class User {
     @Column(nullable = false)
     private String parol;
 
+    private String lavozim;
 
-    private String rasmNom;
 
-    private Boolean aktiv;
 
 
     public Long getId() {
@@ -73,14 +72,11 @@ public class User {
         this.parol = parol;
     }
 
-    public Boolean getAktiv() {
-        return aktiv;
+    public String getLavozim() {
+        return lavozim;
     }
 
-    public void setAktiv(Boolean aktiv) {
-        this.aktiv = aktiv;
+    public void setLavozim(String lavozim) {
+        this.lavozim = lavozim;
     }
-
-
-
 }

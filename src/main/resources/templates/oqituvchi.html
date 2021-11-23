@@ -60,7 +60,7 @@
       <div class="col-12 col-md-3">
         <div th:if="${oqituvchi} == null" style="background-color: rgb(192, 214, 255); padding: 13px;">
           <h3>O'qituvchi qo'shish</h3>
-          <form action="/oqituvchilar" method="POST">
+          <form th:action="@{/oqituvchilar}" method="POST">
             <div class="form-group">
               <label for="ism">Ism:</label>
               <input required type="text" name="ism" id="ism" class="form-control" placeholder="Ismini kiriting..." aria-describedby="ism">
@@ -98,7 +98,7 @@
         </div>
         <div th:if="${oqituvchi} !=null" style="background-color: rgb(192, 214, 255); padding: 13px;">
           <h3>O'qituvchini tahrirlash</h3>
-          <form action="/oqituvchilar/edit" method="POST">
+          <form th:action="@{/oqituvchilar/edit}" method="POST">
             <div class="form-group">
               <label for="id">Id:</label>
               <input th:value="${oqituvchi.id}" type="text" name="id" id="id" class="form-control" aria-describedby="id" readonly>
@@ -155,7 +155,7 @@
                 ta
               </div>
               <div style="padding-top: 6px;padding-left: 8px;">
-                <form id="izlash" action="/oqituvchilar/izla" method="POST">
+                <form id="izlash" th:action="@{/oqituvchilar/izla}" method="POST">
                   <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
                   <input type="submit" id="tugma" value="Izlash"></input>
                 </form>
@@ -199,10 +199,10 @@
 
 
 
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
-                th:attr="data-id=${o.id}" style="border-radius: 50%;">
-                  <i class="fa fa-trash" aria-hidden="true"></i>
-                </button>
+<!--                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"-->
+<!--                th:attr="data-id=${o.id}" style="border-radius: 50%;">-->
+<!--                  <i class="fa fa-trash" aria-hidden="true"></i>-->
+<!--                </button>-->
 
 
               </td>

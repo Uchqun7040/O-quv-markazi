@@ -89,7 +89,7 @@
             <div class="col-12 col-md-6">
                 <div style="background-color: rgba(233, 234, 236, 0.685); padding: 13px;">
                     <h4>O'quvchini guruhlarga tayinlash</h4>
-                    <form action="/sessiyalar" method="POST" th:if="${guruhlar.size} != 0">
+                    <form th:action="@{/sessiyalar}" method="POST" th:if="${guruhlar.size} != 0">
 
                         <div class="form-group">
                             <label for="oquvchi">O'quvchi:</label>
@@ -103,7 +103,7 @@
                         <div class="form-group">
                             <label for="guruh">Guruh:</label>
                             <select class="form-control" name="guruh" id="guruh">
-                                <option th:each="g : ${guruhlar}" th:value="${g.id}" th:text="${g.nom}"></option>
+                                <option th:each="g : ${guruhlar}" th:value="${g.id}" th:text="'nomi: '+${g.nom}+', '+${g.fan.nom}"></option>
                             </select>
                         </div>
 
@@ -152,8 +152,8 @@
 
             <div class="col-12 col-md-6">
                 <div style="background-color: rgba(233, 234, 236, 0.685); padding: 13px;">
-                    <h4>O'quvchini tahrirlash</h4>
-                    <form action="/oquvchilar/edit" method="POST">
+                    <h4>Ma'lumotlarni tahrirlash</h4>
+                    <form th:action="@{/oquvchilar/edit}" method="POST">
                         <div class="form-group">
                             <label for="id">Id:</label>
                             <input th:value="${oquvchi.id}" type="text" name="id" id="id" class="form-control"

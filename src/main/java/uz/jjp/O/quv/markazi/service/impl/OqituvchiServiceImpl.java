@@ -25,7 +25,7 @@ public class OqituvchiServiceImpl implements OqituvchiService {
 
     @Override
     public void delete(Long id) {
-        oqituvchiRepository.deleteById(id);
+//        oqituvchiRepository.deleteById(id);
     }
 
     @Override

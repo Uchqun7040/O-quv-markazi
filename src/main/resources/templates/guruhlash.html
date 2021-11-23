@@ -70,7 +70,7 @@
         </video>
 
 
-        <form id="tahrirlash" action="/sessiyalar/edit" method="POST" th:if="${sessiya} !=null" >
+        <form id="tahrirlash" th:action="@{/sessiyalar/edit}" method="POST" th:if="${sessiya} !=null" >
           <h3 style="text-align: center;">Guruhlashni tahrirlash</h3>
           <div class="form-group">
             <label for="id">Id:</label>
@@ -147,7 +147,7 @@
                 ta
               </div>
               <div style="padding-top: 6px;padding-left: 8px;">
-                <form id="izlash" action="/sessiyalar/izla" method="POST">
+                <form id="izlash" th:action="@{/sessiyalar/izla}" method="POST">
                   <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
                   <input type="submit" id="tugma" value="Izlash"></input>
                 </form>

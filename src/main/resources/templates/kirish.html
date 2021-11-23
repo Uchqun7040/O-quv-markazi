@@ -14,32 +14,32 @@
 		<div class="login-info-box">
 			<h2>Have an account?</h2>
 			<p>Lorem ipsum dolor sit amet</p>
-			<label id="label-register" for="log-reg-show">Login</label>
+			<label id="label-register" for="log-reg-show">Kirish</label>
 			<input type="radio" name="active-log-panel" id="log-reg-show"  checked="checked">
 		</div>
 							
 		<div class="register-info-box">
 			<h2>Don't have an account?</h2>
 			<p>Lorem ipsum dolor sit amet</p>
-			<label id="label-login" for="log-login-show">Register</label>
+			<label id="label-login" for="log-login-show">Ro'yxatdan o'tish</label>
 			<input type="radio" name="active-log-panel" id="log-login-show">
 		</div>
 							
 		<div class="white-panel">
-			<div class="login-show">
-				<h2>LOGIN</h2>
-				<input type="text" placeholder="Email">
-				<input type="password" placeholder="Password">
-				<input type="button" value="Login">
+			<form th:action="@{/login}" class="login-show" method="post">
+				<h2>Kirish</h2>
+				<input type="text" name="login" placeholder="Login">
+				<input type="password" name="parol" placeholder="Parol">
+				<input type="submit" value="Kirish">
 				<a href="">Forgot password?</a>
-			</div>
-			<div class="register-show">
-				<h2>REGISTER</h2>
-				<input type="text" placeholder="Email">
-				<input type="password" placeholder="Password">
-				<input type="password" placeholder="Confirm Password">
-				<input type="button" value="Register">
-			</div>
+			</form>
+			<form class="register-show">
+				<h2>Ro'yxatdan o'tish</h2>
+				<input type="text" name="login" placeholder="Login">
+				<input type="password" name="parol" placeholder="Parol">
+				<input type="password" placeholder="Parolni qayta kiriting">
+				<input type="submit" value="Ro'yxatdan o'tish">
+			</form>
 		</div>
     </div>
     <script src="/kirish.js"></script>
