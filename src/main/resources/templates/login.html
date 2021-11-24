@@ -10,39 +10,68 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <style>
-        label{
+        label {
             font-style: italic;
             font-size: large;
             font-weight: bold;
             color: rgb(0, 0, 129);
+        }
+        #kirish{
+            font-size: 41px;
+            text-align: center;
+            font-family: cursive;
+            color: rgb(0, 0, 129);
+
+        }
+        #ok{
+            font-size: 17px;
+            font-weight: bold;
+            width: 27%;
         }
     </style>
 
 </head>
 
 <body style="padding-top: 10%">
-    <div class="container-fluid w-50 " >
+    <div class="container-fluid w-50 ">
         <div class="row ">
             <div class="col-12 col-md-6" id="col1">
                 <img src="/signin-image.jpg" alt="">
             </div>
             <div class="col-12 col-md-6">
+                <div id="kirish">Kirish</div>
                 <form th:action="@{/login}" method="post">
-                    <div class="form-group">
-                        <label for="login">Login</label>
-                        <input type="text" name="login" id="login" class="form-control fa fa-user"
-                            placeholder="loginni kiriting...">
+                    
+
+                    <label for="parol">Login</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <input type="text" name="login" id="login" class="form-control fa fa-user" placeholder="loginni kiriting..." 
+                            aria-describedby="basic-addon1">
                     </div>
-                    <div class="form-group">
-                        <label for="parol">Parol</label>
-                        <input type="password" name="parol" id="parol" class="form-control fa fa-user"
-                            placeholder="parolni kiriting...">
+                    
+                    <label for="parol">Parol</label>
+                    <div class="input-group mb-4">
+                        
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <input type="text" name="parol" id="parol" class="form-control fa fa-user" placeholder="parolni kiriting..." 
+                            aria-describedby="basic-addon1">
                     </div>
+
                     <div style="text-align: center;">
-                        <button type="submit" class="btn btn-primary w-50 ">OK</button>
+                        <button type="submit" class="btn btn-primary" id="ok">OK</button>
                     </div>
                 </form>
             </div>

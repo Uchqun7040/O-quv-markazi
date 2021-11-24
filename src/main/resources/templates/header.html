@@ -103,10 +103,15 @@
                </a>
             </li>
             <li>
-               <a href="/logout" style="text-decoration: none;" class="sisi" >
-                  Chiqish
-                  <i class="fa fa-external-link" style="font-size: 20px;color: red;" aria-hidden="true"></i>
-               </a>
+               <form th:action="@{/logout}" method="post" style="text-decoration: none; color: cadetblue;">
+                  <input id="chiq" type="submit" value="" hidden></input>
+
+                  <label for="chiq" >
+                      <strong>Chiqish
+                      </strong>
+                      <i class="fa fa-external-link" style="font-size: 20px;" aria-hidden="true"></i>
+                  </label>
+              </form>
             </li>
 
          </ul>
