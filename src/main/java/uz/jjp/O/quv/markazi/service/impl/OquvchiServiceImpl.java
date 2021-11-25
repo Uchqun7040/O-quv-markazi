@@ -15,8 +15,7 @@ import java.util.List;
 public class OquvchiServiceImpl implements OquvchiService {
     @Autowired
     OquvchiRepository oquvchiRepository;
-    @Autowired
-    SessiyaRepository sessiyaRepository;
+
 
     @Override
     public List<Oquvchi> getAll() {

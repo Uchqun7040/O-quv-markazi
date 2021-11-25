@@ -40,6 +40,7 @@ public class UserController {
         hsr.sendRedirect("/user");
     }
 
+
     @GetMapping("/delete/{id}")
     public void delete(@PathVariable Long id, HttpServletResponse hsr) throws IOException {
         userService.deleteById(id);
