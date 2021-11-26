@@ -23,8 +23,7 @@ public class SessiyaController {
     @Autowired
     GuruhService guruhService;
 
-    @Autowired
-    OquvchiService oquvchiService;
+
 
     @Autowired
     SessiyaService sessiyaService;
@@ -37,16 +36,16 @@ public class SessiyaController {
         return "guruhlash";
     }
 
-//    @GetMapping("/tolanganlar")
-//    public String tolanganlar( Model model) throws IOException {
-//        model.addAttribute("sessiyalar",sessiyaService.tolovUchun(true));
-//        return "sessiya";
-//    }
-//    @GetMapping("/tolanmaganlar")
-//    public String tolanmaganlar(Model model) throws IOException {
-//        model.addAttribute("sessiyalar",sessiyaService.tolovUchun(false));
-//        return "sessiya";
-//    }
+    @GetMapping("/tolanganlar")
+    public String tolanganlar( Model model) throws IOException {
+        model.addAttribute("sessiyalar",sessiyaService.tolovUchun(true));
+        return "guruhlash";
+    }
+    @GetMapping("/tolanmaganlar")
+    public String tolanmaganlar(Model model) throws IOException {
+        model.addAttribute("sessiyalar",sessiyaService.tolovUchun(false));
+        return "guruhlash";
+    }
 
     @PostMapping("/izla")
     public String izla(Search s, Model model){

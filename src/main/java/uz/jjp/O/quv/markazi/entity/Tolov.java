@@ -23,6 +23,22 @@ public class Tolov {
         return id;
     }
 
+    public String getOy() {
+        return oy;
+    }
+
+    public void setOy(String oy) {
+        this.oy = oy;
+    }
+
+    public int getYil() {
+        return yil;
+    }
+
+    public void setYil(int yil) {
+        this.yil = yil;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

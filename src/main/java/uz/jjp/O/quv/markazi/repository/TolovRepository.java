@@ -10,4 +10,8 @@ import java.util.List;
 @Repository
 public interface TolovRepository extends JpaRepository<Tolov,Long> {
     List<Tolov> findAllByOrderByIdDesc();
+
+
+
+    Tolov findBySessiya_IdAndOyAndYil(Long id, String oy, int yil);
 }

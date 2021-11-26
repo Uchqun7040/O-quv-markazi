@@ -12,12 +12,12 @@ public interface SessiyaService {
      */
 public  List<Sessiya> getAll();
 
-//    /**
-//     * Bu metod kirayotgan boolean argumentga qarab to'lov qilingan yoki qilinmagan O'quvchilar ro'yxatini qaytaradi!
-//     * @param t
-//     * @return
-//     */
-//    public List<Sessiya> tolovUchun(boolean t);
+    /**
+     * Bu metod kirayotgan boolean argumentga qarab to'lov qilingan yoki qilinmagan O'quvchilar ro'yxatini qaytaradi!
+     * @param t
+     * @return
+     */
+    public List<Sessiya> tolovUchun(boolean t);
 
     /**
      *Bu metod kirib kelayotgan yangi Guruhlash obyektini bazaga qo'shib qo'yadi!

@@ -61,17 +61,17 @@
     <h2 style="padding-left: 10px;color: rgb(2, 26, 98);">Guruhlashlar bo'limi</h2>
     <hr>
     <div class="row">
-      <div class="col-12 col-md-3" >
+      <div class="col-12 col-md-3">
 
-        <video  width="100%" height="100%" autoplay muted loop th:if="${sessiya} ==null">
+        <video width="100%" height="100%" autoplay muted loop th:if="${sessiya} ==null">
           <source src="/gif.mp4" type="video/mp4">
           <source src="movie.ogg" type="video/ogg">
-        Your browser does not support the video tag.
+          Gif
         </video>
 
 
-        <form id="tahrirlash" th:action="@{/sessiyalar/edit}" method="POST" th:if="${sessiya} !=null" >
-          <h3 style="text-align: center;">Guruhlashni tahrirlash</h3>
+        <form id="tahrirlash" th:action="@{/sessiyalar/edit}" method="POST" th:if="${sessiya} !=null">
+          <h4 style="text-align: center;">Guruhlashni tahrirlash</h4>
           <div class="form-group">
             <label for="id">Id:</label>
             <input th:value="${sessiya.id}" type="text" name="id" id="id" class="form-control" aria-describedby="id"
@@ -115,8 +115,10 @@
 
           <div class="form-check">
             <label class="form-check-label">
-              <input th:if="${sessiya.guruh.aktiv}" type="checkbox" class="form-check-input" name="aktiv" th:field="${sessiya.aktiv}">
-              <input th:if="${!sessiya.guruh.aktiv}" type="checkbox" class="form-check-input" name="aktiv" th:field="${sessiya.aktiv}" disabled>
+              <input th:if="${sessiya.guruh.aktiv}" type="checkbox" class="form-check-input" name="aktiv"
+                th:field="${sessiya.aktiv}">
+              <input th:if="${!sessiya.guruh.aktiv}" type="checkbox" class="form-check-input" name="aktiv"
+                th:field="${sessiya.aktiv}" disabled>
               Aktiv
             </label>
           </div>
@@ -129,40 +131,44 @@
           <button type="submit" class="btn btn-primary">Tahrirlash</button>
           <a href="/sessiyalar" class="btn btn-danger" style="font-weight: normal !important;">Bekor qilish</a>
         </form>
-        
+
 
       </div>
       <div class="col-12 col-md-9" style=" padding: 13px; ">
 
-        <div class="row">
-          <div class="col-12 col-md-6 ">
-            <h3>Guruhlashlar ro'yxati</h3>
-          </div>
-          <div class="col-12 col-lg-6 position-relative">
+<div class="row">
+  <h4 class="col-12 col-xl-3" style="padding-left: 0;padding-right: 0;padding-top: 3px;">Guruhlashlar ro'yxati</h4>
 
-            <div style="display: flex;flex-direction: row;justify-content: flex-end;">
-              <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
-                Natija:
-                <span id="jami" th:text="${sessiyalar.size}"></span>
-                ta
-              </div>
-              <div style="padding-top: 6px;padding-left: 8px;">
-                <form id="izlash" th:action="@{/sessiyalar/izla}" method="POST">
-                  <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
-                  <input type="submit" id="tugma" value="Izlash"></input>
-                </form>
-              </div>
+  <div class="col-12 col-xl-9" style="display: flex;flex-direction: row;justify-content: flex-end; padding-left: 0;padding-right: 4px;">
+    <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
+      Natija:
+      <span id="jami" th:text="${sessiyalar.size}">12345678</span>
+      ta
+    </div>
+    <div style="padding-top: 6px;padding-left: 8px;">
+      <form id="izlash" th:action="@{/sessiyalar/izla}" method="POST">
+        <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
+        <input type="submit" id="tugma" value="Izlash"></input>
+      </form>
+    </div>
+    <div style="padding-left: 10px;">
+      <a class="btn btn-info " th:href="@{/sessiyalar}" role="button">Hammasi</a>
+      <a class="btn btn-success " th:href="@{/sessiyalar/tolanganlar}" role="button">To'langanlar</a>
+      <a class="btn btn-danger " th:href="@{/sessiyalar/tolanmaganlar}" role="button">To'lanmaganlar</a>
+    </div>
+  </div>
+</div>
+        
+          
+        
+        
 
-            </div>
-            <!-- <div style="padding-left: 10px;">
-            <a class="btn btn-info " href="/sessiyalar" role="button">Hammasi</a>
-            <a class="btn btn-success " href="/sessiyalar/tolanganlar" role="button">To'langanlar</a>
-            <a class="btn btn-danger " href="/sessiyalar/tolanmaganlar" role="button">To'lanmaganlar</a>
-            </div> -->
+        
 
 
-          </div>
-        </div>
+
+        
+
 
         <div th:if="${sessiyalar.size} == 0" id="royxatBush">
           Ro'yxat bo'sh!
@@ -229,7 +235,7 @@
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
                   th:attr="data-id=${o.id}" th:if="${!o.aktiv}" style="border-radius: 50%;" disabled>
 
-                  <i class="fa fa-power-off" aria-hidden="true" ></i>
+                  <i class="fa fa-power-off" aria-hidden="true"></i>
                 </button>
 
 
