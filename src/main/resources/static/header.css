@@ -31,6 +31,7 @@ li{
 .sisi:hover{
     border-bottom: 2px rgb(110, 255, 110) solid;
     font-weight: bolder;
+    color: rgb(5, 21, 77);
 }
 #menu{
     position: absolute;

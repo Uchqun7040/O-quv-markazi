@@ -30,7 +30,8 @@
         #ok{
             font-size: 17px;
             font-weight: bold;
-            width: 27%;
+            min-width: 65px;
+            text-align: center;
         }
     </style>
 
@@ -42,7 +43,7 @@
             <div class="col-12 col-md-6" id="col1">
                 <img src="/signin-image.jpg" alt="">
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-xl-6">
                 <div id="kirish">Kirish</div>
                 <form th:action="@{/login}" method="post">
                     

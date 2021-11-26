@@ -15,7 +15,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style></style>
+
 </head>
 
 <body>
@@ -31,50 +31,66 @@
             <div class="collapse navbar-collapse " id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                       <a class="sisi" style="text-decoration: none;" href="/">
-                          Bosh sahifa
-                       </a>
+                        <a class="sisi" style="text-decoration: none;" href="/">
+                            <strong style="color: rgba(110, 110, 255, 0.767);font-size: 17px;font-weight: inherit;"> Bosh sahifa</strong>
+                        </a>
                     </li>
                     <li class="nav-item">
-                       <a class="sisi" style="text-decoration: none;" href="/oquvchilar">
-                          O'quvchilar
-                       </a>
+                        <a class="sisi" style="text-decoration: none;" href="/oquvchilar">
+                            O'quvchilar
+                        </a>
                     </li>
                     <li class="nav-item">
-                       <a class="sisi" style="text-decoration: none;" href="/oqituvchilar">
-                          O'qituvchilar
-                       </a>
+                        <a class="sisi" style="text-decoration: none;" href="/oqituvchilar">
+                            O'qituvchilar
+                        </a>
                     </li>
                     <li class="nav-item">
-                       <a class="sisi" style="text-decoration: none;" href="/fanlar">
-                          Fanlar
-                       </a>
+                        <a class="sisi" style="text-decoration: none;" href="/fanlar">
+                            Fanlar
+                        </a>
                     </li>
                     <li class="nav-item">
-                       <a class="sisi" style="text-decoration: none;" href="/guruhlar">
-                          Guruhlar
-                       </a>
+                        <a class="sisi" style="text-decoration: none;" href="/guruhlar">
+                            Guruhlar
+                        </a>
                     </li>
                     <li class="nav-item">
-                       <a class="sisi" style="text-decoration: none;" href="/sessiyalar">
-                          Guruhlashlar
-                       </a>
+                        <a class="sisi" style="text-decoration: none;" href="/sessiyalar">
+                            Guruhlashlar
+                        </a>
                     </li>
-                    
-        
-                 </ul>
-                <div   class="position-sticky" style="padding-left: 10px;">
-                    <form th:action="@{/logout}" method="post" style="text-decoration: none; color: cadetblue;">
-                        <input id="chiq" type="submit" value="" hidden></input>
+                    <li class="nav-item dropdown ">
+                        <a class=" dropdown-toggle text-dark pt-0 sisi" style="text-decoration: none;" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Profil
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <strong>Admin</strong>
+                            </a>
+                            <div class="position-sticky dropdown-item" style="padding-left: 25px;">
+                                <form th:action="@{/logout}" method="post"
+                                    style="text-decoration: none; color: cadetblue;">
+                                    <input id="chiq" type="submit" value="" hidden></input>
 
-                        <label for="chiq" >
-                            <strong>Chiqish
-                            </strong>
-                            <i class="fa fa-external-link" style="font-size: 20px;" aria-hidden="true"></i>
-                        </label>
-                    </form>
+                                    <label for="chiq">
+                                        <i class="fa fa-external-link" style="font-size: 17px;" aria-hidden="true"></i>
+                                        
+                                        <strong>Chiqish
+                                        </strong>
+                                        
+                                    </label>
+                                </form>
 
-                </div>
+                            </div>
+
+                        </div>
+                    </li>
+
+                </ul>
+
 
             </div>
 
@@ -94,7 +110,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-        
+
 </body>
 
 </html>

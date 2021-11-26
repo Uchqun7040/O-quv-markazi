@@ -59,7 +59,7 @@
     <div class="row">
       <div class="col-12 col-md-3">
         <div th:if="${oqituvchi} == null" style="background-color: rgb(192, 214, 255); padding: 13px;">
-          <h3>O'qituvchi qo'shish</h3>
+          <h4>O'qituvchi qo'shish</h4>
           <form th:action="@{/oqituvchilar}" method="POST">
             <div class="form-group">
               <label for="ism">Ism:</label>
@@ -97,7 +97,7 @@
           </form>
         </div>
         <div th:if="${oqituvchi} !=null" style="background-color: rgb(192, 214, 255); padding: 13px;">
-          <h3>O'qituvchini tahrirlash</h3>
+          <h4>O'qituvchini tahrirlash</h4>
           <form th:action="@{/oqituvchilar/edit}" method="POST">
             <div class="form-group">
               <label for="id">Id:</label>
@@ -144,7 +144,7 @@
        
         <div class="row">
           <div class="col-12 col-md-6 ">
-            <h3>O'qituvchilar ro'yxati</h3>
+            <h4>O'qituvchilar ro'yxati</h4>
           </div>
           <div class="col-12 col-lg-6 position-relative">
 
