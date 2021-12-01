@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uz.jjp.O.quv.markazi.entity.Tolov;
 import uz.jjp.O.quv.markazi.service.GuruhService;
+import uz.jjp.O.quv.markazi.service.OquvchiService;
 import uz.jjp.O.quv.markazi.service.SessiyaService;
 import uz.jjp.O.quv.markazi.service.TolovService;
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +22,18 @@ import java.util.List;
 public class TolovController {
     List<String> oylar= Arrays.asList("Yanvar", "Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr");
 
+    @Autowired
+    OquvchiService oquvchiService;
 
     @Autowired
     TolovService tolovService;
 
     @Autowired
     SessiyaService sessiyaService;
+
+    @Autowired
+    GuruhService guruhService;
+
     @GetMapping()
     public String royxat(Model model) throws IOException {
         model.addAttribute("tolovlar",tolovService.getAll());
@@ -37,9 +44,9 @@ public class TolovController {
 
 
     @PostMapping()
-    public void yarat(Tolov o, HttpServletResponse hsr) throws IOException {
+    public String yarat(Tolov o, Model model) throws IOException {
         tolovService.create(o);
-        hsr.sendRedirect("/tolovlar");
+        return sessiyaTolov(o.getSessiya().getId(),model);
     }
 
     @GetMapping("/ochirish/{id}")
@@ -61,4 +68,26 @@ public class TolovController {
         hsr.sendRedirect("/tolovlar");
     }
 
+
+    @GetMapping("/sessiyaTolov/{id}")
+    public String sessiyaTolov(@PathVariable Long id,Model model){
+        model.addAttribute("sessiya",sessiyaService.getById(id));
+        model.addAttribute("oylar",oylar);
+        model.addAttribute("tolovlar",tolovService.getAllBySessiyaId(id));
+        return "sessiyaTolov";
+    }
+
+
+    @GetMapping("/oquvchiTolov/{id}")
+    public String oquvchiTolovlari(@PathVariable Long id,Model model){
+        model.addAttribute("tolovlar",tolovService.getAllByOquvchiId(id));
+        model.addAttribute("oquvchi",oquvchiService.getById(id));
+        return "oquvchiTolov";
+    }
+    @GetMapping("/guruhTolov/{id}")
+    public String guruhTolovlari(@PathVariable Long id,Model model){
+        model.addAttribute("tolovlar",tolovService.getAllByGuruh(id));
+        model.addAttribute("guruh",guruhService.getById(id));
+        return "guruhTolov";
+    }
 }

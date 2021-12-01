@@ -77,7 +77,6 @@ public class GuruhController {
         model.addAttribute("sessiyalar",sessiyaService.getAllByGuruhId(id));
         model.addAttribute("oqituvchilar",oqituvchiService.getAll());
         model.addAttribute("guruh",guruhService.getById(id));
-        System.out.println("VVVV  "+sessiyaService.getAllByGuruhId(id).size());
         return "onguruh";
     }
     @GetMapping("/ochirishSessiya/{id}")

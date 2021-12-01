@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/royxat.css">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body style="background-image: url('/Снимок7.PNG');background-repeat: no-repeat;background-size: cover;">
+    <div th:insert="header :: boshqism1"></div>
+    <div class="container bg-light mt-3 mb-3 pb-3 pt-2"
+        style="box-shadow: 1px 1px 15px 1px rgba(0, 0, 0, 0.788);width: 80%;">
+        <a class="btn btn-primary backBtn btn-lg type='button'"
+            style="font-size: large;margin-top: 3px;padding: 1px 4px 3px 4px;"
+            th:href="@{/oquvchilar/edit/{id}(id=${oquvchi.id})}">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+            ortga
+        </a>
+        <h3 style="padding-left: 10px;color: rgb(2, 26, 98);"><span
+                th:text="${oquvchi.ism}+' '+${oquvchi.familiya}">Anvar Shomurodov</span>ning barcha
+            to'lovlari</h3>
+        <hr>
+
+
+        <div style="background-color: rgb(245, 243, 243); padding: 13px;position: relative;">
+
+
+
+
+            <div style="display: flex;flex-wrap:wrap;justify-content: flex-end;">
+                <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
+                    Natija:
+                    <span id="jami" th:text="${tolovlar.size}">123456</span>
+                    ta
+                </div>
+                <div style="padding-top: 6px;padding-left: 8px;">
+                    <form id="izlash" th:action="@{/tolovlar/izla}" method="POST">
+                        <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
+                        <input type="submit" id="tugma" value="Izlash"></input>
+                    </form>
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+            <div th:if="${tolovlar.size} == 0" id="royxatBush">
+                Ro'yxat bo'sh!
+
+            </div>
+            <table th:if="${tolovlar.size} != 0" class="table table-striped table-border table-responsive ">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Guruh_ID</th>
+                        <th>Qiymat</th>
+                        <th>To'langan vaqt</th>
+                        <th>Oy</th>
+                        <th>Yil</th>
+                        <th>Izoh</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="o : ${tolovlar}">
+                        <td th:text="${o.id}">15654789</td>
+                        <td>
+                            <a class="link" th:href="@{/guruhlar/onguruh/{id}(id=${o.sessiya.guruh.id})}"
+                                th:text="${o.sessiya.guruh.id}">116</a>
+                        </td>
+                        <td th:text="${o.qiymat}">123456</td>
+                        <td th:text="${o.tolovVaqt}">qwertyuioppo</td>
+                        <td th:text="${o.oy}">Sentabr</td>
+                        <td th:text="${o.yil}">1234</td>
+                        <td th:text="${o.info}">jsgfegjvg w gweguigweiu iugvuwvev ferverv</td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

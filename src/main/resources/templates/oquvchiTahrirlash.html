@@ -52,33 +52,65 @@
 
         <div class="row">
             <div class="col-12">
-                <a class="btn btn-primary backBtn btn-lg type='button'" style="font-size: large;margin-top: 3px;padding: 1px 4px 3px 4px;" href="/oquvchilar">
-                    <i class="fa fa-angle-left" aria-hidden="true"></i>
-                    ortga
-                </a>
-                <h3 style="text-align: center;color: cornsilk;">
+                <div class="row">
+                    <div class="col-6">
+                        <a class="btn btn-primary backBtn btn-lg type='button'"
+                            style="font-size: large;margin-top: 3px;padding: 1px 4px 3px 4px;" href="/oquvchilar">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                            ortga
+                        </a>
+                    </div>
+                    <div class="col-6 text-right">
+                        <a class="btn btn-warning mt-1 text-white"
+                            th:href="@{/tolovlar/oquvchiTolov/{id}(id=${oquvchi.id})}">
+                             Barcha to'lovlari
+                        </a>
+                    </div>
+
+
+                </div>
+
+                <h4 style="text-align: center;color: cornsilk;">
                     Mavjud tayinlangan guruhlar
                     <span th:if="${sessiyalar.size} == 0 " style="color: red;">
                         yo'q!
                     </span>
-                </h3>
+                </h4>
 
-                <div th:each="gu: ${sessiyalar}"
-                    style="position:relative;background-color: rgb(93, 243, 93);border-radius: 10px;margin-bottom: 7px;
+
+                <div th:each="ss: ${sessiyalar}"
+                    style="background-color: rgb(93, 243, 93);border-radius: 10px;margin-bottom: 7px;
                     padding: 5px;padding-left: 15px;font-family: Verdana, Geneva, Tahoma, sans-serif;  color: rgb(64, 40, 197);font-weight: bold; box-shadow: 1px 1px 2px black;">
-                    <span>Guruh id: </span><span th:text="${gu.guruh.id}"
-                        style="color: white;font-weight: normal; ">565</span><br>
-                    <span>Guruh fani: </span><span th:text="${gu.guruh.fan.nom}"
-                        style="color: white;font-weight: normal;">Olma</span><br>
-                    <span>Guruh o'qituvchisi: </span><span
-                        th:text="${gu.guruh.oqituvchi.ism}+' '+${gu.guruh.oqituvchi.familiya}"
-                        style="color: white;font-weight: normal;">Uchqun Shonazarov</span>
-                    <div style="position: absolute;top: 25%;right: 1%;">
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
-                            th:attr="data-id=${gu.id}">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </button>
+                    <div class="row">
+                        <div class="col-12 col-sm-9">
+                            <span>Guruh id: </span><span th:text="${ss.guruh.id}"
+                                style="color: white;font-weight: normal; ">565</span><br>
+                            <span>Guruh fani: </span><span th:text="${ss.guruh.fan.nom}"
+                                style="color: white;font-weight: normal;">Olma</span><br>
+                            <span>Guruh o'qituvchisi: </span><span
+                                th:text="${ss.guruh.oqituvchi.ism}+' '+${ss.guruh.oqituvchi.familiya}"
+                                style="color: white;font-weight: normal;">Uchqun Shonazarov</span>
+                        </div>
+                        <div class="col-12 col-sm-3"
+                            style="display:flex; justify-content:flex-end;height: 37px; margin-top: 17px;">
+
+                            <a th:if="${ss.tolov}" class="btn btn-primary mr-2"
+                                th:href="@{/tolovlar/sessiyaTolov/{id}(id=${ss.id})}">
+                                <i class="fa fa-money text-white" aria-hidden="true"> To'lov</i>
+                            </a>
+                            <a th:if="${!ss.tolov}" class="btn btn-secondary mr-2"
+                                th:href="@{/tolovlar/sessiyaTolov/{id}(id=${ss.id})}">
+                                <i class="fa fa-money text-white" aria-hidden="true"> To'lov</i>
+                            </a>
+                            <button type="button" class="btn btn-danger mr-2" data-toggle="modal"
+                                data-target="#exampleModal" th:attr="data-id=${ss.id}">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+
+                        </div>
                     </div>
+
+
                 </div>
 
 
@@ -103,7 +135,8 @@
                         <div class="form-group">
                             <label for="guruh">Guruh:</label>
                             <select class="form-control" name="guruh" id="guruh">
-                                <option th:each="g : ${guruhlar}" th:value="${g.id}" th:text="'nomi: '+${g.nom}+', '+${g.fan.nom}"></option>
+                                <option th:each="g : ${guruhlar}" th:value="${g.id}"
+                                    th:text="'nomi: '+${g.nom}+', '+${g.fan.nom}"></option>
                             </select>
                         </div>
 
@@ -123,10 +156,10 @@
 
                         <div class="form-check">
                             <label class="form-check-label">
-                              <input type="checkbox" class="form-check-input" name="aktiv"  checked>
-                              Aktiv
+                                <input type="checkbox" class="form-check-input" name="aktiv" checked>
+                                Aktiv
                             </label>
-                          </div>
+                        </div>
 
                         <div class="form-group">
                             <label for="info">Izoh:</label>

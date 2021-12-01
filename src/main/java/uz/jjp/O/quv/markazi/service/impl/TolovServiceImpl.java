@@ -6,7 +6,8 @@ import uz.jjp.O.quv.markazi.entity.Tolov;
 import uz.jjp.O.quv.markazi.repository.TolovRepository;
 import uz.jjp.O.quv.markazi.service.TolovService;
 
-import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -21,7 +22,12 @@ public class TolovServiceImpl implements TolovService {
 
     @Override
     public void create(Tolov o) {
-        tolovRepository.save(o);
+        LocalDateTime dt=LocalDateTime.now();
+        o.setTolovVaqt(dt);
+        if (tolovRepository.findBySessiya_IdAndOyAndYil(o.getSessiya().getId(),o.getOy(),o.getYil()) == null){
+            tolovRepository.save(o);
+        }
+
     }
 
     @Override
@@ -37,5 +43,20 @@ public class TolovServiceImpl implements TolovService {
     @Override
     public Tolov getById(Long id) {
         return tolovRepository.getOne(id);
+    }
+
+    @Override
+    public List<Tolov> getAllBySessiyaId(Long id) {
+        return tolovRepository.getAllBySessiya_IdOrderByIdDesc(id);
+    }
+
+    @Override
+    public List<Tolov> getAllByOquvchiId(Long id) {
+        return tolovRepository.getAllBySessiya_Oquvchi_IdOrderByIdDesc(id);
+    }
+
+    @Override
+    public List<Tolov> getAllByGuruh(Long id) {
+        return tolovRepository.getAllBySessiya_Guruh_IdOrderByIdDesc(id);
     }
 }

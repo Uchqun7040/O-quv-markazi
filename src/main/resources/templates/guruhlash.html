@@ -63,14 +63,14 @@
     <div class="row">
       <div class="col-12 col-md-3">
 
-        <video width="100%" height="100%" autoplay muted loop th:if="${sessiya} ==null">
+        <video width="100%" height="100%" autoplay muted loop th:if="${sessiya} ==null" >
           <source src="/gif.mp4" type="video/mp4">
           <source src="movie.ogg" type="video/ogg">
           Gif
         </video>
 
 
-        <form id="tahrirlash" th:action="@{/sessiyalar/edit}" method="POST" th:if="${sessiya} !=null">
+        <form id="tahrirlash" th:action="@{/sessiyalar/edit}" method="POST" th:if="${sessiya} !=null" >
           <h4 style="text-align: center;">Guruhlashni tahrirlash</h4>
           <div class="form-group">
             <label for="id">Id:</label>
@@ -136,45 +136,37 @@
       </div>
       <div class="col-12 col-md-9" style=" padding: 13px; ">
 
-<div class="row">
-  <h4 class="col-12 col-xl-3" style="padding-left: 0;padding-right: 0;padding-top: 3px;">Guruhlashlar ro'yxati</h4>
+        <div class="row">
+          <h4 class="col-12 col-xl-3" style="padding-left: 8px;padding-right: 0;padding-top: 3px;">Guruhlashlar ro'yxati
+          </h4>
 
-  <div class="col-12 col-xl-9" style="display: flex;flex-direction: row;justify-content: flex-end; padding-left: 0;padding-right: 4px;">
-    <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
-      Natija:
-      <span id="jami" th:text="${sessiyalar.size}"></span>
-      ta
-    </div>
-    <div style="padding-top: 6px;padding-left: 8px;">
-      <form id="izlash" th:action="@{/sessiyalar/izla}" method="POST">
-        <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
-        <input type="submit" id="tugma" value="Izlash"></input>
-      </form>
-    </div>
-    <div style="padding-left: 10px;">
-      <a class="btn btn-info " th:href="@{/sessiyalar}" role="button">Hammasi</a>
-      <a class="btn btn-success " th:href="@{/sessiyalar/tolanganlar}" role="button">To'langanlar</a>
-      <a class="btn btn-danger " th:href="@{/sessiyalar/tolanmaganlar}" role="button">To'lanmaganlar</a>
-    </div>
-  </div>
-</div>
-        
-          
-        
-        
-
-        
+          <div class="col-12 col-xl-9" style="display: flex;  flex-wrap: wrap;justify-content: flex-end; padding-left: 0;padding-right: 4px;">
+            <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);margin-bottom: 5px;margin-right: 5px;">
+              Natija:
+              <span id="jami" th:text="${sessiyalar.size}">123456</span>
+              ta
+            </div>
+            <div style="padding-top: 6px;margin-left: 8px;margin-bottom: 5px;margin-right: 7px;">
+              <form id="izlash" th:action="@{/sessiyalar/izla}" method="POST">
+                <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
+                <input type="submit" id="tugma" value="Izlash"></input>
+              </form>
+            </div>
+            <div style="margin-right: 5px;margin-bottom: 5px;">
+              <a class="btn btn-info " th:href="@{/sessiyalar}" role="button">Hammasi</a>
+              <a class="btn btn-success " th:href="@{/sessiyalar/tolanganlar}" role="button">To'langanlar</a>
+              <a class="btn btn-danger " th:href="@{/sessiyalar/tolanmaganlar}" role="button">To'lanmaganlar</a>
+            </div>
+          </div>
+        </div>
 
 
 
-        
-
-
-        <div th:if="${sessiyalar.size} == 0" id="royxatBush">
+        <div th:if="${sessiyalar.size} == 0" id="royxatBush" >
           Ro'yxat bo'sh!
 
         </div>
-        <table th:if="${sessiyalar.size} != 0" class="table table-striped table-border table-responsive">
+        <table th:if="${sessiyalar.size} != 0" class="table table-striped table-border table-responsive" >
           <thead class="thead-inverse">
             <tr>
               <th>Id</th>

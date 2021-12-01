@@ -37,4 +37,25 @@ public void update(Tolov o);
      * @param id
      */
 public Tolov getById(Long id);
+
+    /**
+     * Bu metod sessiyaga tegishli tolovlarni olib beradi
+     * @param id
+     * @return
+     */
+    public List<Tolov> getAllBySessiyaId(Long id);
+
+    /**
+     * Bu metod oquvchiga tegishli tolovlarni olib beradi
+     * @param id
+     * @return
+     */
+    public List<Tolov> getAllByOquvchiId(Long id);
+
+    /**
+     * Bu metod guruhga tegishli tolovlarni olib beradi
+     * @param id
+     * @return
+     */
+    List<Tolov> getAllByGuruh(Long id);
 }

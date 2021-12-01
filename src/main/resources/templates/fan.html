@@ -54,12 +54,13 @@
 
 
   <div th:insert="header :: boshqism1"></div>
-  <div class="container bg-light mt-3 mb-3 pb-3 pt-2" style="box-shadow: 1px 1px 15px 1px rgba(0, 0, 0, 0.788);">
+  <div class="container bg-light mt-3 mb-3 pb-3 pt-2"
+    style="box-shadow: 1px 1px 15px 1px rgba(0, 0, 0, 0.788);width: 70%;">
 
     <h2 style="padding-left: 10px;color: rgb(2, 26, 98);">Fanlar bo'limi</h2>
     <hr>
     <div class="row">
-      <div class="col-12 col-md-3">
+      <div class="col-12 col-lg-4">
         <div th:if="${fan} == null" style="background-color: rgb(200, 217, 250); padding: 13px;">
 
 
@@ -107,31 +108,31 @@
           </form>
         </div>
       </div>
-      <div class="col-12 col-md-9" style="background-color: rgb(245, 243, 243); padding: 13px;">
-        <div class="row">
-          <div class="col-12 col-md-6 ">
-            <h4>Fanlar ro'yxati</h4>
+      <div class="col-12 col-lg-8" style="background-color: rgb(245, 243, 243); padding: 13px;">
+
+
+        <h4>Fanlar ro'yxati</h4>
+
+
+
+        <div style="display: flex;  flex-wrap: wrap;justify-content: flex-end;">
+          <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);min-width: 115px;padding-left: 0;">
+            Natija:
+            <span id="jami" th:text="${fanlar.size}">99</span>
+            ta
           </div>
-          <div class="col-12 col-lg-6 position-relative">
-
-            <div style="display: flex;flex-direction: row;justify-content: flex-end;">
-              <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
-                Natija:
-                <span id="jami" th:text="${fanlar.size}"></span>
-                ta
-              </div>
-              <div style="padding-top: 6px;padding-left: 8px;">
-                <form id="izlash" th:action="@{/fanlar/izla}" method="POST">
-                  <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
-                  <input type="submit" id="tugma" value="Izlash"></input>
-                </form>
-              </div>
-
-            </div>
-
-
+          <div style="padding-top: 6px;padding-left: 8px;">
+            <form id="izlash" th:action="@{/fanlar/izla}" method="POST">
+              <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
+              <input type="submit" id="tugma" value="Izlash"></input>
+            </form>
           </div>
+
         </div>
+
+
+
+
 
         <div th:if="${fanlar.size} == 0" id="royxatBush">
           Ro'yxat bo'sh!
@@ -148,9 +149,9 @@
           </thead>
           <tbody>
             <tr th:each="o : ${fanlar}">
-              <td th:text="${o.id}"></td>
-              <td th:text="${o.nom}"></td>
-              <td th:text="${o.info}"></td>
+              <td th:text="${o.id}">99</td>
+              <td th:text="${o.nom}">qwertyw</td>
+              <td th:text="${o.info}">Matematika</td>
               <td>
                 <a class="btn btn-info" th:href="@{/fanlar/edit/{id}(id=${o.id})}" style="border-radius: 50%;">
                   <i class="fa fa-pencil " aria-hidden="true"></i>

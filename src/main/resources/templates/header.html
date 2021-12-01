@@ -110,7 +110,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="#">
                         <i class="fa fa-user-circle" aria-hidden="true"></i>
-                        <strong th:inline="text">[[${#httpServletRequest.remoteUserz}]]</strong>
+                        <strong th:inline="text">[[${#httpServletRequest.remoteUser}]]</strong>
                     </a>
                     <div class="position-sticky dropdown-item" style="padding-left: 25px;">
                         <form th:action="@{/logout}" method="post"

@@ -8,9 +8,7 @@
   }
 
   
-  /* tr:hover{
-    background-color: rgb(144, 218, 252);
-  } */
+    
   .link,td{
     color: rgb(20, 20, 95);
   }
@@ -29,6 +27,7 @@
   #izlash{
     position: relative;
     width: 228px;
+    height: 30px;
     display: block;
   }
   #qidir{
@@ -50,6 +49,9 @@
   #tugma:hover{
     
     box-shadow: 1px 1px 2px black;
+  }
+  hr{
+    margin-top: 5px;
   }
 
 

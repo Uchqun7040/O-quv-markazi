@@ -51,12 +51,14 @@ public class Tolov {
         this.qiymat = qiymat;
     }
 
-    public LocalDateTime getTolovVaqt() {
-        return tolovVaqt;
-    }
+
 
     public void setTolovVaqt(LocalDateTime tolovVaqt) {
         this.tolovVaqt = tolovVaqt;
+    }
+
+    public LocalDateTime getTolovVaqt() {
+        return tolovVaqt;
     }
 
     public String getInfo() {

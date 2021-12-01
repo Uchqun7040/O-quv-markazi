@@ -14,4 +14,8 @@ public interface TolovRepository extends JpaRepository<Tolov,Long> {
 
 
     Tolov findBySessiya_IdAndOyAndYil(Long id, String oy, int yil);
+
+    List<Tolov> getAllBySessiya_IdOrderByIdDesc(Long id);
+    List<Tolov> getAllBySessiya_Oquvchi_IdOrderByIdDesc(Long id);
+    List<Tolov> getAllBySessiya_Guruh_IdOrderByIdDesc(Long id);
 }

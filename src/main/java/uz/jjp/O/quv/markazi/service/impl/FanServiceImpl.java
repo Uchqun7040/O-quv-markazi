@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.jjp.O.quv.markazi.entity.Fan;
 import uz.jjp.O.quv.markazi.repository.FanRepository;
+import uz.jjp.O.quv.markazi.repository.GuruhRepository;
 import uz.jjp.O.quv.markazi.service.FanService;
 
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.List;
 public class FanServiceImpl implements FanService {
     @Autowired
     FanRepository fanRepository;
+    @Autowired
+    GuruhRepository guruhRepository;
     @Override
     public List<Fan> getAll() {
         return fanRepository.findAll();
@@ -24,7 +27,10 @@ public class FanServiceImpl implements FanService {
 
     @Override
     public void delete(Long id) {
-        fanRepository.deleteById(id);
+        if (guruhRepository.findByFan_Nom(getById(id).getNom()) == null){
+            fanRepository.deleteById(id);
+        }
+
     }
 
     @Override
