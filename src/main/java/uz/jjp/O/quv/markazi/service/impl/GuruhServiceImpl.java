@@ -70,11 +70,11 @@ public class GuruhServiceImpl implements GuruhService {
 
         try{
             long n=Long.parseLong(s);
-            return guruhRepository.findAllByIdOrNomContainsIgnoreCaseOrOqituvchi_IsmContainsIgnoreCaseOrOqituvchi_FamiliyaContainsIgnoreCaseOrFan_NomContainsIgnoreCaseOrOquvchiSonOrNarxOrInfoContainsIgnoreCase(n,s,s,s,s,(int)n,(int)n,s);
+            return guruhRepository.findAllByIdOrNomContainsIgnoreCaseOrOqituvchi_IsmContainsIgnoreCaseOrOqituvchi_FamiliyaContainsIgnoreCaseOrFan_NomContainsIgnoreCaseOrOquvchiSonOrNarxOrInfoContainsIgnoreCaseOrderByIdDesc(n,s,s,s,s,(int)n,(int)n,s);
         }
         catch (Exception x) {
             int n=-1;
-            return guruhRepository.findAllByIdOrNomContainsIgnoreCaseOrOqituvchi_IsmContainsIgnoreCaseOrOqituvchi_FamiliyaContainsIgnoreCaseOrFan_NomContainsIgnoreCaseOrOquvchiSonOrNarxOrInfoContainsIgnoreCase((long)n,s,s,s,s,n,n,s);
+            return guruhRepository.findAllByIdOrNomContainsIgnoreCaseOrOqituvchi_IsmContainsIgnoreCaseOrOqituvchi_FamiliyaContainsIgnoreCaseOrFan_NomContainsIgnoreCaseOrOquvchiSonOrNarxOrInfoContainsIgnoreCaseOrderByIdDesc((long)n,s,s,s,s,n,n,s);
         }
     }
 
@@ -86,6 +86,11 @@ public class GuruhServiceImpl implements GuruhService {
             gs.removeIf(g ->(s.getGuruh() == g && s.getAktiv()));
         });
         return gs;
+    }
+
+    @Override
+    public List<Guruh> getAllByOqituvchi(Long id) {
+        return guruhRepository.findAllByOqituvchi_IdAndAktivIsTrueOrderByIdDesc(id);
     }
 
 }

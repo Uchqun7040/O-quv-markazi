@@ -10,8 +10,9 @@ import java.util.List;
 
 @Repository
 public interface GuruhRepository extends JpaRepository<Guruh,Long> {
-    List<Guruh> findAllByIdOrNomContainsIgnoreCaseOrOqituvchi_IsmContainsIgnoreCaseOrOqituvchi_FamiliyaContainsIgnoreCaseOrFan_NomContainsIgnoreCaseOrOquvchiSonOrNarxOrInfoContainsIgnoreCase(Long id,String nom,String oqism,String oqfam,String fnom,int oqson,int narx, String info);
+    List<Guruh> findAllByIdOrNomContainsIgnoreCaseOrOqituvchi_IsmContainsIgnoreCaseOrOqituvchi_FamiliyaContainsIgnoreCaseOrFan_NomContainsIgnoreCaseOrOquvchiSonOrNarxOrInfoContainsIgnoreCaseOrderByIdDesc(Long id,String nom,String oqism,String oqfam,String fnom,int oqson,int narx, String info);
     List<Guruh> findAllByAktiv(Boolean aktiv);
     List<Guruh> findAllByOrderByIdDesc();
     Guruh findByFan_Nom(String fan);
+    List<Guruh> findAllByOqituvchi_IdAndAktivIsTrueOrderByIdDesc(Long id);
 }

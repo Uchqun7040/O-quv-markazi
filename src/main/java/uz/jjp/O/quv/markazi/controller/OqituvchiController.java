@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uz.jjp.O.quv.markazi.entity.Oqituvchi;
 import uz.jjp.O.quv.markazi.entity.Search;
+import uz.jjp.O.quv.markazi.service.GuruhService;
 import uz.jjp.O.quv.markazi.service.OqituvchiService;
 
 
@@ -21,6 +22,8 @@ public class OqituvchiController {
     @Autowired
     OqituvchiService oqituvchiService;
 
+    @Autowired
+    GuruhService guruhService;
 
     @GetMapping()
     public String royxat(Model model) throws IOException {
@@ -47,16 +50,16 @@ public class OqituvchiController {
     }
 
     @GetMapping("/edit/{id}")
-    public String ozgartiriluvchi(@PathVariable Long id,Model model,HttpServletResponse hsr) throws IOException {
-        Oqituvchi o=oqituvchiService.getById(id);
-        model.addAttribute("oqituvchi",o);
-        return royxat(model);
+    public String ozgartiriluvchi(@PathVariable Long id,Model model) throws IOException {
+        model.addAttribute("oqituvchi",oqituvchiService.getById(id));
+        model.addAttribute("guruhlar",guruhService.getAllByOqituvchi(id));
+        return "oqituvchiTahrirlash";
     }
 
     @PostMapping("/edit")
-    public void ozgartirish(Oqituvchi o,HttpServletResponse hsr) throws IOException {
+    public String ozgartirish(Oqituvchi o,Model model) throws IOException {
         oqituvchiService.update(o);
-        hsr.sendRedirect("/oqituvchilar");
+        return ozgartiriluvchi(o.getId(),model);
     }
 
 }

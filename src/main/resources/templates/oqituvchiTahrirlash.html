@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>O'qituvchini tahrirlash</title>
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/header.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+</head>
+
+<body style="background-image: url('/Снимок7.PNG');background-repeat: no-repeat;background-size: cover;">
+
+    <div th:insert="header :: boshqism1"></div>
+    
+
+
+
+
+    <div class="container pb-3 mb-3" style="background-color: rgba(100, 95, 95, 0.473);padding-top: 5px;">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-6">
+                        <a class="btn btn-primary backBtn btn-lg type='button'"
+                            style="font-size: large;margin-top: 3px;padding: 1px 4px 3px 4px;" href="/oqituvchilar">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                            ortga
+                        </a>
+                    </div>
+
+
+                </div>
+
+                <h4 style="text-align: center;color: cornsilk;">
+                    Mavjud tayinlangan guruhlar
+                    <span th:if="${guruhlar.size} == 0 " style="color: red;">
+                        yo'q!
+                    </span>
+                </h4>
+
+
+                <div th:each="guruh: ${guruhlar}"
+                    style="background-color: rgb(93, 243, 93);border-radius: 10px;margin-bottom: 7px;
+                    padding: 5px;padding-left: 15px;font-family: Verdana, Geneva, Tahoma, sans-serif;  color: rgb(64, 40, 197);font-weight: bold; box-shadow: 1px 1px 2px black;">
+                    <div class="row">
+                        <div class="col-12 col-sm-9">
+                            <span>Guruh id: </span><span th:text="${guruh.id}"
+                                style="color: white;font-weight: normal; ">565</span><br>
+                            <span>Guruh fani: </span><span th:text="${guruh.fan.nom}"
+                                style="color: white;font-weight: normal;">Olma</span><br>
+                            <span>Guruh narxi: </span><span th:text="${guruh.narx}"
+                                style="color: white;font-weight: normal;">100000</span>
+                        </div>
+                        <div class="col-12 col-sm-3"
+                            style="display:flex; justify-content:flex-end;height: 37px; margin-top: 18px;">
+
+                            <a  class="btn btn-primary mr-2 pr-2 pl-2 pt-1 "
+                            th:href="@{/guruhlar/onguruh/{id}(id=${guruh.id})}" style="font-weight: bold;" >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-in-right text-white " viewBox="3 0 14 15">
+                                    <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                                    <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                                </svg>
+                            </a>
+                            
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="row">
+
+
+            <div class="col-12 col-md-6">
+                <div style="background-color: rgba(233, 234, 236, 0.685); padding: 13px;">  
+                    <h4>Ma'lumotlarni tahrirlash</h4>
+                    <form th:action="@{/oqituvchilar/edit}" method="POST">
+                        <div class="form-group">
+                            <label for="id">Id:</label>
+                            <input th:value="${oqituvchi.id}" type="text" name="id" id="id" class="form-control"
+                                aria-describedby="id" readonly>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="ism">Ism:</label>
+                            <input required th:value="${oqituvchi.ism}" type="text" name="ism" id="ism"
+                                class="form-control" placeholder="Ismini kiriting..." aria-describedby="ism">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="familiya">Familiya:</label>
+                            <input required th:value="${oqituvchi.familiya}" type="text" name="familiya" id="familiya"
+                                class="form-control" placeholder="Familiyasini kiriting..." aria-describedby="familiya">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="sharif">Sharif:</label>
+                            <input required th:value="${oqituvchi.sharif}" type="text" name="sharif" id="sharif"
+                                class="form-control" placeholder="Sharifini kiriting..." aria-describedby="sharif">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="hujjat">Hujjat:</label>
+                            <input required th:value="${oqituvchi.hujjat}" type="text" name="hujjat" id="hujjat"
+                                class="form-control" placeholder="Seriya va nomer..." aria-describedby="hujjat">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="telNomer">Tel. nomer:</label>
+                            <input th:value="${oqituvchi.telNomer}" type="text" name="telNomer" id="telNomer"
+                                class="form-control" placeholder="Telefon nomerini kiriting..."
+                                aria-describedby="nomer">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="info">Izoh:</label>
+                            <textarea th:field="${oqituvchi.info}" class="form-control" name="info" id="info" rows="5"
+                                placeholder="Izoh..."></textarea>
+                        </div>
+                        <div style="text-align: center;">
+                            <button style="margin-right: 20px;" type="submit"
+                                class="btn btn-success">Tahrirlash</button>
+                            <a th:href="@{/oqituvchilar/edit/{id}(id=${oqituvchi.id})}" class="btn btn-danger" style="font-weight: normal !important;">Bekor
+                                qilish</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="col-12 col-md-6 pt-4 ml-0 pl-0">
+                
+                <img src="/teacher.jpg"  width="100%" height="95%" >
+
+
+            </div>  
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+
+    
+</body>
+
+</html>

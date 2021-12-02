@@ -64,5 +64,10 @@ public List<Guruh> izla(String s);
      */
 public List<Guruh> getAllByNotOquvchiId(Long id);
 
-
+    /**
+     * Bu metod oqituvchiga tegishli guruhlarni olib beradi!
+     * @param id
+     * @return
+     */
+    List<Guruh> getAllByOqituvchi(Long id);
 }

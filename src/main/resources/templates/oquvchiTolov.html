@@ -31,6 +31,7 @@
             <i class="fa fa-angle-left" aria-hidden="true"></i>
             ortga
         </a>
+        <hr>
         <h3 style="padding-left: 10px;color: rgb(2, 26, 98);"><span
                 th:text="${oquvchi.ism}+' '+${oquvchi.familiya}">Anvar Shomurodov</span>ning barcha
             to'lovlari</h3>
@@ -48,12 +49,12 @@
                     <span id="jami" th:text="${tolovlar.size}">123456</span>
                     ta
                 </div>
-                <div style="padding-top: 6px;padding-left: 8px;">
+                <!-- <div style="padding-top: 6px;padding-left: 8px;">
                     <form id="izlash" th:action="@{/tolovlar/izla}" method="POST">
                         <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
                         <input type="submit" id="tugma" value="Izlash"></input>
                     </form>
-                </div>
+                </div> -->
 
             </div>
 
