@@ -39,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll() //doim ruxsat berilgan sahifa
-                .antMatchers("/bosh.css","/kirish.css","/Снимок2.PNG","/Снимок3.PNG","/signin-image.jpg").permitAll() //doim ruxsat berilgan css fayllar
+                .antMatchers("/logo.png","/Снимок2.PNG","/signin-image.jpg","/assets/**").permitAll() //doim ruxsat berilgan css, jpg fayllar
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
