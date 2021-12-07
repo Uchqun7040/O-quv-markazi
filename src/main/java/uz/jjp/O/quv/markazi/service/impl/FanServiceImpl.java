@@ -59,6 +59,7 @@ public class FanServiceImpl implements FanService {
         }
     }
 
+
     @Override
     public Page<Fan> findPagination(int pageNo, int pageSize) {
         Pageable pageable= PageRequest.of(pageNo-1,pageSize);

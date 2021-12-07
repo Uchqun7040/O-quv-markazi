@@ -9,5 +9,6 @@ import java.util.List;
 
 @Repository
 public interface FanRepository extends JpaRepository<Fan,Long> {
+
     List<Fan> findAllByNomContainsIgnoreCaseOrInfoContainsIgnoreCaseOrId(String nom, String info,Long id);
 }

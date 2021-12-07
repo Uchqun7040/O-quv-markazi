@@ -45,5 +45,9 @@ public interface FanService {
      */
     public List<Fan> izla(String s);
 
+    /**
+     * Bu metod Fan pagelarini beradi!
+     * @return
+     */
     public Page<Fan> findPagination(int pageNo, int pageSize);
 }

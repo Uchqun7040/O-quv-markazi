@@ -77,6 +77,7 @@ public class FanController {
         return "kirish";
     }
 
+
     @GetMapping("/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo")int pageNo ,Model model){
         int pageSize = 5;
