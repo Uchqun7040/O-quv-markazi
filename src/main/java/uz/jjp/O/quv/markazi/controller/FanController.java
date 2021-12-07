@@ -1,6 +1,7 @@
 package uz.jjp.O.quv.markazi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import uz.jjp.O.quv.markazi.service.FanService;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @RequestMapping("/fanlar")
@@ -25,8 +27,8 @@ public class FanController {
 
     @GetMapping()
     public String royxat(Model model) throws IOException {
-        model.addAttribute("fanlar",fanService.getAll());
-        return "fan";
+//        model.addAttribute("fanlar",fanService.getAll());
+        return findPaginated(1,model);
     }
 
     @PostMapping("/izla")
@@ -73,5 +75,18 @@ public class FanController {
     public String kirish(Model model) throws IOException {
 
         return "kirish";
+    }
+
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo")int pageNo ,Model model){
+        int pageSize = 5;
+        Page<Fan> page =fanService.findPagination(pageNo,pageSize);
+        List<Fan> fanlar = page.getContent();
+        model.addAttribute("currentPage",pageNo);
+        model.addAttribute("totalPages",page.getTotalPages());
+        model.addAttribute("totalItems",page.getTotalElements());
+        model.addAttribute("fanlar",fanlar);
+        return "fan";
+
     }
 }

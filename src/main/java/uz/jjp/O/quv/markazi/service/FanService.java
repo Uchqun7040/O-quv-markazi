@@ -2,6 +2,7 @@ package uz.jjp.O.quv.markazi.service;
 
 
 
+import org.springframework.data.domain.Page;
 import uz.jjp.O.quv.markazi.entity.Fan;
 
 import java.util.List;
@@ -44,4 +45,5 @@ public interface FanService {
      */
     public List<Fan> izla(String s);
 
+    public Page<Fan> findPagination(int pageNo, int pageSize);
 }

@@ -15,6 +15,7 @@ public class Oqituvchi {
     private String sharif;
     private String hujjat;
     private String telNomer;
+    private Boolean aktiv;
     private String info;
 
     public Long getId() {
@@ -63,6 +64,14 @@ public class Oqituvchi {
 
     public void setTelNomer(String telNomer) {
         this.telNomer = telNomer;
+    }
+
+    public Boolean getAktiv() {
+        return aktiv;
+    }
+
+    public void setAktiv(Boolean aktiv) {
+        this.aktiv = aktiv;
     }
 
     public String getInfo() {
