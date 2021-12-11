@@ -178,7 +178,7 @@
        
         
         <nav aria-label="Page navigation example" th:if="${pages} > 1">
-          <ul class="pagination d-flex flex-wrap align-content-center">
+          <ul class="pagination d-flex flex-wrap justify-content-center">
             <li class="page-item disabled" th:if="${pageNumber} == 0">
               <a class="page-link" th:href="@{'/fanlar'+${surov}+'?page=' +${pageNumber-1}}" tabindex="-1">Avvalgi</a>
             </li>
