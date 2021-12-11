@@ -2,6 +2,10 @@ package uz.jjp.O.quv.markazi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +19,7 @@ import uz.jjp.O.quv.markazi.service.FanService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,18 +28,20 @@ import java.util.List;
 public class FanController {
     @Autowired
     FanService fanService;
-
+    String satr="";
 
     @GetMapping()
-    public String royxat(Model model) throws IOException {
-//        model.addAttribute("fanlar",fanService.getAll());
-        return findPaginated(1,model);
+    public String royxat(@PageableDefault(value = 10,page = 0) Pageable pageable, Model model) throws IOException {
+        model.addAttribute("surov","");
+        return findPaginated(pageable,fanService.getAll(pageable),model);
     }
 
-    @PostMapping("/izla")
-    public String izla(Search s, Model model){
-        model.addAttribute("fanlar",fanService.izla(s.getSatr()));
-        return "fan";
+    @GetMapping("/izla")
+    public String izla(@PageableDefault(value = 10,page = 0) Pageable pageable,@Param("satr") String satr, Model model) throws IOException {
+        if (satr ==null) satr=this.satr;
+        else this.satr=satr;
+        model.addAttribute("surov","/izla");
+        return findPaginated(pageable,fanService.izla(satr,pageable),model);
     }
 
     @PostMapping()
@@ -57,8 +64,9 @@ public class FanController {
     @GetMapping("/edit/{id}")
     public String ozgartiriluvchi(@PathVariable Long id,Model model,HttpServletResponse hsr) throws IOException {
         Fan o=fanService.getById(id);
+        Pageable pageable= PageRequest.of(0,10);
         model.addAttribute("fan",o);
-        return royxat(model);
+        return royxat(pageable,model);
     }
 
     @PostMapping("/edit")
@@ -71,23 +79,32 @@ public class FanController {
         }
         hsr.sendRedirect("/fanlar");
     }
-    @GetMapping("/kirish")
-    public String kirish(Model model) throws IOException {
 
-        return "kirish";
-    }
-
-
-    @GetMapping("/page/{pageNo}")
-    public String findPaginated(@PathVariable(value = "pageNo")int pageNo ,Model model){
-        int pageSize = 5;
-        Page<Fan> page =fanService.findPagination(pageNo,pageSize);
-        List<Fan> fanlar = page.getContent();
-        model.addAttribute("currentPage",pageNo);
-        model.addAttribute("totalPages",page.getTotalPages());
-        model.addAttribute("totalItems",page.getTotalElements());
+    public String findPaginated(Pageable pageable,Page<Fan> fanlar,Model model){
         model.addAttribute("fanlar",fanlar);
+        model.addAttribute("pages",fanlar.getTotalPages());
+        model.addAttribute("pageNumber",pageable.getPageNumber());
+        model.addAttribute("totalItems",fanlar.getTotalElements());
         return "fan";
-
     }
+
+//    @GetMapping("/page/{pageNo}")
+//    public String findPaginated(@PathVariable(value = "pageNo")int pageNo ,Model model){
+//        int pageSize = 5;
+//        Page<Fan> page =fanService.findPagination(pageNo,pageSize);
+//        List<Fan> fanlar = page.getContent();
+//        model.addAttribute("currentPage",pageNo);
+//        model.addAttribute("totalPages",page.getTotalPages());
+//        model.addAttribute("totalItems",page.getTotalElements());
+//        model.addAttribute("fanlar",fanlar);
+//        return "fan";
+//
+//    }
+
+//    @GetMapping()
+//    public String royxat(Model model) throws IOException {
+////        model.addAttribute("fanlar",fanService.getAll());
+//        return findPaginated(1,model);
+//    }
+
 }

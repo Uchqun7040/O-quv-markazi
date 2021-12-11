@@ -53,7 +53,12 @@
   hr{
     margin-top: 5px;
   }
-
+  .dataTable-top{
+    display: none;
+  }
+  .dataTable-bottom{
+    display: none;
+  }
 
 
 

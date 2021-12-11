@@ -3,6 +3,7 @@ package uz.jjp.O.quv.markazi.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,7 +15,7 @@ public class Tolov {
     private Sessiya sessiya;
     private int qiymat;
     @DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm")
-    private LocalDateTime tolovVaqt;
+    private LocalDate tolovVaqt;
     private String oy;
     private int yil;
     private String info;
@@ -53,11 +54,11 @@ public class Tolov {
 
 
 
-    public void setTolovVaqt(LocalDateTime tolovVaqt) {
+    public void setTolovVaqt(LocalDate tolovVaqt) {
         this.tolovVaqt = tolovVaqt;
     }
 
-    public LocalDateTime getTolovVaqt() {
+    public LocalDate getTolovVaqt() {
         return tolovVaqt;
     }
 

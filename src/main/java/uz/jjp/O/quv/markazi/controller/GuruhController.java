@@ -35,7 +35,7 @@ public class GuruhController {
     public String royxat(Model model) throws IOException {
         model.addAttribute("guruhlar",guruhService.getAll());
         model.addAttribute("oqituvchilar",oqituvchiService.getAll());
-        model.addAttribute("fanlar",fanService.getAll());
+//        model.addAttribute("fanlar",fanService.getAll());
         return "guruh";
     }
 

@@ -19,8 +19,9 @@ public class FanServiceImpl implements FanService {
     @Autowired
     GuruhRepository guruhRepository;
     @Override
-    public List<Fan> getAll() {
-        return fanRepository.findAll();
+    public Page<Fan> getAll(Pageable pageable) {
+
+        return fanRepository.findAll(pageable);
     }
 
     @Override
@@ -47,22 +48,22 @@ public class FanServiceImpl implements FanService {
     }
 
     @Override
-    public List<Fan> izla(String s) {
+    public Page<Fan> izla(String s,Pageable pageable) {
 
         try{
             Long n=Long.parseLong(s);
-            return fanRepository.findAllByNomContainsIgnoreCaseOrInfoContainsIgnoreCaseOrId(s, s,n);
+            return fanRepository.findAllByNomContainsIgnoreCaseOrInfoContainsIgnoreCaseOrId(s, s,n,pageable);
         }
         catch (Exception x) {
 
-            return fanRepository.findAllByNomContainsIgnoreCaseOrInfoContainsIgnoreCaseOrId(s, s,(long) -1);
+            return fanRepository.findAllByNomContainsIgnoreCaseOrInfoContainsIgnoreCaseOrId(s, s,(long) -1,pageable);
         }
     }
-
-
     @Override
     public Page<Fan> findPagination(int pageNo, int pageSize) {
         Pageable pageable= PageRequest.of(pageNo-1,pageSize);
         return this.fanRepository.findAll(pageable);
     }
+
+
 }

@@ -6,6 +6,8 @@ import uz.jjp.O.quv.markazi.entity.Tolov;
 import uz.jjp.O.quv.markazi.repository.TolovRepository;
 import uz.jjp.O.quv.markazi.service.TolovService;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -22,7 +24,8 @@ public class TolovServiceImpl implements TolovService {
 
     @Override
     public void create(Tolov o) {
-        LocalDateTime dt=LocalDateTime.now();
+
+        LocalDate dt=LocalDate.now();
         o.setTolovVaqt(dt);
         if (tolovRepository.findBySessiya_IdAndOyAndYil(o.getSessiya().getId(),o.getOy(),o.getYil()) == null){
             tolovRepository.save(o);

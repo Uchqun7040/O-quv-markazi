@@ -3,6 +3,7 @@ package uz.jjp.O.quv.markazi.service;
 
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import uz.jjp.O.quv.markazi.entity.Fan;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface FanService {
     /**
      * Bu metod ro'yxatdagi barcha Fanlarni olib uzatadi!
      */
-    public  List<Fan> getAll();
+    Page<Fan> getAll(Pageable pageable);
 
     /**
      *Bu metod kirib kelayotgan yangi Fan obyektini qo'shib qo'yadi!
@@ -43,7 +44,7 @@ public interface FanService {
      * @param s
      * @return
      */
-    public List<Fan> izla(String s);
+    public Page<Fan> izla(String s,Pageable pageable);
 
     /**
      * Bu metod Fan pagelarini beradi!

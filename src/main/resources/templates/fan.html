@@ -19,13 +19,18 @@
   <meta http-equiv="Expires" content="0">
 
 
-
+  <link href="/css/style.css" rel="stylesheet">
+      
 </head>
 <style>
   body {
-    background-image: url(/Снимок7.PNG);
+    background-image: url('/Снимок7.PNG');
     background-size: cover;
-  }
+  }   
+  th{
+    min-width: 60px;
+  }  
+  
 </style>
 
 <body>
@@ -55,7 +60,7 @@
 
   <div th:insert="header :: boshqism1"></div>
   <div class="container bg-light mt-3 mb-3 pb-3 pt-2"
-    style="box-shadow: 1px 1px 15px 1px rgba(0, 0, 0, 0.788);width: 70%;">
+    style="box-shadow: 1px 1px 15px 1px rgba(0, 0, 0, 0.788);">
 
     <h2 style="padding-left: 10px;color: rgb(2, 26, 98);">Fanlar bo'limi</h2>
     <hr>
@@ -80,7 +85,7 @@
               <label for="info">Izoh</label>
               <textarea class="form-control" name="info" id="info" rows="5" placeholder="Izoh..."></textarea>
             </div>
-            <input type="submit" class="btn btn-primary" value="Qo'shish"></input>
+            <input type="submit"  class="btn btn-primary" value="Qo'shish"></input>
             <input type="reset" class="btn btn-danger" value="Tozalash"></input>
           </form>
         </div>
@@ -118,11 +123,11 @@
         <div style="display: flex;  flex-wrap: wrap;justify-content: flex-end;">
           <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);min-width: 115px;padding-left: 0;">
             Natija:
-            <span id="jami" th:text="${fanlar.size}">99</span>
+            <span id="jami" th:text="${totalItems}">99</span>
             ta
           </div>
           <div style="padding-top: 6px;padding-left: 8px;">
-            <form id="izlash" th:action="@{/fanlar/izla}" method="POST">
+            <form id="izlash" th:action="@{/fanlar/izla}" method="get">
               <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
               <input type="submit" id="tugma" value="Izlash"></input>
             </form>
@@ -138,7 +143,7 @@
           Ro'yxat bo'sh!
 
         </div>
-        <table th:if="${fanlar.size} != 0" class="table table-striped table-border table-responsive">
+        <table th:if="${fanlar.size} != 0" class="table table-striped datatable table-responsive">
           <thead>
             <tr>
               <th>Id</th>
@@ -149,9 +154,9 @@
           </thead>
           <tbody>
             <tr th:each="o : ${fanlar}">
-              <td th:text="${o.id}">99</td>
-              <td th:text="${o.nom}">qwertyw</td>
-              <td th:text="${o.info}">Matematika</td>
+              <td th:text="${o.id}">59</td>
+              <td th:text="${o.nom}">mob</td>
+              <td th:text="${o.info}">matika</td>
               <td>
                 <a class="btn btn-info" th:href="@{/fanlar/edit/{id}(id=${o.id})}" style="border-radius: 50%;">
                   <i class="fa fa-pencil " aria-hidden="true"></i>
@@ -167,13 +172,39 @@
 
               </td>
             </tr>
+           
           </tbody>
         </table>
+       
+        
+        <nav aria-label="Page navigation example" th:if="${pages} > 1">
+          <ul class="pagination d-flex flex-wrap align-content-center">
+            <li class="page-item disabled" th:if="${pageNumber} == 0">
+              <a class="page-link" th:href="@{'/fanlar'+${surov}+'?page=' +${pageNumber-1}}" tabindex="-1">Avvalgi</a>
+            </li>
+            <li class="page-item" th:if="${pageNumber} > 0">
+              <a class="page-link" th:href="@{'/fanlar'+${surov}+'?page=' +${pageNumber-1}}" tabindex="-1">Avvalgi</a>
+            </li>
+            
+
+            <li class="page-item ml-0 mr-0" th:each="i : ${#numbers.sequence(1,pages)}">
+              <a class="page-link" th:href="@{'/fanlar'+${surov}+'?page='+${i-1}}" th:text="${i}">1</a>
+            </li>
+            
+
+            <li class="page-item disabled" th:if="${pageNumber} == ${pages-1}">
+              <a class="page-link" th:href="@{'/fanlar'+${surov}+'?page=' +${pageNumber+1}}">Keyingi</a>
+            </li>
+            <li class="page-item " th:if="${pageNumber} < ${pages-1}">
+              <a class="page-link" th:href="@{'/fanlar'+${surov}+'?page=' +${pageNumber+1}}">Keyingi</a>
+            </li>
+          </ul>
+        </nav>
 
 
-        <div th:if="${totalPages > 1}">
+        <!-- <div th:if="${totalPages > 1}">
            <div class="row col-sm-10">
-             <div class="col-sm-2">
+             <div class="col-sm-2" >
                Total Rows: [[${totalItems}]]
              </div>
              <div class="col-sm-1">
@@ -191,7 +222,7 @@
               <span th:unless="${currentPage < totalPages}">last</span>
              </div>
            </div>
-        </div>
+        </div> -->
 
       </div>
     </div>
@@ -223,7 +254,10 @@
       modal.find('.modal-footer a').attr('href', '/fanlar/ochirish/' + id)
     })
   </script>
-
+<script src="/js/tinymce.min.js"></script>
+<script src="/js/simple-datatables.js"></script>
+<!-- Template Main JS File -->
+<script src="/js/main.js"></script>
 
 </body>
 
