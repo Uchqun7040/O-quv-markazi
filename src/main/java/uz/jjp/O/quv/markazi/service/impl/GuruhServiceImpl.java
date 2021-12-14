@@ -1,6 +1,8 @@
 package uz.jjp.O.quv.markazi.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import uz.jjp.O.quv.markazi.entity.Guruh;
 import uz.jjp.O.quv.markazi.entity.Sessiya;
@@ -18,8 +20,13 @@ public class GuruhServiceImpl implements GuruhService {
     @Autowired
     SessiyaService sessiyaService;
     @Override
+    public Page<Guruh> getAll(Pageable pageable) {
+        return guruhRepository.findAllByOrderByIdDesc(pageable);
+    }
+
+    @Override
     public List<Guruh> getAll() {
-        return guruhRepository.findAllByOrderByIdDesc();
+        return guruhRepository.findAllByAktiv(true);
     }
 
     @Override
@@ -66,15 +73,15 @@ public class GuruhServiceImpl implements GuruhService {
     }
 
     @Override
-    public List<Guruh> izla(String s) {
+    public Page<Guruh> izla(String s,Pageable pageable) {
 
         try{
             long n=Long.parseLong(s);
-            return guruhRepository.findAllByIdOrNomContainsIgnoreCaseOrOqituvchi_IsmContainsIgnoreCaseOrOqituvchi_FamiliyaContainsIgnoreCaseOrFan_NomContainsIgnoreCaseOrOquvchiSonOrNarxOrInfoContainsIgnoreCaseOrderByIdDesc(n,s,s,s,s,(int)n,(int)n,s);
+            return guruhRepository.findAllByIdOrNomContainsIgnoreCaseOrOqituvchi_IsmContainsIgnoreCaseOrOqituvchi_FamiliyaContainsIgnoreCaseOrFan_NomContainsIgnoreCaseOrOquvchiSonOrNarxOrInfoContainsIgnoreCaseOrderByIdDesc(n,s,s,s,s,(int)n,(int)n,s,pageable);
         }
         catch (Exception x) {
             int n=-1;
-            return guruhRepository.findAllByIdOrNomContainsIgnoreCaseOrOqituvchi_IsmContainsIgnoreCaseOrOqituvchi_FamiliyaContainsIgnoreCaseOrFan_NomContainsIgnoreCaseOrOquvchiSonOrNarxOrInfoContainsIgnoreCaseOrderByIdDesc((long)n,s,s,s,s,n,n,s);
+            return guruhRepository.findAllByIdOrNomContainsIgnoreCaseOrOqituvchi_IsmContainsIgnoreCaseOrOqituvchi_FamiliyaContainsIgnoreCaseOrFan_NomContainsIgnoreCaseOrOquvchiSonOrNarxOrInfoContainsIgnoreCaseOrderByIdDesc((long)n,s,s,s,s,n,n,s,pageable);
         }
     }
 

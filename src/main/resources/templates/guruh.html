@@ -17,6 +17,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
 
+  <link href="/css/style.css" rel="stylesheet">
   <style>
     body {
       background-image: url(/Снимок7.PNG);
@@ -111,14 +112,14 @@
 
           <div class="col-12 col-lg-8 position-relative">
         
-            <div style="display: flex;flex-direction: row;justify-content: flex-end;">
+            <div style="display: flex;flex-wrap: wrap;justify-content: flex-end;">
               <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
                 Natija:
-                <span id="jami" th:text="${guruhlar.size}">123456</span>
+                <span id="jami" th:text="${totalItems}">123456</span>
                 ta
               </div>
               <div style="padding-top: 6px;padding-left: 8px;">
-                <form id="izlash" th:action="@{/guruhlar/izla}" method="POST">
+                <form id="izlash" th:action="@{/guruhlar/izla}" method="get">
                   <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
                   <input type="submit" id="tugma" value="Izlash"></input>
                 </form>
@@ -134,11 +135,11 @@
 
 
         </div>
-        <div th:if="${guruhlar.size} == 0" id="royxatBush">
+        <div th:if="${totalItems} == 0" id="royxatBush">
           Ro'yxat bo'sh!
           
         </div>
-        <table th:if="${guruhlar.size} != 0" class="table table-striped table-border table-responsive">
+        <table th:if="${totalItems} != 0" class="table table-striped datatable table-border table-responsive">
           <thead class="thead-inverse">
             <tr>
               <th>Id</th>
@@ -157,10 +158,10 @@
               <td th:text="${o.id}"></td>
               <td th:text="${o.nom}"></td>
               <td >
-                <a class="link" href="/fanlar" th:text="${o.fan.nom}"></a>
+                <a class="link" th:href="@{/fanlar}" th:text="${o.fan.nom}"></a>
               </td>
               <td>
-                <a class="link" href="/oqituvchilar" th:text="${o.oqituvchi.ism}+' '+${o.oqituvchi.familiya}"></a>
+                <a class="link" th:href="@{/oqituvchilar/edit/{id}(id=${o.oqituvchi.id})}" th:text="${o.oqituvchi.ism}+' '+${o.oqituvchi.familiya}"></a>
               </td>
               <td th:text="${o.oquvchiSon}"></td>
               <td th:text="${o.narx}"></td>
@@ -194,6 +195,30 @@
             </tr>
           </tbody>
         </table>
+
+        <nav aria-label="Page navigation example" th:if="${pages} > 1">
+          <ul class="pagination d-flex flex-wrap justify-content-center">
+            <li class="page-item disabled" th:if="${pageNumber} == 0">
+              <a class="page-link" th:href="@{'/guruhlar'+${surov}+'?page=' +${pageNumber-1}}" tabindex="-1">Avvalgi</a>
+            </li>
+            <li class="page-item" th:if="${pageNumber} > 0">
+              <a class="page-link" th:href="@{'/guruhlar'+${surov}+'?page=' +${pageNumber-1}}" tabindex="-1">Avvalgi</a>
+            </li>
+            
+
+            <li class="page-item ml-0 mr-0" th:each="i : ${#numbers.sequence(1,pages)}">
+              <a class="page-link" th:href="@{'/guruhlar'+${surov}+'?page='+${i-1}}" th:text="${i}">1</a>
+            </li>
+            
+
+            <li class="page-item disabled" th:if="${pageNumber} == ${pages-1}">
+              <a class="page-link" th:href="@{'/guruhlar'+${surov}+'?page=' +${pageNumber+1}}">Keyingi</a>
+            </li>
+            <li class="page-item " th:if="${pageNumber} < ${pages-1}">
+              <a class="page-link" th:href="@{'/guruhlar'+${surov}+'?page=' +${pageNumber+1}}">Keyingi</a>
+            </li>
+          </ul>
+        </nav>
         
       </div>
     </div>
@@ -226,6 +251,10 @@
     })
   </script>
 
+<script src="/js/tinymce.min.js"></script>
+<script src="/js/simple-datatables.js"></script>
+<!-- Template Main JS File -->
+<script src="/js/main.js"></script>
 
 </body>
 

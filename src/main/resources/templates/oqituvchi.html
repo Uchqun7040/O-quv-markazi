@@ -17,13 +17,15 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
 
+  <link href="/css/style.css" rel="stylesheet">
+
   <style>
     body {
       background-image: url(/Снимок7.PNG);
       background-size: cover;
     }
   </style>
- 
+
 </head>
 
 <body>
@@ -53,7 +55,7 @@
 
   <div th:insert="header :: boshqism1"></div>
   <div class="container bg-light mt-3 mb-3 pb-3 pt-2" style="box-shadow: 1px 1px 15px 1px rgba(0, 0, 0, 0.788);">
-    
+
     <h2 style="padding-left: 10px;color: rgb(2, 26, 98);">O'qituvchilar bo'limi</h2>
     <hr>
     <div class="row">
@@ -63,30 +65,37 @@
           <form th:action="@{/oqituvchilar}" method="POST">
             <div class="form-group">
               <label for="ism">Ism:</label>
-              <input required type="text" name="ism" id="ism" class="form-control" placeholder="Ismini kiriting..." aria-describedby="ism">
-              
+              <input required type="text" name="ism" id="ism" class="form-control" placeholder="Ismini kiriting..."
+                aria-describedby="ism">
+
             </div>
             <div class="form-group">
               <label for="familiya">Familiya</label>
-              <input required type="text" name="familiya" id="familiya" class="form-control" placeholder="Familiyasini kiriting..."
-                aria-describedby="familiya">
-              
+              <input required type="text" name="familiya" id="familiya" class="form-control"
+                placeholder="Familiyasini kiriting..." aria-describedby="familiya">
+
             </div>
             <div class="form-group">
               <label for="sharif">Sharif</label>
-              <input required type="text" name="sharif" id="sharif" class="form-control" placeholder="Sharifini kiriting..."
-                aria-describedby="sharif">
+              <input required type="text" name="sharif" id="sharif" class="form-control"
+                placeholder="Sharifini kiriting..." aria-describedby="sharif">
             </div>
             <div class="form-group">
               <label for="hujjat">Hujjat</label>
-              <input required type="text" name="hujjat" id="hujjat" class="form-control" placeholder="Pasport seriyasi va nomeri..."
-                aria-describedby="hujjat">
-              
+              <input required type="text" name="hujjat" id="hujjat" class="form-control"
+                placeholder="Pasport seriyasi va nomeri..." aria-describedby="hujjat">
+
             </div>
             <div class="form-group">
               <label for="telNomer">Tel. nomer</label>
-              <input type="number" name="telNomer" id="telNomer" class="form-control" placeholder="Telefon nomerini kiriting..."
-                aria-describedby="nomer">
+              <input type="number" name="telNomer" id="telNomer" class="form-control"
+                placeholder="Telefon nomerini kiriting..." aria-describedby="nomer">
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" name="aktiv"  checked>
+                Aktiv
+              </label>
             </div>
             <div class="form-group">
               <label for="info">Izoh</label>
@@ -96,24 +105,24 @@
             <input type="reset" class="btn btn-danger" value="Tozalash"></input>
           </form>
         </div>
-        
+
       </div>
       <div class="col-12 col-md-9" style="background-color: rgb(245, 243, 243); padding: 13px;position: relative;">
-       
+
         <div class="row">
           <div class="col-12 col-lg-4 pr-0">
             <h4>O'qituvchilar ro'yxati</h4>
           </div>
           <div class="col-12 col-lg-8 position-relative">
 
-            <div style="display: flex;flex-direction: row;justify-content: flex-end;">
+            <div style="display: flex;flex-wrap:wrap;justify-content: flex-end;">
               <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
                 Natija:
-                <span id="jami" th:text="${oqituvchilar.size}">12345</span>
+                <span id="jami" th:text="${totalItems}">12345</span>
                 ta
               </div>
               <div style="padding-top: 6px;padding-left: 8px;">
-                <form id="izlash" th:action="@{/oqituvchilar/izla}" method="POST">
+                <form id="izlash" th:action="@{/oqituvchilar/izla}" method="get">
                   <input type="text" id="qidir" name="satr" placeholder="ma'lumot kiriting...">
                   <input type="submit" id="tugma" value="Izlash"></input>
                 </form>
@@ -124,11 +133,11 @@
 
           </div>
         </div>
-        <div th:if="${oqituvchilar.size} == 0" id="royxatBush">
+        <div th:if="${totalItems} == 0" id="royxatBush">
           Ro'yxat bo'sh!
-          
+
         </div>
-        <table th:if="${oqituvchilar.size} != 0" class="table table-striped table-border table-responsive">
+        <table th:if="${totalItems} != 0" class="table table-striped datatable table-border table-responsive">
           <thead class="thead-inverse">
             <tr>
               <th>Id</th>
@@ -137,6 +146,7 @@
               <th>Sharif</th>
               <th>Hujjat</th>
               <th>Tel nomer</th>
+              <th>Aktiv</th>
               <th>Izoh</th>
               <th>Amallar</th>
             </tr>
@@ -149,6 +159,14 @@
               <td th:text="${o.sharif}"></td>
               <td th:text="${o.hujjat}"></td>
               <td th:text="${o.telNomer}"></td>
+              <td th:switch="${o.aktiv}">
+                <span th:case="true" style="color: rgb(0, 238, 0);">
+                  Ha
+                </span>
+                <span th:case="false" style="color: rgb(253, 50, 43);">
+                  Yo'q
+                </span>
+              </td>
               <td th:text="${o.info}"></td>
               <td>
                 <a class="btn btn-info" th:href="@{/oqituvchilar/edit/{id}(id=${o.id})}" style="border-radius: 50%;">
@@ -157,17 +175,45 @@
 
 
 
-<!--                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"-->
-<!--                th:attr="data-id=${o.id}" style="border-radius: 50%;">-->
-<!--                  <i class="fa fa-trash" aria-hidden="true"></i>-->
-<!--                </button>-->
-
+                <button type="button" style="border-radius: 50%;" class="btn btn-danger" data-toggle="modal"
+                  data-target="#exampleModal" th:attr="data-id=${o.id}" th:if="${o.aktiv}">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+                <button style="border-radius: 50%;" type="button" class="btn btn-danger" data-toggle="modal"
+                  data-target="#exampleModal" th:attr="data-id=${o.id}" th:if="${!o.aktiv}" disabled>
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
 
               </td>
             </tr>
           </tbody>
         </table>
-        
+
+        <nav aria-label="Page navigation example" th:if="${pages} > 1">
+          <ul class="pagination d-flex flex-wrap justify-content-center">
+            <li class="page-item disabled" th:if="${pageNumber} == 0">
+              <a class="page-link" th:href="@{'/oqituvchilar'+${surov}+'?page=' +${pageNumber-1}}"
+                tabindex="-1">Avvalgi</a>
+            </li>
+            <li class="page-item" th:if="${pageNumber} > 0">
+              <a class="page-link" th:href="@{'/oqituvchilar'+${surov}+'?page=' +${pageNumber-1}}"
+                tabindex="-1">Avvalgi</a>
+            </li>
+
+
+            <li class="page-item ml-0 mr-0" th:each="i : ${#numbers.sequence(1,pages)}">
+              <a class="page-link" th:href="@{'/oqituvchilar'+${surov}+'?page='+${i-1}}" th:text="${i}">1</a>
+            </li>
+
+
+            <li class="page-item disabled" th:if="${pageNumber} == ${pages-1}">
+              <a class="page-link" th:href="@{'/oqituvchilar'+${surov}+'?page=' +${pageNumber+1}}">Keyingi</a>
+            </li>
+            <li class="page-item " th:if="${pageNumber} < ${pages-1}">
+              <a class="page-link" th:href="@{'/oqituvchilar'+${surov}+'?page=' +${pageNumber+1}}">Keyingi</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
@@ -190,16 +236,19 @@
 
 
 
-    <script>
-      $('#exampleModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget) 
-      var id = button.data('id') ;   
+  <script>
+    $('#exampleModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      var id = button.data('id');
       var modal = $(this)
-      modal.find('.modal-footer a').attr('href', '/oqituvchilar/ochirish/'+id)
-      }) 
-      </script>
+      modal.find('.modal-footer a').attr('href', '/oqituvchilar/ochirish/' + id)
+    })
+  </script>
+  <script src="/js/tinymce.min.js"></script>
+  <script src="/js/simple-datatables.js"></script>
+  <!-- Template Main JS File -->
+  <script src="/js/main.js"></script>
 
-     
 </body>
 
 </html>

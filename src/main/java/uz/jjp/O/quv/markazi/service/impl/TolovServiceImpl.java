@@ -1,6 +1,8 @@
 package uz.jjp.O.quv.markazi.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import uz.jjp.O.quv.markazi.entity.Tolov;
 import uz.jjp.O.quv.markazi.repository.TolovRepository;
@@ -17,6 +19,12 @@ public class TolovServiceImpl implements TolovService {
 
     @Autowired
     TolovRepository tolovRepository;
+
+    @Override
+    public Page<Tolov> getAll(Pageable pageable) {
+        return tolovRepository.findAllByOrderByIdDesc(pageable);
+    }
+
     @Override
     public List<Tolov> getAll() {
         return tolovRepository.findAllByOrderByIdDesc();
@@ -39,6 +47,11 @@ public class TolovServiceImpl implements TolovService {
     }
 
     @Override
+    public Page<Tolov> izla(String s, Pageable pageable) {
+        return null;
+    }
+
+    @Override
     public void update(Tolov o) {
         tolovRepository.save(o);
     }
@@ -49,17 +62,17 @@ public class TolovServiceImpl implements TolovService {
     }
 
     @Override
-    public List<Tolov> getAllBySessiyaId(Long id) {
-        return tolovRepository.getAllBySessiya_IdOrderByIdDesc(id);
+    public Page<Tolov> getAllBySessiyaId(Long id,Pageable pageable) {
+        return tolovRepository.getAllBySessiya_IdOrderByIdDesc(id,pageable);
     }
 
     @Override
-    public List<Tolov> getAllByOquvchiId(Long id) {
-        return tolovRepository.getAllBySessiya_Oquvchi_IdOrderByIdDesc(id);
+    public Page<Tolov> getAllByOquvchiId(Long id,Pageable pageable) {
+        return tolovRepository.getAllBySessiya_Oquvchi_IdOrderByIdDesc(id,pageable);
     }
 
     @Override
-    public List<Tolov> getAllByGuruh(Long id) {
-        return tolovRepository.getAllBySessiya_Guruh_IdOrderByIdDesc(id);
+    public Page<Tolov> getAllByGuruhId(Long id,Pageable pageable) {
+        return tolovRepository.getAllBySessiya_Guruh_IdOrderByIdDesc(id,pageable);
     }
 }

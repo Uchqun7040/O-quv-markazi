@@ -9,6 +9,7 @@
 .dataTable-top,
 .dataTable-bottom {
 	padding: 8px 10px;
+	display: none;
 }
 
 .dataTable-top > nav:first-child,
@@ -144,22 +145,26 @@
 	border-left: 4px solid transparent;
 	border-right: 4px solid transparent;
 	opacity: 0.2;
+	display: none;
 }
 
 .dataTable-sorter::before {
 	border-top: 4px solid #000;
 	bottom: 0px;
+	display: none;
 }
 
 .dataTable-sorter::after {
 	border-bottom: 4px solid #000;
 	border-top: 4px solid transparent;
 	top: 0px;
+	display: none;
 }
 
 .asc .dataTable-sorter::after,
 .desc .dataTable-sorter::before {
 	opacity: 0.6;
+	display: none;
 }
 
 .dataTables-empty {

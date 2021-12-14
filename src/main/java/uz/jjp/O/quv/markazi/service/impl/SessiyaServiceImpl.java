@@ -1,6 +1,10 @@
 package uz.jjp.O.quv.markazi.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import uz.jjp.O.quv.markazi.entity.Sessiya;
 import uz.jjp.O.quv.markazi.entity.Tolov;
@@ -11,6 +15,7 @@ import uz.jjp.O.quv.markazi.service.SessiyaService;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SessiyaServiceImpl implements SessiyaService {
@@ -22,9 +27,10 @@ public class SessiyaServiceImpl implements SessiyaService {
 
     @Autowired
     GuruhService guruhService;
+
     @Override
-    public List<Sessiya> getAll() {
-        List<Sessiya> ss=sessiyaRepository.findAllByOrderByIdDesc();
+    public Page<Sessiya> getAll(Pageable pageable) {
+        Page<Sessiya> ss=sessiyaRepository.findAllByOrderByIdDesc(pageable);
         for (Sessiya s: ss) {
             s.setTolov(isTolov(s));
         }
@@ -32,15 +38,28 @@ public class SessiyaServiceImpl implements SessiyaService {
     }
 
     @Override
-    public List<Sessiya> tolovUchun(boolean t) {
-        List<Sessiya> ss=getAll();
-        if (t) {
-            ss.removeIf(s -> !s.getTolov());
-        }
-        else{
-            ss.removeIf(Sessiya::getTolov);
+    public List<Sessiya> getAll() {
+        List<Sessiya> ss=sessiyaRepository.findAll();
+        for (Sessiya s: ss) {
+            s.setTolov(isTolov(s));
         }
         return ss;
+    }
+
+    @Override
+    public Page<Sessiya> tolovUchun(boolean t,Pageable pageable) {
+        Page<Sessiya> ss=getAll(pageable);
+        if (t) {
+
+            List<Sessiya> sessiyas = ss.stream().filter(Sessiya::getTolov).collect(Collectors.toList());
+            return new PageImpl<>(sessiyas, pageable, ss.getSize());
+        }
+        else{
+            List<Sessiya> sessiyas = ss.stream().filter(sessiya ->!sessiya.getTolov()).collect(Collectors.toList());
+            return new PageImpl<>(sessiyas, pageable, ss.getSize());
+        }
+
+
     }
 
     @Override
@@ -56,6 +75,8 @@ public class SessiyaServiceImpl implements SessiyaService {
         s.setAktiv(false);
         sessiyaRepository.save(s);
     }
+
+
 
     @Override
     public void update(Sessiya o) {
@@ -90,18 +111,18 @@ public class SessiyaServiceImpl implements SessiyaService {
     }
 
     @Override
-    public List<Sessiya> izla(String s) {
+    public Page<Sessiya> izla(String s,Pageable pageable) {
 
         try{
             Long n=Long.parseLong(s);
-            List<Sessiya> ss=sessiyaRepository.findAllByIdOrGuruh_NomContainsIgnoreCaseOrGuruh_Fan_NomContainsIgnoreCaseOrOquvchi_FamiliyaContainsIgnoreCaseOrOquvchi_IdOrOquvchi_IsmContainsIgnoreCaseOrInfoContainsIgnoreCase(n,s,s,s,n,s,s);
+            Page<Sessiya> ss=sessiyaRepository.findAllByIdOrGuruh_NomContainsIgnoreCaseOrGuruh_Fan_NomContainsIgnoreCaseOrOquvchi_FamiliyaContainsIgnoreCaseOrOquvchi_IdOrOquvchi_IsmContainsIgnoreCaseOrInfoContainsIgnoreCase(n,s,s,s,n,s,s,pageable);
             for (Sessiya se: ss) {
                 se.setTolov(isTolov(se));
             }
             return ss;
         }
         catch (Exception x) {
-            List<Sessiya> ss=sessiyaRepository.findAllByIdOrGuruh_NomContainsIgnoreCaseOrGuruh_Fan_NomContainsIgnoreCaseOrOquvchi_FamiliyaContainsIgnoreCaseOrOquvchi_IdOrOquvchi_IsmContainsIgnoreCaseOrInfoContainsIgnoreCase((long)-1,s,s,s,(long)-1,s,s);
+            Page<Sessiya> ss=sessiyaRepository.findAllByIdOrGuruh_NomContainsIgnoreCaseOrGuruh_Fan_NomContainsIgnoreCaseOrOquvchi_FamiliyaContainsIgnoreCaseOrOquvchi_IdOrOquvchi_IsmContainsIgnoreCaseOrInfoContainsIgnoreCase((long)-1,s,s,s,(long)-1,s,s,pageable);
             for (Sessiya se: ss) {
                 se.setTolov(isTolov(se));
             }
@@ -120,6 +141,7 @@ public class SessiyaServiceImpl implements SessiyaService {
 
     @Override
     public void deleteAllByGuruhId(Long id) {
+
         List<Sessiya> ss=sessiyaRepository.getAllByGuruhIdAndAktivIsTrue(id);
         for (Sessiya s: ss) {
             delete(s.getId());
@@ -127,12 +149,24 @@ public class SessiyaServiceImpl implements SessiyaService {
     }
 
     @Override
-    public List<Sessiya> getAllByGuruhId(Long id) {
-        List<Sessiya> ss=sessiyaRepository.getAllByGuruhIdAndAktivIsTrue(id);
+    public Page<Sessiya> getAllByGuruhId(Long id,Pageable pageable) {
+        Page<Sessiya> ss=sessiyaRepository.getAllByGuruhIdAndAktivIsTrue(id,pageable);
         for (Sessiya s: ss) {
             s.setTolov(isTolov(s));
         }
         return ss;
+    }
+
+    @Override
+    public Page<Sessiya> izlaOnGuruh(Long guruhId, String s, Pageable pageable) {
+        try{
+            Long n=Long.parseLong(s);
+            return sessiyaRepository.findAllByOquvchi_IdOrOquvchi_IsmContainsIgnoreCaseOrOquvchi_FamiliyaContainsIgnoreCaseOrOquvchi_HujjatContainsIgnoreCaseOrOquvchi_SharifContainsIgnoreCaseOrOquvchi_TelNomerContainsIgnoreCaseOrOquvchi_InfoContainsIgnoreCase(n,s,s,s,s,s,s,pageable);
+        }
+        catch (Exception x) {
+
+            return sessiyaRepository.findAllByOquvchi_IdOrOquvchi_IsmContainsIgnoreCaseOrOquvchi_FamiliyaContainsIgnoreCaseOrOquvchi_HujjatContainsIgnoreCaseOrOquvchi_SharifContainsIgnoreCaseOrOquvchi_TelNomerContainsIgnoreCaseOrOquvchi_InfoContainsIgnoreCase(-1L,s,s,s,s,s,s,pageable);
+        }
     }
 
 

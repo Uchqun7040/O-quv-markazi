@@ -11,7 +11,7 @@
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
+    <link href="/css/style.css" rel="stylesheet">
 
 
 
@@ -24,7 +24,7 @@
 <body style="background-image: url('/Снимок7.PNG');background-repeat: no-repeat;background-size: cover;">
     <div th:insert="header :: boshqism1"></div>
     <div class="container bg-light mt-3 mb-3 pb-3 pt-2"
-        style="box-shadow: 1px 1px 15px 1px rgba(0, 0, 0, 0.788);width: 80%;">
+        style="box-shadow: 1px 1px 15px 1px rgba(0, 0, 0, 0.788);width: 90%;">
         <a class="btn btn-primary backBtn btn-lg type='button'"
             style="font-size: large;margin-top: 3px;padding: 1px 4px 3px 4px;"
             th:href="@{/guruhlar/onguruh/{id}(id=${guruh.id})}">
@@ -45,7 +45,7 @@
             <div style="display: flex;flex-wrap:wrap;justify-content: flex-end;">
                 <div style="font-size: 20px;padding-top: 4px;color: rgb(54, 54, 54);">
                     Natija:
-                    <span id="jami" th:text="${tolovlar.size}">123456</span>
+                    <span id="jami" th:text="${totalItems}"></span>
                     ta
                 </div>
                 <!-- <div style="padding-top: 6px;padding-left: 8px;">
@@ -65,11 +65,11 @@
 
 
 
-            <div th:if="${tolovlar.size} == 0" id="royxatBush">
+            <div th:if="${totalItems} == 0" id="royxatBush">
                 Ro'yxat bo'sh!
 
             </div>
-            <table th:if="${tolovlar.size} != 0" class="table table-striped table-border table-responsive ">
+            <table th:if="${totalItems} != 0" class="table table-striped datatable table-border table-responsive ">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -83,21 +83,42 @@
                 </thead>
                 <tbody>
                     <tr th:each="o : ${tolovlar}">
-                        <td th:text="${o.id}">15654789</td>
-                        <td>
-                            <a class="link" th:href="@{/guruhlar/onguruh/{id}(id=${o.sessiya.guruh.id})}"
-                                th:text="${o.sessiya.id}">116</a>
-                        </td>
-                        <td th:text="${o.qiymat}">123456</td>
-                        <td th:text="${o.tolovVaqt}">qwertyuioppo</td>
-                        <td th:text="${o.oy}">Sentabr</td>
-                        <td th:text="${o.yil}">1234</td>
-                        <td th:text="${o.info}">jsgfegjvg w gweguigweiu iugvuwvev ferverv</td>
+                        <td th:text="${o.id}"></td>
+                        <td th:text="${o.sessiya.id}"></td>
+                        <td th:text="${o.qiymat}"></td>
+                        <td th:text="${o.tolovVaqt}"></td>
+                        <td th:text="${o.oy}"></td>
+                        <td th:text="${o.yil}"></td>
+                        <td th:text="${o.info}"></td>
 
                     </tr>
                 </tbody>
             </table>
-
+            <nav aria-label="Page navigation example" th:if="${pages} > 1">
+                <ul class="pagination d-flex flex-wrap justify-content-center">
+                  <li class="page-item disabled" th:if="${pageNumber} == 0">
+                    <a class="page-link" th:href="@{'/tolovlar/guruhTolov/'+${guruh.id}+'?page=' +${pageNumber-1}}"
+                      tabindex="-1">Avvalgi</a>
+                  </li>
+                  <li class="page-item" th:if="${pageNumber} > 0">
+                    <a class="page-link" th:href="@{'/tolovlar/guruhTolov/'+${guruh.id}+'?page=' +${pageNumber-1}}"
+                      tabindex="-1">Avvalgi</a>
+                  </li>
+      
+      
+                  <li class="page-item ml-0 mr-0" th:each="i : ${#numbers.sequence(1,pages)}">
+                    <a class="page-link" th:href="@{'/tolovlar/guruhTolov/'+${guruh.id}+'?page='+${i-1}}" th:text="${i}">1</a>
+                  </li>
+      
+      
+                  <li class="page-item disabled" th:if="${pageNumber} == ${pages-1}">
+                    <a class="page-link" th:href="@{'/tolovlar/guruhTolov/'+${guruh.id}+'?page=' +${pageNumber+1}}">Keyingi</a>
+                  </li>
+                  <li class="page-item " th:if="${pageNumber} < ${pages-1}">
+                    <a class="page-link" th:href="@{'/tolovlar/guruhTolov/'+${guruh.id}+'?page=' +${pageNumber+1}}">Keyingi</a>
+                  </li>
+                </ul>
+              </nav>
         </div>
 
     </div>
@@ -114,7 +135,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-
+        <script src="/js/tinymce.min.js"></script>
+        <script src="/js/simple-datatables.js"></script>
+        <!-- Template Main JS File -->
+        <script src="/js/main.js"></script>
 </body>
 
 </html>

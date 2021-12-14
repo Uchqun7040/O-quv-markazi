@@ -25,6 +25,11 @@ public class FanServiceImpl implements FanService {
     }
 
     @Override
+    public List<Fan> getAll() {
+        return fanRepository.findAll();
+    }
+
+    @Override
     public void create(Fan o) {
         fanRepository.save(o);
     }
@@ -59,11 +64,11 @@ public class FanServiceImpl implements FanService {
             return fanRepository.findAllByNomContainsIgnoreCaseOrInfoContainsIgnoreCaseOrId(s, s,(long) -1,pageable);
         }
     }
-    @Override
-    public Page<Fan> findPagination(int pageNo, int pageSize) {
-        Pageable pageable= PageRequest.of(pageNo-1,pageSize);
-        return this.fanRepository.findAll(pageable);
-    }
+//    @Override
+//    public Page<Fan> findPagination(int pageNo, int pageSize) {
+//        Pageable pageable= PageRequest.of(pageNo-1,pageSize);
+//        return this.fanRepository.findAll(pageable);
+//    }
 
 
 }

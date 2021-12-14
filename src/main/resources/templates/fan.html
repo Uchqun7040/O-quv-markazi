@@ -27,9 +27,7 @@
     background-image: url('/Снимок7.PNG');
     background-size: cover;
   }   
-  th{
-    min-width: 60px;
-  }  
+   
   
 </style>
 
@@ -139,11 +137,11 @@
 
 
 
-        <div th:if="${fanlar.size} == 0" id="royxatBush">
+        <div th:if="${totalItems} == 0" id="royxatBush">
           Ro'yxat bo'sh!
 
         </div>
-        <table th:if="${fanlar.size} != 0" class="table table-striped datatable table-responsive">
+        <table th:if="${totalItems} != 0" class="table table-striped datatable table-responsive">
           <thead>
             <tr>
               <th>Id</th>

@@ -1,6 +1,8 @@
 package uz.jjp.O.quv.markazi.service;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import uz.jjp.O.quv.markazi.entity.Tolov;
 
 
@@ -8,54 +10,27 @@ import uz.jjp.O.quv.markazi.entity.Tolov;
 import java.util.List;
 
 
-public interface TolovService {
-    /**
-     * Bu metod ro'yxatdagi barcha To'lovlarni bazadan olib uzatadi.
-     *
-     */
-public  List<Tolov> getAll();
-    /**
-     *Bu metod kirib kelayotgan yangi To'lov obyektini bazaga qo'shib qo'yadi!
-     * @param o
-     */
-public void create(Tolov o);
+public interface TolovService extends GeneralService<Tolov,Long>{
 
-    /**
-     * Bu metod bazadagi ID si kirib kelayotgan Long turidagi id songa teng bo'lgan To'lov obyektini bazadan o'chirib yuboradi.
-     * @param id
-     */
-public void delete(Long id);
-
-    /**
-     * Bu metod bazadagi mavjud obyekt ma'lumotlarini kirib kelayotgan yangi Tolov obyektiga almashtiradi!
-     * @param o
-     */
-public void update(Tolov o);
-
-    /**
-     * Bu metod bazadagi ID si kirib kelayotgan Long turidagi id songa teng bo'lgan To'lov obyektini bazadan olib beradi.
-     * @param id
-     */
-public Tolov getById(Long id);
 
     /**
      * Bu metod sessiyaga tegishli tolovlarni olib beradi
      * @param id
      * @return
      */
-    public List<Tolov> getAllBySessiyaId(Long id);
+    public Page<Tolov> getAllBySessiyaId(Long id, Pageable pageable);
 
     /**
      * Bu metod oquvchiga tegishli tolovlarni olib beradi
      * @param id
      * @return
      */
-    public List<Tolov> getAllByOquvchiId(Long id);
+    public Page<Tolov> getAllByOquvchiId(Long id,Pageable pageable);
 
     /**
      * Bu metod guruhga tegishli tolovlarni olib beradi
      * @param id
      * @return
      */
-    List<Tolov> getAllByGuruh(Long id);
+    Page<Tolov> getAllByGuruhId(Long id,Pageable pageable);
 }

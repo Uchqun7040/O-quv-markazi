@@ -1,9 +1,14 @@
 package uz.jjp.O.quv.markazi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import uz.jjp.O.quv.markazi.entity.Guruh;
 import uz.jjp.O.quv.markazi.entity.Oquvchi;
 import uz.jjp.O.quv.markazi.entity.Search;
 import uz.jjp.O.quv.markazi.service.GuruhService;
@@ -25,17 +30,22 @@ public class OquvchiController {
     @Autowired
     GuruhService guruhService;
 
+    String satr="";
+
     @GetMapping()
-    public String royxat(Model model) throws IOException {
-        model.addAttribute("oquvchilar",oquvchiService.getAll());
-        return "oquvchi";
+    public String royxat(@PageableDefault(value = 15,page = 0) Pageable pageable, Model model) throws IOException {
+        model.addAttribute("surov","");
+        return findPaginated(pageable,oquvchiService.getAll(pageable),model);
     }
 
-    @PostMapping("/izla")
-    public String izla(Search s, Model model){
-        model.addAttribute("oquvchilar",oquvchiService.izla(s.getSatr()));
-        return "oquvchi";
+    @GetMapping("/izla")
+    public String izla(@PageableDefault(value = 15,page = 0) Pageable pageable, @Param("satr") String satr, Model model) throws IOException {
+        if (satr ==null) satr=this.satr;
+        else this.satr=satr;
+        model.addAttribute("surov","/izla");
+        return findPaginated(pageable,oquvchiService.izla(satr,pageable),model);
     }
+
 
     @PostMapping()
     public void yarat(Oquvchi o, HttpServletResponse hsr) throws IOException {
@@ -66,4 +76,11 @@ public class OquvchiController {
        return ozgartiriluvchi(o.getId(),model);
     }
 
+    public String findPaginated(Pageable pageable, Page<Oquvchi> oquvchilar, Model model){
+        model.addAttribute("oquvchilar",oquvchilar);
+        model.addAttribute("pages",oquvchilar.getTotalPages());
+        model.addAttribute("pageNumber",pageable.getPageNumber());
+        model.addAttribute("totalItems",oquvchilar.getTotalElements());
+        return "oquvchi";
+    }
 }

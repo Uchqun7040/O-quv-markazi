@@ -1,6 +1,9 @@
 package uz.jjp.O.quv.markazi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,9 +47,10 @@ public class TolovController {
 
 
     @PostMapping()
-    public String yarat(Tolov o, Model model) throws IOException {
+    public String yarat(Tolov o, HttpServletResponse hsr) throws IOException {
         tolovService.create(o);
-        return sessiyaTolov(o.getSessiya().getId(),model);
+        return "/tolovlar/sessiyaTolov/{id}(id="+o.getSessiya().getId()+")";
+
     }
 
     @GetMapping("/ochirish/{id}")
@@ -70,24 +74,34 @@ public class TolovController {
 
 
     @GetMapping("/sessiyaTolov/{id}")
-    public String sessiyaTolov(@PathVariable Long id,Model model){
+    public String sessiyaTolov(@PageableDefault(value = 15,page = 0) Pageable pageable, @PathVariable Long id, Model model){
         model.addAttribute("sessiya",sessiyaService.getById(id));
         model.addAttribute("oylar",oylar);
-        model.addAttribute("tolovlar",tolovService.getAllBySessiyaId(id));
+        model.addAttribute("tolovlar",tolovService.getAllBySessiyaId(id,pageable));
+        model.addAttribute("pages",tolovService.getAllBySessiyaId(id,pageable).getTotalPages());
+        model.addAttribute("pageNumber",pageable.getPageNumber());
+        model.addAttribute("totalItems",tolovService.getAllBySessiyaId(id,pageable).getTotalElements());
         return "sessiyaTolov";
     }
 
 
     @GetMapping("/oquvchiTolov/{id}")
-    public String oquvchiTolovlari(@PathVariable Long id,Model model){
-        model.addAttribute("tolovlar",tolovService.getAllByOquvchiId(id));
+    public String oquvchiTolovlari(@PageableDefault(value = 15,page = 0) Pageable pageable,@PathVariable Long id,Model model){
+        model.addAttribute("tolovlar",tolovService.getAllByOquvchiId(id,pageable));
         model.addAttribute("oquvchi",oquvchiService.getById(id));
+        model.addAttribute("pages",tolovService.getAllByOquvchiId(id,pageable).getTotalPages());
+        model.addAttribute("pageNumber",pageable.getPageNumber());
+        model.addAttribute("totalItems",tolovService.getAllByOquvchiId(id,pageable).getTotalElements());
         return "oquvchiTolov";
     }
     @GetMapping("/guruhTolov/{id}")
-    public String guruhTolovlari(@PathVariable Long id,Model model){
-        model.addAttribute("tolovlar",tolovService.getAllByGuruh(id));
+    public String guruhTolovlari(@PageableDefault(value = 15,page = 0) Pageable pageable,@PathVariable Long id,Model model){
+        model.addAttribute("tolovlar",tolovService.getAllByGuruhId(id,pageable));
         model.addAttribute("guruh",guruhService.getById(id));
+        model.addAttribute("pages",tolovService.getAllByGuruhId(id,pageable).getTotalPages());
+        model.addAttribute("pageNumber",pageable.getPageNumber());
+        model.addAttribute("totalItems",tolovService.getAllByGuruhId(id,pageable).getTotalElements());
         return "guruhTolov";
     }
+
 }

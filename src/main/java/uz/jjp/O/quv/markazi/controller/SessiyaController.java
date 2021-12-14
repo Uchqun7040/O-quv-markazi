@@ -1,10 +1,15 @@
 package uz.jjp.O.quv.markazi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import uz.jjp.O.quv.markazi.entity.Fan;
 import uz.jjp.O.quv.markazi.entity.Oquvchi;
 import uz.jjp.O.quv.markazi.entity.Search;
 import uz.jjp.O.quv.markazi.entity.Sessiya;
@@ -28,30 +33,36 @@ public class SessiyaController {
     @Autowired
     SessiyaService sessiyaService;
 
+    String satr="";
 
     @GetMapping()
-    public String royxat(Model model) throws IOException {
+    public String royxat(@PageableDefault(value = 15,page = 0) Pageable pageable, Model model) throws IOException {
+        model.addAttribute("surov","");
         model.addAttribute("guruhlar",guruhService.getAll());
-        model.addAttribute("sessiyalar",sessiyaService.getAll());
-        return "guruhlash";
+        return findPaginated(pageable,sessiyaService.getAll(pageable),model);
     }
+
+    @GetMapping("/izla")
+    public String izla(@PageableDefault(value = 15,page = 0) Pageable pageable, @Param("satr") String satr, Model model) throws IOException {
+        if (satr ==null) satr=this.satr;
+        else this.satr=satr;
+        model.addAttribute("surov","/izla");
+        return findPaginated(pageable,sessiyaService.izla(satr,pageable),model);
+    }
+
+
 
     @GetMapping("/tolanganlar")
-    public String tolanganlar( Model model) throws IOException {
-        model.addAttribute("sessiyalar",sessiyaService.tolovUchun(true));
-        return "guruhlash";
-    }
-    @GetMapping("/tolanmaganlar")
-    public String tolanmaganlar(Model model) throws IOException {
-        model.addAttribute("sessiyalar",sessiyaService.tolovUchun(false));
-        return "guruhlash";
+    public String tolanganlar(@PageableDefault(value = 15,page = 0) Pageable pageable, Model model) throws IOException {
+        return findPaginated(pageable,sessiyaService.tolovUchun(true,pageable),model);
     }
 
-    @PostMapping("/izla")
-    public String izla(Search s, Model model){
-        model.addAttribute("sessiyalar",sessiyaService.izla(s.getSatr()));
-        return "guruhlash";
+    @GetMapping("/tolanmaganlar")
+    public String tolanmaganlar(@PageableDefault(value = 15,page = 0) Pageable pageable,Model model) throws IOException {
+        return findPaginated(pageable,sessiyaService.tolovUchun(false,pageable),model);
+
     }
+
     @PostMapping()
     public String yarat(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Sessiya o,Model model) throws IOException {
         sessiyaService.create(o);
@@ -78,10 +89,10 @@ public class SessiyaController {
 
 
     @GetMapping("/edit/{id}")
-    public String ozgartiriluvchi(@PathVariable Long id,Model model,HttpServletResponse hsr) throws IOException {
+    public String ozgartiriluvchi(@PageableDefault(value = 15,page = 0) Pageable pageable,@PathVariable Long id,Model model) throws IOException {
         Sessiya o=sessiyaService.getById(id);
         model.addAttribute("sessiya",o);
-        return royxat(model);
+        return findPaginated(pageable,sessiyaService.getAll(pageable),model);
     }
 
     @PostMapping("/edit")
@@ -91,6 +102,12 @@ public class SessiyaController {
     }
 
 
-
+    public String findPaginated(Pageable pageable, Page<Sessiya> sessiyalar, Model model){
+        model.addAttribute("sessiyalar",sessiyalar);
+        model.addAttribute("pages",sessiyalar.getTotalPages());
+        model.addAttribute("pageNumber",pageable.getPageNumber());
+        model.addAttribute("totalItems",sessiyalar.getTotalElements());
+        return "guruhlash";
+    }
 
 }
