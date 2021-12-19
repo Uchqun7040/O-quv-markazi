@@ -10,20 +10,25 @@ import java.util.Optional;
 
 
 public interface UserService {
+    public Optional<User> getByIdEntity(Long id);
 
+    public List<UserDTO> getAll();
+
+    void update(UserDTO userdto);
 
     public Optional<UserDTO> getById(Long id);
 
-    public void update(User user);
-    public List<UserDTO> getAll();
+    UserDTO create(User user);
 
-    public User create(User user);
+    User getCurrentUserEntity();
+
     public void deleteById(Long id);
-    public Optional<User> getByIdEntity(Long id);
 
-    void changePassword(UserParolVM userParolVM);
+    public void changePassword(UserParolVM userParolVM);
+
+    UserDTO getCurrentUser();
 
     Optional<User> getByLogin(String login);
 
-    String getCurrentLogin();
+    public String getCurrentLogin();
 }

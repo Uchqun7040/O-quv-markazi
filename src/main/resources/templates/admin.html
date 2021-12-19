@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <link rel="stylesheet" href="/css/admin.css">
+    
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h2 class="text-center ">Admin ma'lumotlarini tahrirlash</h2>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+        <div class="row" >
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-body" >
+                    <ul class="nav nav-tabs final-login">
+                        <li class="active text-center"><a data-toggle="tab" href="#sectionA">Asosiy</a></li>
+                        <li class="text-center"><a data-toggle="tab" href="#sectionB">Parol</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="sectionA" class="tab-pane fade in active">
+                            <div class="innter-form">
+                                <form class="sa-innate-form" th:action="@{/user/edit}" method="post">
+                                    <input type="text" th:value="${admin.id}" name="id" hidden>
+                                    <label>Ism</label>
+                                    <input type="text" name="ism" th:value="${admin.ism}" placeholder="Ismingizni kiriting...">
+                                    <label>Familiya</label>
+                                    <input type="text" name="familiya" th:value="${admin.familiya}" placeholder="Familiyangizni kiriting...">
+                                    <label>Login</label>
+                                    <input type="text" name="login" th:value="${admin.login}" placeholder="Loginingizni kiriting...">
+                                    <div class="text-center">
+                                        <input class="btn btn-success " type="submit" value="Saqlash" style="border: none;"></input>
+                                        <a th:href="@{/oquvchilar}" class="btn btn-danger" type="submit" style="border: none;">Bekor
+                                            qilish</a>
+
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <div id="sectionB" class="tab-pane fade">
+                            <div class="innter-form">
+
+                                <form class="sa-innate-form" method="post" th:action="@{/user/password}">
+                                    <input type="text" name="login" th:value="${admin.login}" hidden>
+                                    <label>Eski parol</label>
+                                    <input type="password" name="eskiParol" placeholder="Eski parolni kiriting...">
+                                    <label>Yangi parol</label>
+                                    <input type="password" name="yangiParol" placeholder="Yangi parolni kiriting...">
+                                    <div class="text-center">
+                                        <input class="btn btn-success " style="border: none;" type="submit" value="Saqlash"></input>
+                                        <a th:href="@{/oquvchilar}" class="btn btn-danger" style="border: none;" type="submit">Bekor
+                                            qilish</a>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</body>
+
+</html>

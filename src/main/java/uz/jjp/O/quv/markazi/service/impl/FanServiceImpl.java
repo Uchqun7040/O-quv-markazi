@@ -21,12 +21,12 @@ public class FanServiceImpl implements FanService {
     @Override
     public Page<Fan> getAll(Pageable pageable) {
 
-        return fanRepository.findAll(pageable);
+        return fanRepository.findAllByOrderByIdDesc(pageable);
     }
 
     @Override
     public List<Fan> getAll() {
-        return fanRepository.findAll();
+        return fanRepository.findAllByOrderByIdDesc();
     }
 
     @Override

@@ -23,7 +23,7 @@ public class OqituvchiServiceImpl implements OqituvchiService {
 
     @Override
     public Page<Oqituvchi> getAll(Pageable pageable) {
-        return oqituvchiRepository.findAll(pageable);
+        return oqituvchiRepository.findAllByOrderByIdDesc(pageable);
     }
 
     @Override

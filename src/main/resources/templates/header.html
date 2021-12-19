@@ -108,7 +108,7 @@
                     Profil
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" th:href="@{/user/edit/{id}(id=1)}">
                         <i class="fa fa-user-circle" aria-hidden="true"></i>
                         <strong th:inline="text">[[${#httpServletRequest.remoteUser}]]</strong>
                     </a>

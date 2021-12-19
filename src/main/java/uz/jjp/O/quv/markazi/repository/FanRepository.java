@@ -13,4 +13,8 @@ import java.util.List;
 public interface FanRepository extends JpaRepository<Fan,Long> {
 
     Page<Fan> findAllByNomContainsIgnoreCaseOrInfoContainsIgnoreCaseOrId(String nom, String info, Long id, Pageable pageable);
+
+    List<Fan> findAllByOrderByIdDesc();
+
+    Page<Fan> findAllByOrderByIdDesc(Pageable pageable);
 }

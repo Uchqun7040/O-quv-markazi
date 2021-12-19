@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import uz.jjp.O.quv.markazi.entity.User;
 import uz.jjp.O.quv.markazi.service.UserService;
 import uz.jjp.O.quv.markazi.service.dto.UserDTO;
+import uz.jjp.O.quv.markazi.service.parolVM.UserParolVM;
 
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 @Controller
 //@RequestMapping("/user")
@@ -47,15 +49,20 @@ public class UserController {
         hsr.sendRedirect("/user");
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/user/edit/{id}")
     public String ozgartiriluvchi(@PathVariable Long id,Model model) throws IOException {
-
-        return null;
+        model.addAttribute("admin",userService.getById(id).get());
+        return "admin";
     }
 
-    @PostMapping("/edit")
-    public void ozgartirish(User o,HttpServletResponse hsr) throws IOException {
+    @PostMapping("/user/edit")
+    public void ozgartirish(UserDTO o,HttpServletResponse hsr) throws IOException {
         userService.update(o);
-        hsr.sendRedirect("/user");
+        hsr.sendRedirect("/oquvchilar");
+    }
+    @PostMapping("/user/password")
+    public void updatePassword(UserParolVM vm,HttpServletResponse hsr) throws IOException {
+        userService.changePassword(vm);
+        hsr.sendRedirect("/oquvchilar");
     }
 }
