@@ -28,8 +28,8 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public String login(){
-        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+    public String login() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         }
@@ -50,18 +50,19 @@ public class UserController {
     }
 
     @GetMapping("/user/edit/{id}")
-    public String ozgartiriluvchi(@PathVariable Long id,Model model) throws IOException {
-        model.addAttribute("admin",userService.getById(id).get());
+    public String ozgartiriluvchi(@PathVariable Long id, Model model) throws IOException {
+        model.addAttribute("admin", userService.getById(id).get());
         return "admin";
     }
 
     @PostMapping("/user/edit")
-    public void ozgartirish(UserDTO o,HttpServletResponse hsr) throws IOException {
+    public void ozgartirish(UserDTO o, HttpServletResponse hsr) throws IOException {
         userService.update(o);
         hsr.sendRedirect("/oquvchilar");
     }
+
     @PostMapping("/user/password")
-    public void updatePassword(UserParolVM vm,HttpServletResponse hsr) throws IOException {
+    public void updatePassword(UserParolVM vm, HttpServletResponse hsr) throws IOException {
         userService.changePassword(vm);
         hsr.sendRedirect("/oquvchilar");
     }

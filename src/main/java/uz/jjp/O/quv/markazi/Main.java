@@ -35,6 +35,7 @@ public class Main implements ApplicationRunner {
 			u.setParol(passwordEncoder.encode("admin"));
 			u.setLavozim("USER");
 			userRepository.save(u);
+			System.out.println();
 		}
 	}
 }

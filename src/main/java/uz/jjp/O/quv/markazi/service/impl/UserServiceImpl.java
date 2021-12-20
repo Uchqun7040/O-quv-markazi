@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
         String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if (principal instanceof UserDetailsServiceImpl) {
+        if (principal instanceof UserDetails) {
             userName = ((UserDetails) principal).getUsername();
         } else {
             userName = principal.toString();
@@ -92,9 +92,9 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public void changePassword(UserParolVM userParolVM) {
-        Optional<User> user = userRepository.findByLogin(getCurrentLogin());
-        if(user.isPresent() && user.get().getParol().equals(userParolVM.getEskiParol())){
-            user.get().setParol(userParolVM.getYangiParol());
+        Optional<User> user = userRepository.findByLogin(userParolVM.getLogin());
+        if(user.isPresent() && encoder.matches(userParolVM.getEskiParol(), user.get().getParol())){
+            user.get().setParol(encoder.encode(userParolVM.getYangiParol()));
             userRepository.save(user.get());
         } else {
             throw new RuntimeException("xatolik ro'y berdi");
@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String getCurrentLogin() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+        return null;
     }
 
 }

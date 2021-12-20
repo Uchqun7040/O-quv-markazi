@@ -7,7 +7,7 @@ public class UserDTO {
     private String ism;
     private String familiya;
     private String login;
-
+public UserDTO(){}
     public UserDTO(User user) {
         this.id= user.getId();
         this.ism= user.getIsm();
